@@ -6,17 +6,14 @@ import (
 )
 
 var (
-	ErrWalletNotFound         = errorNotFound("wallet")
-	ErrNoRoute                = errorNotFound("route")
-	ErrUserNotFound           = errorNotFound("user")
-	ErrWrongLoginCredential   = NewError("wrong email or password")
-	ErrInvalidTopUpAmount     = NewError("invalid amount, should between 50000 and 10000000")
-	ErrInvalidTransferAmount  = NewError("invalid amount, should between 1000 and 50000000")
-	ErrInvalidSourceOfFunds   = NewError("invalid source of funds, should between 1 and 3")
-	ErrTokenInvalid           = NewError("token invalid")
-	ErrNoAuthorization        = NewError("no authorization header provided")
-	ErrDescriptionLimitExceed = NewError("description length limit is 35 characters")
-	ErrInsufficientBalance    = NewError("insufficient balance")
+	ErrNoRoute              = errorNotFound("route")
+	ErrUserNotFound         = errorNotFound("user")
+	ErrWrongLoginCredential = NewError("wrong credentials")
+	ErrNoAuthorization      = NewError("no authorization header provided")
+	ErrUserExist            = NewError("user already exists")
+	ErrNotExpected          = NewError("unexpected error occured, please try again later")
+	ErrTokenInvalid         = NewError("token invalid")
+	ErrConvertRequesData    = NewError("error converting request data")
 )
 
 func NewError(msg string) error {
@@ -25,4 +22,8 @@ func NewError(msg string) error {
 
 func errorNotFound(entity string) error {
 	return fmt.Errorf("%s not found", entity)
+}
+
+func errorMustNotEmpty(message string) error {
+	return fmt.Errorf("%s must not be empty", message)
 }
