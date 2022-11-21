@@ -5,6 +5,8 @@ import (
 	"final-project-backend/repository"
 	"final-project-backend/service"
 
+	"github.com/gin-contrib/cors"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -16,7 +18,11 @@ func HandleRequests(db *gorm.DB) {
 
 	authHandler := handler.NewAuthHandler(authService)
 
+	config := cors.DefaultConfig()
+  	config.AllowOrigins = []string{"*"}
+	  
 	gin := gin.Default()
+	gin.Use(cors.New(config))
 
 	gin.Static("docs", "./dist")
 
