@@ -8,7 +8,7 @@ import (
 
 var (
 	secret      = "muhammadhanifkusumafinalprojectsecretkey"
-	jwtDuration = 1 * time.Hour
+	jwtDuration = 24 * time.Hour
 )
 
 type CustomClaims struct {
