@@ -16,7 +16,8 @@ type Suite struct {
 	SqlDB  *sql.DB
 	mock   sqlmock.Sqlmock
 
-	authRepo AuthRepository
+	authRepo     AuthRepository
+	categoryRepo CategoryRepository
 }
 
 func SetupSuite(t *testing.T) *Suite {
@@ -33,5 +34,6 @@ func SetupSuite(t *testing.T) *Suite {
 	s.GormDB, _ = gorm.Open(dialector, &gorm.Config{})
 
 	s.authRepo = NewAuthRepository(s.GormDB)
+	s.categoryRepo = NewCategoryRepository(s.GormDB)
 	return s
 }
