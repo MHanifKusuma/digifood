@@ -33,7 +33,7 @@ const Register = () => {
       }).then((res) => {
         if (!res.ok) {
           if (res.status === 409) {
-            setError("User already exists");
+            res.json().then((data => setError(data.message)))
           } else {
             setError("unexpected error occured, please try again later");
           }
@@ -45,9 +45,7 @@ const Register = () => {
 
       navigate("/login", { replace: false });
     } catch (error) {
-    } finally {
-      reset();
-    }
+    } 
   };
   return (
     <AuthenticationWrapper className="py-5 container-fluid">
