@@ -16,9 +16,22 @@ export const AuthenticationLogo = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1.5rem;
 
   img {
-    width: 500px;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 768px) {
+    img {
+      width: 250px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    img {
+      width: 500px;
+    }
   }
 `;
 
