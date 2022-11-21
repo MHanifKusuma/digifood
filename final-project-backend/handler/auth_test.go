@@ -228,7 +228,7 @@ func TestRegister(t *testing.T) {
 		s := mocks.NewAuthService(t)
 		h := NewAuthHandler(s)
 
-		s.On("RegisterUser", payload).Return("", http.StatusConflict, utils.ErrUserExist)
+		s.On("RegisterUser", payload).Return("", http.StatusConflict, utils.ErrEmailExists)
 
 		router := gin.Default()
 		router.POST("/register", h.Register)

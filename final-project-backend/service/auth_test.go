@@ -83,11 +83,22 @@ func TestUserLogin(t *testing.T) {
 
 // 		authRepo := mocks.NewAuthRepository(t)
 
-// 		checkUser := model.UserLogin{
+// 		checkUserEmail := model.UserLogin{
 // 			Login:    registerUser.Email,
 // 			Password: registerUser.Password,
 // 		}
-// 		authRepo.On("FindUserByLoginInfo", checkUser).Return(nil, utils.ErrUserNotFound)
+// 		checkUserPhone := model.UserLogin{
+// 			Login:    registerUser.Phone,
+// 			Password: registerUser.Password,
+// 		}
+// 		checkUserUsername := model.UserLogin{
+// 			Login:    registerUser.Username,
+// 			Password: registerUser.Password,
+// 		}
+
+// 		authRepo.On("FindUserByLoginInfo", checkUserEmail).Return(nil, utils.ErrUserNotFound)
+// 		authRepo.On("FindUserByLoginInfo", checkUserPhone).Return(nil, utils.ErrUserNotFound)
+// 		authRepo.On("FindUserByLoginInfo", checkUserUsername).Return(nil, utils.ErrUserNotFound)
 // 		authRepo.On("RegisterUser", registerUser).Return("register success", nil)
 
 // 		authService := NewAuthService(authRepo)

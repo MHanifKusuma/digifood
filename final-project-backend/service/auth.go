@@ -43,21 +43,41 @@ func (as *authService) Login(loginUser *model.UserLogin) (string, int, error) {
 }
 
 func (as *authService) RegisterUser(newUser *model.User) (string, int, error) {
+	findUserEmail := model.UserLogin{
+		Login:    newUser.Email,
+		Password: newUser.Password,
+	}
+
+	user, _ := as.repository.FindUserByLoginInfo(findUserEmail)
+	if user != nil {
+		return "", http.StatusConflict, utils.ErrEmailExists
+	}
+
+	findUserPhone := model.UserLogin{
+		Login:    newUser.Phone,
+		Password: newUser.Password,
+	}
+
+	user, _ = as.repository.FindUserByLoginInfo(findUserPhone)
+	if user != nil {
+		return "", http.StatusConflict, utils.ErrPhoneExists
+	}
+
+	findUserUsername := model.UserLogin{
+		Login:    newUser.Username,
+		Password: newUser.Password,
+	}
+
+	user, _ = as.repository.FindUserByLoginInfo(findUserUsername)
+	if user != nil {
+		return "", http.StatusConflict, utils.ErrUsernameExists
+	}
+
 	hashedPassword, hashError := utils.HashAndSalt(newUser.Password)
 	if hashError != nil {
 		return "", http.StatusInternalServerError, utils.ErrNotExpected
 	}
 	newUser.Password = hashedPassword
-
-	findUser := model.UserLogin{
-		Login:    newUser.Email,
-		Password: newUser.Password,
-	}
-
-	user, _ := as.repository.FindUserByLoginInfo(findUser)
-	if user != nil {
-		return "", http.StatusConflict, utils.ErrUserExist
-	}
 
 	msg, registerError := as.repository.RegisterUser(*newUser)
 	if registerError != nil {
