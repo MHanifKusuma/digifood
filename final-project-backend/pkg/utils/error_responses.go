@@ -8,6 +8,7 @@ import (
 var (
 	ErrNoRoute              = errorNotFound("route")
 	ErrUserNotFound         = errorNotFound("user")
+	ErrCategoryNotFound     = errorNotFound("category")
 	ErrWrongLoginCredential = NewError("wrong credentials")
 	ErrNoAuthorization      = NewError("no authorization header provided")
 	ErrEmailExists          = NewError("email already exists")
@@ -15,7 +16,7 @@ var (
 	ErrUsernameExists       = NewError("username already exists")
 	ErrNotExpected          = NewError("unexpected error occured, please try again later")
 	ErrTokenInvalid         = NewError("token invalid")
-	ErrConvertRequesData    = NewError("error converting request data")
+	ErrConvertRequesData    = NewError("invalid request data")
 )
 
 func NewError(msg string) error {
