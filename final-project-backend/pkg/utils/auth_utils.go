@@ -38,3 +38,11 @@ func CheckRegisterValidation(newUser model.User) error {
 
 	return nil
 }
+
+func CheckCategoryValidation(name string) error {
+	if name == "" {
+		return errorMustNotEmpty("category name")
+	}
+
+	return nil
+}
