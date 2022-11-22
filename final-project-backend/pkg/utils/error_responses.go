@@ -9,6 +9,7 @@ var (
 	ErrNoRoute              = errorNotFound("route")
 	ErrUserNotFound         = errorNotFound("user")
 	ErrCategoryNotFound     = errorNotFound("category")
+	ErrMenuNotFound         = errorNotFound("menu")
 	ErrWrongLoginCredential = NewError("wrong credentials")
 	ErrNoAuthorization      = NewError("no authorization header provided")
 	ErrEmailExists          = NewError("email already exists")

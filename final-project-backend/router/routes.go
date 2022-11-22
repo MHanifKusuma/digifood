@@ -14,12 +14,15 @@ import (
 func HandleRequests(db *gorm.DB) {
 	authRepository := repository.NewAuthRepository(db)
 	categoryRepository := repository.NewCategoryRepository(db)
+	menuRepository := repository.NewMenuRepository(db)
 
 	authService := service.NewAuthService(authRepository)
 	categoryService := service.NewCategoryService(categoryRepository)
+	menuService := service.NewMenuService(menuRepository)
 
 	authHandler := handler.NewAuthHandler(authService)
 	categoryHandler := handler.NewCategoryHandler(categoryService)
+	menuHandler := handler.NewMenuHandler(menuService)
 
 	config := cors.DefaultConfig()
 	config.AllowOrigins = []string{"*"}
@@ -31,6 +34,7 @@ func HandleRequests(db *gorm.DB) {
 
 	authorizationRoutes(gin, db, authHandler)
 	categoryRoutes(gin, db, categoryHandler)
+	menuRoutes(gin, db, menuHandler)
 
 	gin.Run()
 }
