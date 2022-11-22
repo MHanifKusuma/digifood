@@ -48,8 +48,8 @@ func (mr *menuRepository) GetAllMenuByCategory() ([]*model.Category, error) {
 func (mr *menuRepository) GetMenuById(id int) (*model.Menu, error) {
 	var menu *model.Menu
 
-	res := mr.db.Model(&model.Menu{}).Preload(clause.Associations).Find(&menu)
-	if res != nil {
+	res := mr.db.Model(&model.Menu{}).Preload(clause.Associations).First(&menu, id)
+	if res.Error != nil {
 		return nil, res.Error
 	}
 
