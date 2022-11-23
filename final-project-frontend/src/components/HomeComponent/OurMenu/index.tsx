@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import OurMenuWrapper, { CategoryWrapper, MenuWrapper } from "./style";
 import Logo from "assets/logo.webp";
 import MenuCard from "components/shared-components/MenuCard";
+import Button from "components/shared-components/Button";
 
 interface OurMenuProps {
   categories: IMenuByCategory[];
@@ -55,6 +56,16 @@ const OurMenu = ({ categories }: OurMenuProps) => {
               )}
             </>
           ))}
+          <Button
+            btnStyle={{
+              backgroundColor: "#aad4b3",
+              color: "#ffffff",
+              padding: "0.5rem 4rem",
+              marginTop: "1.5rem",
+            }}
+          >
+            See all Menu
+          </Button>
         </MenuWrapper>
       </div>
     </OurMenuWrapper>

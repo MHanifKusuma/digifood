@@ -58,6 +58,10 @@ export const MenuWrapper = styled.div`
   padding: 5rem 2rem;
   background-color: #ffe09c;
   border-radius: 50px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export default OurMenuWrapper;
