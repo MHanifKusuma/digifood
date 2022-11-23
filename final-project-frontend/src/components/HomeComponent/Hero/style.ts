@@ -5,6 +5,10 @@ const HeroWrapper = styled.section`
   display: flex;
   align-items: center;
   background-color: #ffffff;
+
+  img {
+    width: 75%;
+  }
 `;
 
 export default HeroWrapper;

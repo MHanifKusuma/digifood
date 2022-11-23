@@ -49,7 +49,7 @@ const Hero = () => {
             </Link>
           </div>
           <div className="col-6 d-none d-lg-block text-center">
-            <img src={Logo} alt="" style={{ width: "75%" }} />
+            <img src={Logo} alt="" />
             <h1>DigiFood</h1>
           </div>
         </div>
