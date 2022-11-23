@@ -5,4 +5,5 @@ export interface IconProps {
   fill: string;
   className?: string;
   style?: CSSProperties;
+  solid?: boolean;
 }
