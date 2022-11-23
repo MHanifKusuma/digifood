@@ -11,3 +11,7 @@ export type RegisterInput = {
   password: string;
   confirmPassword: string;
 };
+
+export type SearchInput = {
+  search: string;
+};
