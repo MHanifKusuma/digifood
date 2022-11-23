@@ -38,9 +38,9 @@ const Navbar = () => {
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link
-                to={"/menus"}
+                to={"/menu"}
                 className={`nav-link ${
-                  currPath.pathname === "/menus" ? "active" : ""
+                  currPath.pathname === "/menu" ? "active" : ""
                 }`}
               >
                 Menus
