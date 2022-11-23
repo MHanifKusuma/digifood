@@ -43,7 +43,7 @@ const Navbar = () => {
                   currPath.pathname === "/menus" ? "active" : ""
                 }`}
               >
-                Home
+                Menus
               </Link>
             </li>
             <li className="nav-item">
