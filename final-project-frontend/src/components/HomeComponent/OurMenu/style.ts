@@ -11,7 +11,7 @@ export const CategoryWrapper = styled.div`
   flex-direction: column;
   align-content: start;
   flex-wrap: wrap;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   height: 11rem;
 
