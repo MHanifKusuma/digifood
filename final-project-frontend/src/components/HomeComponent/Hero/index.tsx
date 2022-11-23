@@ -26,30 +26,32 @@ const Hero = () => {
   }, []);
 
   return (
-    <HeroWrapper className="container">
-      <div className="d-flex my-auto">
-        <div className="col-12 col-lg-6 my-auto">
-          <h3>
-            Craving for some <span id="typed" ref={el}></span>{" "}
-          </h3>
-          <h3>We got it covered!</h3>
-          <Link to={"/menu"}>
-            <Button
-              btnStyle={{
-                padding: " 0.5rem 2rem",
-                borderRadius: "0",
-                backgroundColor: "#AAD4B3",
-                color: "#FFFFFF",
-              }}
-              btnClass="mt-3"
-            >
-              See all menus
-            </Button>
-          </Link>
-        </div>
-        <div className="col-6 d-none d-lg-block text-center">
-          <img src={Logo} alt="" style={{ width: "75%" }} />
-          <h1>DigiFood</h1>
+    <HeroWrapper>
+      <div className="container">
+        <div className="d-flex my-auto">
+          <div className="col-12 col-lg-6 my-auto">
+            <h3>
+              Craving for some <span id="typed" ref={el}></span>{" "}
+            </h3>
+            <h3>We got it covered!</h3>
+            <Link to={"/menu"}>
+              <Button
+                btnStyle={{
+                  padding: " 0.5rem 2rem",
+                  borderRadius: "0",
+                  backgroundColor: "#AAD4B3",
+                  color: "#FFFFFF",
+                }}
+                btnClass="mt-3"
+              >
+                See all menus
+              </Button>
+            </Link>
+          </div>
+          <div className="col-6 d-none d-lg-block text-center">
+            <img src={Logo} alt="" style={{ width: "75%" }} />
+            <h1>DigiFood</h1>
+          </div>
         </div>
       </div>
     </HeroWrapper>
