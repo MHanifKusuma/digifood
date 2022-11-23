@@ -15,10 +15,10 @@ const Navbar = () => {
     <NavbarWrapper className="navbar navbar-expand-lg">
       <div className="container">
         <NavbarLogo className="d-flex align-items-center">
-          <Link to={"/"} className="navbar-brand">
-            <img src={Logo} alt="" />
+          <Link to={"/"} className="navbar-brand d-flex align-items-center">
+            <img src={Logo} alt="" className="me-1" />
+            <h5>DigiFood</h5>
           </Link>
-          <h5>DigiFood</h5>
         </NavbarLogo>
         <button
           className="navbar-toggler"
