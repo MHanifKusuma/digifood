@@ -1,7 +1,6 @@
 import Button from "components/Button";
 import { CustomForm, ErrorMessage } from "components/shared-style";
 import { LoginInput } from "interfaces/FormInput";
-import { setCookie } from "nookies";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,6 +9,7 @@ import AuthenticationWrapper, {
   AuthenticationLogo,
 } from "../style";
 import logo from "assets/logo.webp";
+import { useCookies } from "react-cookie";
 
 const Login = () => {
   const {
@@ -21,6 +21,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [cookies, setCookie] = useCookies(["login"]);
 
   const onSubmit: SubmitHandler<LoginInput> = async (data) => {
     try {
@@ -45,8 +46,9 @@ const Login = () => {
         return res.json();
       });
 
-      setCookie(null, "login", res.data.id_token, {
-        maxAge: 60 * 24,
+      setCookie("login", res.data.Token, {
+        path: "/",
+        maxAge: 60 * 60 * 24,
       });
 
       navigate("/", { replace: false });
