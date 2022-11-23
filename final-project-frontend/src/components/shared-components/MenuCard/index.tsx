@@ -14,7 +14,11 @@ const MenuCard = ({ menu }: MenuCardProps) => {
   return (
     <MenuCardWrapper className="card m-2">
       <div className="menu-image-wrapper">
-        <div className="icon-wrapper" onClick={() => setClicked(!clicked)}>
+        <div
+          className="icon-wrapper"
+          onClick={() => setClicked(!clicked)}
+          role="button"
+        >
           <HeartIcon height="30" fill="#E98E7D" solid={clicked} />
         </div>
         <img src={menu.MenuPhoto} className="card-img-top" alt="..." />
