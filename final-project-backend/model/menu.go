@@ -13,6 +13,7 @@ type Menu struct {
 	Description    string         `gorm:"column:description"`
 	AverageRating  float64        `gorm:"column:avg_rating"`
 	TotalFavorites int            `gorm:"total_favorites"`
+	TotalReview    int            `gorm:"column:total_review"`
 	Price          int            `gorm:"column:price"`
 	MenuPhoto      string         `gorm:"column:menu_photo"`
 	MenuOptions    []MenuOption   `gorm:"foreignKey:MenuId;references:Id"`
