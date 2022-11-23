@@ -1,4 +1,4 @@
-import Navbar from "components/Navbar";
+import Navbar from "components/shared-components/Navbar";
 import React, { useEffect, useState } from "react";
 import HomeWrapper from "./style";
 import Hero from "components/HomeComponent/Hero";

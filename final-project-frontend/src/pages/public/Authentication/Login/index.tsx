@@ -1,4 +1,4 @@
-import Button from "components/Button";
+import Button from "components/shared-components/Button";
 import { CustomForm, ErrorMessage } from "components/shared-style";
 import { LoginInput } from "interfaces/FormInput";
 import { useState } from "react";

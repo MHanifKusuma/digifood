@@ -1,4 +1,4 @@
-import Button from "components/Button";
+import Button from "components/shared-components/Button";
 import { CustomForm, ErrorMessage } from "components/shared-style";
 import { RegisterInput } from "interfaces/FormInput";
 import React, { useState } from "react";
@@ -33,7 +33,7 @@ const Register = () => {
       }).then((res) => {
         if (!res.ok) {
           if (res.status === 409) {
-            res.json().then((data => setError(data.message)))
+            res.json().then((data) => setError(data.message));
           } else {
             setError("unexpected error occured, please try again later");
           }
@@ -44,8 +44,7 @@ const Register = () => {
       });
 
       navigate("/login", { replace: false });
-    } catch (error) {
-    } 
+    } catch (error) {}
   };
   return (
     <AuthenticationWrapper className="py-5 container-fluid">

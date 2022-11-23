@@ -3,7 +3,7 @@ import Logo from "assets/logo.webp";
 import HeroWrapper from "./style";
 import { useEffect, useRef } from "react";
 import Typed from "typed.js";
-import Button from "components/Button";
+import Button from "components/shared-components/Button";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
