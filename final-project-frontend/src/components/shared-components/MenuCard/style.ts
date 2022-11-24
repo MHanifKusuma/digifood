@@ -26,6 +26,13 @@ const MenuCardWrapper = styled.div`
   img {
     border-radius: 20px 20px 0 0;
   }
+
+  .strike {
+    text-decoration: line-through;
+    color: #e98e7d;
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+  }
 `;
 
 export default MenuCardWrapper;
