@@ -13,16 +13,6 @@ const MenuCardWrapper = styled.div`
 
   .menu-image-wrapper {
     position: relative;
-
-    .icon-wrapper {
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      background-color: #ffffff;
-      padding: 0.3rem;
-      border-radius: 50%;
-      border: 1px solid black;
-    }
   }
 
   img {
@@ -43,6 +33,17 @@ const MenuCardWrapper = styled.div`
     margin-left: 0.25rem;
     font-size: 0.75rem;
   }
+`;
+
+export const FavoriteIcon = styled.div`
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  background-color: #ffffff;
+  padding: 0.3rem;
+  border-radius: 50%;
+  border: 1px solid black;
+  z-index: 100;
 `;
 
 export default MenuCardWrapper;
