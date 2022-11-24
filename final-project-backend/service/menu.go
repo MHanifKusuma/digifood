@@ -12,7 +12,7 @@ type menuService struct {
 }
 
 type MenuService interface {
-	GetAllMenu() ([]*model.Menu, int, error)
+	GetAllMenu(pageable utils.Pageable) (*utils.Page, int, error)
 	GetAllMenuByCategory() ([]*model.Category, int, error)
 	GetMenuById(id int) (*model.Menu, int, error)
 }
@@ -23,13 +23,13 @@ func NewMenuService(repository repository.MenuRepository) MenuService {
 	}
 }
 
-func (ms *menuService) GetAllMenu() ([]*model.Menu, int, error) {
-	allMenu, allMenuError := ms.repository.GetAllMenu()
-	if allMenuError != nil {
+func (ms *menuService) GetAllMenu(pageable utils.Pageable) (*utils.Page, int, error) {
+	data, dataError := ms.repository.GetAllMenu(pageable)
+	if dataError != nil {
 		return nil, http.StatusInternalServerError, utils.ErrNotExpected
 	}
 
-	return allMenu, http.StatusOK, nil
+	return data, http.StatusOK, nil
 }
 
 func (ms *menuService) GetAllMenuByCategory() ([]*model.Category, int, error) {
