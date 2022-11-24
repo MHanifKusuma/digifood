@@ -11,9 +11,14 @@ interface MenuCardProps {
 
 const MenuCard = ({ menu }: MenuCardProps) => {
   const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
 
   return (
-    <MenuCardWrapper className="card m-2">
+    <MenuCardWrapper
+      className="card m-2"
+      onClick={() => navigate(`/menu/${menu.Id}/${menu.Name}`)}
+      role="button"
+    >
       <div className="menu-image-wrapper">
         <div
           className="icon-wrapper"

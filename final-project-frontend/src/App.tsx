@@ -9,6 +9,7 @@ import Login from "pages/public/Authentication/Login";
 import Register from "pages/public/Authentication/Register";
 import Home from "pages/public/Home";
 import Menu from "pages/public/Menu";
+import MenuDetail from "pages/public/MenuDetail";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/menu/:id/:name" element={<MenuDetail />} />
         </Route>
       </Routes>
     </div>
