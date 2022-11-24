@@ -53,6 +53,8 @@ func (p *Paginator) PageNums() int {
 }
 
 func (p *Paginator) Page() int {
+	p.PageNums()
+
 	if p.page <= 0 {
 		p.page = 1
 	}
