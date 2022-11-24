@@ -15,7 +15,7 @@ const MenuList = ({ menus }: MenuListProps) => {
           {menus.map.length > 0 ? (
             <div className="d-flex flex-wrap">
               {menus.map((menu) => (
-                <div className="col-3">
+                <div className="col-12 col-lg-3">
                   <MenuCard menu={menu} key={menu.Id} />
                 </div>
               ))}

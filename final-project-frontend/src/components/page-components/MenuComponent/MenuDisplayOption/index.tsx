@@ -50,7 +50,7 @@ const MenuDisplayOption = ({
             </select>
           </div>
         </div>
-        <div className="col-12 col-lg-4 mx-auto">
+        <div className="col-12 col-lg-4 mx-auto mt-2 mt-lg-0">
           <p className="mb-1">Filter by category:</p>
           <select className="form-select">
             {categories.length > 0 ? (

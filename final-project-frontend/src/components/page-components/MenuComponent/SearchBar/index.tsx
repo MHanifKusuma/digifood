@@ -44,7 +44,7 @@ const SearchBar = () => {
   return (
     <SearchBarWrapper>
       <CustomForm className="p-3" onSubmit={handleSubmit(onSubmit)}>
-        <div className="col-12 col-lg-4 mx-auto">
+        <div className="col-12 col-lg-8 col-xl-4 mx-auto">
           <div className="mb-3">
             <input
               type="text"
