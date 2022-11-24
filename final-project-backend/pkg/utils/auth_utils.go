@@ -4,6 +4,8 @@ import (
 	"errors"
 	"final-project-backend/model"
 	"net/mail"
+
+	"github.com/gin-gonic/gin"
 )
 
 func CheckLoginNotEmpty(login, password string) error {
@@ -45,4 +47,20 @@ func CheckCategoryValidation(name string) error {
 	}
 
 	return nil
+}
+
+func QueryParamOrNull(c *gin.Context, key string) interface{} {
+	if value := c.Request.FormValue(key); value != "" {
+		return value
+	}
+	return nil
+}
+
+func QueryLikeParamOrNull(c *gin.Context, key string) interface{} {
+	likeParam := QueryParamOrNull(c, key)
+	if likeParam != nil {
+		return "%" + likeParam.(string) + "%"
+	} else {
+		return "%%"
+	}
 }
