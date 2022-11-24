@@ -5,6 +5,7 @@ const MenuCardWrapper = styled.div`
   border: none;
   box-shadow: 0px 4px 10px 5px rgba(0, 0, 0, 0.25);
   transition: all 0.25s ease-in-out;
+  min-height: 350px;
 
   &:hover {
     box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.35);
@@ -23,8 +24,17 @@ const MenuCardWrapper = styled.div`
       border: 1px solid black;
     }
   }
+
   img {
     border-radius: 20px 20px 0 0;
+  }
+
+  .card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 60px;
   }
 
   .strike {
