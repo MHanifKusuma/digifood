@@ -36,19 +36,21 @@ func (mr *menuRepository) GetAllMenu(pageable utils.Pageable) (*utils.Page, erro
 	if arguments[1] != nil && arguments[1] != "0" {
 		countError = mr.db.
 			Model(&model.Menu{}).
-			Preload(clause.Associations).
 			Where("name ILIKE ?", arguments[0]).
 			Where("category_id = ?", arguments[1]).
 			Count(&count).Error
 	} else {
 		countError = mr.db.
 			Model(&model.Menu{}).
-			Preload(clause.Associations).
 			Where("name ILIKE ?", arguments[0]).
 			Count(&count).Error
 	}
 
 	if countError != nil {
+		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable(model.Menu{}), nil
+	}
+
+	if count == 0 {
 		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable(model.Menu{}), nil
 	}
 
