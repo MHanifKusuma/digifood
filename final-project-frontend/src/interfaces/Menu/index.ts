@@ -3,7 +3,7 @@ import { IPromotion } from "interfaces/Promotion";
 export interface IMenuOptions {
   Id: number;
   Name: string;
-  Price: string;
+  Price: number;
   Type: "radio" | "check";
 }
 
