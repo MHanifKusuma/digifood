@@ -2,6 +2,7 @@ import HeartIcon from "assets/HeartIcon";
 import StarIcon from "assets/StarIcon";
 import { IMenu } from "interfaces/Menu";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MenuCardWrapper from "./style";
 
 interface MenuCardProps {
@@ -27,8 +28,16 @@ const MenuCard = ({ menu }: MenuCardProps) => {
         <h5 className="card-title">{menu.Name}</h5>
         <div className="card-info d-flex justify-content-between">
           <p className="card-text mb-0 d-flex align-items-start">
-            {menu.Promotion.Id != 0 && <span className="discounted-price">Rp {menu.Price - menu.Promotion.Discount}</span>}
-            <span className={`original-price ${menu.Promotion.Id != 0 && "strike"}`}>Rp {menu.Price}</span>
+            {menu.Promotion.Id != 0 && (
+              <span className="discounted-price">
+                Rp {menu.Price - menu.Promotion.Discount}
+              </span>
+            )}
+            <span
+              className={`original-price ${menu.Promotion.Id != 0 && "strike"}`}
+            >
+              Rp {menu.Price}
+            </span>
           </p>
           <p className="mb-0 d-flex align-items-center">
             <StarIcon height="20" fill="#ffe09c" className="me-1" />
