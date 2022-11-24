@@ -3,9 +3,9 @@ import React from "react";
 import MenuDisplayOptionWrapper from "./style";
 
 interface MenuDisplayOptionProps {
-  handleSortChange: (e: React.FormEvent<HTMLInputElement>) => void;
-  handleOrderChange: (e: React.FormEvent<HTMLInputElement>) => void;
-  handleFilterChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  handleSortChange: (e: React.FormEvent<HTMLSelectElement>) => void;
+  handleOrderChange: (e: React.FormEvent<HTMLSelectElement>) => void;
+  handleFilterChange: (e: React.FormEvent<HTMLSelectElement>) => void;
   categories: ICategory[];
 }
 
@@ -31,7 +31,7 @@ const MenuDisplayOption = ({
         <div className="col d-flex flex-wrap gap-2">
           <div className="col-12 col-lg-3">
             <p className="mb-1">Sort By:</p>
-            <select className="form-select">
+            <select className="form-select" onChange={handleSortChange}>
               {sortOption.map((option, index) => (
                 <option key={index} value={option.value}>
                   {option.label}
@@ -41,7 +41,7 @@ const MenuDisplayOption = ({
           </div>
           <div className="col-12 col-lg-4">
             <p className="mb-1">Order:</p>
-            <select className="form-select">
+            <select className="form-select" onChange={handleOrderChange}>
               {orderOption.map((option, index) => (
                 <option key={index} value={option.value}>
                   {option.label}
@@ -52,7 +52,7 @@ const MenuDisplayOption = ({
         </div>
         <div className="col-12 col-lg-4 mx-auto mt-2 mt-lg-0">
           <p className="mb-1">Filter by category:</p>
-          <select className="form-select">
+          <select className="form-select" onChange={handleFilterChange}>
             {categories.length > 0 ? (
               <>
                 <option value={0}>All</option>
