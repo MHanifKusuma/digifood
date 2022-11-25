@@ -20,7 +20,8 @@
       "components/*": ["./components/*"],
       "interfaces/*": ["./interfaces/*"],
       "utils/*": ["./utils/*"],
-      "assets/*": ["./assets/*"]
+      "assets/*": ["./assets/*"],
+      "redux/*": ["./redux/*"]
     }
   },
   "include": ["src"]
