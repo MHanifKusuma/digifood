@@ -25,7 +25,7 @@ const MenuCard = ({ menu }: MenuCardProps) => {
 
       <MenuCardWrapper
         className="card m-2"
-        onClick={() => navigate(`/menu/${menu.Id}/${menu.Name}`)}
+        onClick={() => navigate(`/menus/${menu.Id}/${menu.Name}`)}
         role="button"
       >
         <div className="menu-image-wrapper">

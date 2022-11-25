@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import NavbarWrapper, { NavbarLogo, NavigationLink } from "./style";
 import Logo from "assets/logo.webp";
 import CartIcon from "assets/CartIcon";
@@ -9,7 +9,8 @@ import { useCookies } from "react-cookie";
 
 const Navbar = () => {
   const currPath = useLocation();
-  const [cookies] = useCookies(["login"]);
+  const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies(["login"]);
 
   return (
     <NavbarWrapper className="navbar navbar-expand-lg">
@@ -38,9 +39,9 @@ const Navbar = () => {
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link
-                to={"/menu"}
+                to={"/menus"}
                 className={`nav-link ${
-                  currPath.pathname === "/menu" ? "active" : ""
+                  currPath.pathname === "/menus" ? "active" : ""
                 }`}
               >
                 Menus
@@ -93,24 +94,43 @@ const Navbar = () => {
               {cookies.login ? (
                 <>
                   <li className="nav-item">
-                    <Link to={"/profile"} className="dropdown-item p-2">
+                    <Link
+                      to={"/profile"}
+                      onClick={() => navigate("/profile")}
+                      className="dropdown-item p-2"
+                    >
                       Profile
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to={"/coupons"} className="dropdown-item p-2">
+                    <Link
+                      to={"/coupons"}
+                      onClick={() => navigate("/coupon")}
+                      className="dropdown-item p-2"
+                    >
                       Coupons
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to={"/logout"} className="dropdown-item p-2">
+                    <Link
+                      to={"/login"}
+                      onClick={() => {
+                        removeCookie("login");
+                        navigate("/login");
+                      }}
+                      className="dropdown-item p-2"
+                    >
                       Logout
                     </Link>
                   </li>
                 </>
               ) : (
                 <li className="nav-item">
-                  <Link to={"/login"} className="dropdown-item p-2">
+                  <Link
+                    to={"/login"}
+                    onClick={() => navigate("/login")}
+                    className="dropdown-item p-2"
+                  >
                     Login
                   </Link>
                 </li>

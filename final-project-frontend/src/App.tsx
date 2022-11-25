@@ -16,12 +16,12 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
+        <Route path="/menus" element={<Menu />} />
+        <Route path="/menus/:id/:name" element={<MenuDetail />} />
 
         <Route element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/menu/:id/:name" element={<MenuDetail />} />
         </Route>
       </Routes>
     </div>

@@ -4,10 +4,11 @@ import HeroWrapper from "./style";
 import { useEffect, useRef } from "react";
 import Typed from "typed.js";
 import Button from "components/shared-components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const el = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const typed = new Typed("#typed", {
@@ -34,7 +35,7 @@ const Hero = () => {
               Craving for some <span id="typed" ref={el}></span>{" "}
             </h3>
             <h3>We got it covered!</h3>
-            <Link to={"/menu"}>
+            <Link to={"/menus"}>
               <Button
                 btnStyle={{
                   padding: " 0.5rem 2rem",
