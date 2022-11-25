@@ -1,8 +1,14 @@
 import HeartIcon from "assets/HeartIcon";
 import StarIcon from "assets/StarIcon";
 import Button from "components/shared-components/Button";
+import { ICartItem } from "interfaces/Cart";
 import { IMenu } from "interfaces/Menu";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addCartsitem, setCartsTotalPrice } from "redux/actions/CartAction";
+import { CartDispatch } from "redux/actions/CartAction/types";
 import MenuInfoWrapper, { MenuOptionWrapper, OptionItem } from "./style";
 
 interface MenuInfoProps {
@@ -10,6 +16,9 @@ interface MenuInfoProps {
 }
 
 const MenuInfo = ({ menu }: MenuInfoProps) => {
+  const [cookies] = useCookies(["login"]);
+  const navigate = useNavigate();
+
   menu.MenuOptions.sort((i, j) => {
     if (i.Type === "radio") {
       return -1;
@@ -24,6 +33,8 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
   const [itemPrice, setItemPrice] = useState(discountedPrice);
   const [totalPrice, setTotalPrice] = useState(discountedPrice);
   const [quantity, setQuantity] = useState(1);
+  const [selectionAddOn, setSelectionAddOn] = useState("");
+  const [optionalAddOn, setOptionalAddOn] = useState<string[]>([]);
 
   useEffect(() => {
     setItemPrice(discountedPrice);
@@ -33,6 +44,26 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
   useEffect(() => {
     setTotalPrice(itemPrice * quantity);
   }, [itemPrice, quantity]);
+
+  const cartDispatch: CartDispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    if (!cookies.login) {
+      navigate("/login");
+    } else {
+      const newCartItem: ICartItem = {
+        menus: menu,
+        price: totalPrice,
+        quantity: quantity,
+        option: selectionAddOn + ", " + optionalAddOn.join(", "),
+      };
+
+      cartDispatch(addCartsitem(newCartItem));
+      cartDispatch(setCartsTotalPrice(totalPrice));
+
+      navigate("/carts");
+    }
+  };
 
   return (
     <MenuInfoWrapper className="py-5">
@@ -49,13 +80,13 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
       </p>
 
       <p className="card-text mb-0 d-flex align-items-start fs-4 mt-4">
-        {menu.Promotion.Id != 0 && (
+        {menu.Promotion.Id !== 0 && (
           <span className="discounted-price">
             Rp {menu.Price - menu.Promotion.Discount}
           </span>
         )}
         <span
-          className={`original-price ${menu.Promotion.Id != 0 && "strike"}`}
+          className={`original-price ${menu.Promotion.Id !== 0 && "strike"}`}
         >
           Rp {menu.Price}
         </span>
@@ -69,13 +100,23 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
           <MenuOptionWrapper>
             {menu.MenuOptions.map((option) => (
               <OptionItem key={option.Id}>
-                {option.Type == "radio" && (
+                {option.Type === "radio" && (
                   <>
                     <label htmlFor={`${option.Id}`}>{option.Name}</label>
-                    <input id={`${option.Id}`} type={"radio"} name="option" />
+                    <input
+                      id={`${option.Id}`}
+                      type={"radio"}
+                      name="option"
+                      value={option.Name}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectionAddOn(e.target.value);
+                        }
+                      }}
+                    />
                   </>
                 )}
-                {option.Type == "check" && (
+                {option.Type === "check" && (
                   <>
                     <label htmlFor={`${option.Id}`}>
                       {option.Name} <span>(+ Rp {option.Price})</span>
@@ -83,11 +124,21 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
                     <input
                       id={`${option.Id}`}
                       type={"checkbox"}
+                      name={option.Name}
+                      value={option.Name}
                       onChange={(e) => {
                         if (e.target.checked) {
                           setItemPrice(itemPrice + option.Price);
+
+                          optionalAddOn.push(e.target.value);
+                          setOptionalAddOn(optionalAddOn);
                         } else {
                           setItemPrice(itemPrice - option.Price);
+
+                          const filterOptionalAddOn = optionalAddOn.filter(
+                            (opt) => opt !== e.target.name
+                          );
+                          setOptionalAddOn(filterOptionalAddOn);
                         }
                       }}
                     />
@@ -115,6 +166,7 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
             <input
               className="w-25 text-center"
               type="number"
+              readOnly
               value={quantity}
             />
             <Button
@@ -138,6 +190,7 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
             backgroundColor: "#aad4b3",
             color: "#ffffff",
           }}
+          btnFunction={handleAddToCart}
         >
           Add to cart (Rp {totalPrice})
         </Button>
