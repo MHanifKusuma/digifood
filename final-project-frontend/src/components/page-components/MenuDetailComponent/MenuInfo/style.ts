@@ -7,6 +7,19 @@ const MenuInfoWrapper = styled.section`
     margin-left: 0.25rem;
     font-size: 1rem;
   }
+
+  input {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+  }
 `;
 
 export const MenuOptionWrapper = styled.div`

@@ -22,11 +22,17 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
     menu.Promotion.Id !== 0 ? menu.Price - menu.Promotion.Discount : menu.Price;
 
   const [itemPrice, setItemPrice] = useState(discountedPrice);
-  const [quantity, setQuantity] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(discountedPrice);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     setItemPrice(discountedPrice);
+    setTotalPrice(discountedPrice);
   }, [discountedPrice]);
+
+  useEffect(() => {
+    setTotalPrice(itemPrice * quantity);
+  }, [itemPrice, quantity]);
 
   return (
     <MenuInfoWrapper className="py-5">
@@ -62,15 +68,15 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
           <h3>Add-ons</h3>
           <MenuOptionWrapper>
             {menu.MenuOptions.map((option) => (
-              <>
+              <OptionItem key={option.Id}>
                 {option.Type == "radio" && (
-                  <OptionItem>
+                  <>
                     <label htmlFor={`${option.Id}`}>{option.Name}</label>
                     <input id={`${option.Id}`} type={"radio"} name="option" />
-                  </OptionItem>
+                  </>
                 )}
                 {option.Type == "check" && (
-                  <OptionItem>
+                  <>
                     <label htmlFor={`${option.Id}`}>
                       {option.Name} <span>(+ Rp {option.Price})</span>
                     </label>
@@ -85,9 +91,9 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
                         }
                       }}
                     />
-                  </OptionItem>
+                  </>
                 )}
-              </>
+              </OptionItem>
             ))}
           </MenuOptionWrapper>
         </>
@@ -102,15 +108,23 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
                 padding: "0.25rem 1.5rem",
                 backgroundColor: "#579eff",
               }}
+              btnFunction={() => setQuantity(quantity - 1)}
             >
               -
             </Button>
-            <input className="w-25 text-center" type="number" value={1} />
+            <input
+              className="w-25 text-center"
+              type="number"
+              value={quantity}
+            />
             <Button
               btnClass="ms-2"
               btnStyle={{
                 padding: "0.25rem 1.5rem",
                 backgroundColor: "#579eff",
+              }}
+              btnFunction={() => {
+                setQuantity(quantity + 1);
               }}
             >
               +
@@ -125,7 +139,7 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
             color: "#ffffff",
           }}
         >
-          Add to cart (Rp {itemPrice})
+          Add to cart (Rp {totalPrice})
         </Button>
       </div>
     </MenuInfoWrapper>
