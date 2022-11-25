@@ -6,11 +6,15 @@ import CartIcon from "assets/CartIcon";
 import UserIcon from "assets/UserIcon";
 import TriangleIcon from "assets/TriangleIcon";
 import { useCookies } from "react-cookie";
+import { CartDispatch } from "redux/actions/CartAction/types";
+import { useDispatch } from "react-redux";
+import { resetCarts } from "redux/actions/CartAction";
 
 const Navbar = () => {
   const currPath = useLocation();
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["login"]);
+  const cartDispatch: CartDispatch = useDispatch();
 
   return (
     <NavbarWrapper className="navbar navbar-expand-lg">
@@ -116,6 +120,7 @@ const Navbar = () => {
                       to={"/login"}
                       onClick={() => {
                         removeCookie("login");
+                        cartDispatch(resetCarts());
                         navigate("/login");
                       }}
                       className="dropdown-item p-2"
