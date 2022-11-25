@@ -1,5 +1,4 @@
 import { ICart } from "interfaces/Cart";
-import storage from "redux-persist/lib/storage";
 import { CartsAction, CartsActionType } from "redux/actions/CartAction/types";
 
 const initialCartState: ICart = {
