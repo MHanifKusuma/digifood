@@ -1,8 +1,14 @@
 import TrashIcon from "assets/TrashIcon";
 import Button from "components/shared-components/Button";
 import MenuCard from "components/shared-components/MenuCard";
+import { ICartItem } from "interfaces/Cart";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteCartsItem,
+  setCartItemsQuantity,
+  setCartsTotalPrice,
+} from "redux/actions/CartAction";
 import { CartDispatch } from "redux/actions/CartAction/types";
 import { RootState } from "redux/reducers";
 import CartItemListWrapper, { CartItem } from "./style";
@@ -11,6 +17,29 @@ const CartItemList = () => {
   const cartsDispatch: CartDispatch = useDispatch();
   const { items } = useSelector((state: RootState) => state.CartsReducer);
   const isCartEmpty: boolean = items.length < 1;
+
+  const handleReducItemQuantity = (item: ICartItem, index: number) => {
+    const singleItemPrice = item.price / item.quantity;
+    item.quantity -= 1;
+    item.price -= singleItemPrice;
+
+    if (item.quantity > 0) {
+      cartsDispatch(setCartItemsQuantity(item));
+    } else {
+      cartsDispatch(deleteCartsItem(index));
+    }
+
+    cartsDispatch(setCartsTotalPrice(singleItemPrice * -1));
+  };
+
+  const handleAddItemQuantity = (item: ICartItem) => {
+    const singleItemPrice = item.price / item.quantity;
+    item.quantity += 1;
+    item.price += singleItemPrice;
+
+    cartsDispatch(setCartItemsQuantity(item));
+    cartsDispatch(setCartsTotalPrice(singleItemPrice));
+  };
 
   if (isCartEmpty) {
     return (
@@ -49,6 +78,7 @@ const CartItemList = () => {
                           padding: "0.25rem 0.6rem",
                           backgroundColor: "#579eff",
                         }}
+                        btnFunction={() => handleReducItemQuantity(item, index)}
                       >
                         -
                       </Button>
@@ -64,6 +94,7 @@ const CartItemList = () => {
                           padding: "0.25rem 0.5rem",
                           backgroundColor: "#579eff",
                         }}
+                        btnFunction={() => handleAddItemQuantity(item)}
                       >
                         +
                       </Button>

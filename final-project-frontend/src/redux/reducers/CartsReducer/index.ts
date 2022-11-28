@@ -38,17 +38,19 @@ export default function (state = initialCartState, action: CartsAction): ICart {
     case CartsActionType.DELETE_ITEMS:
       return {
         ...state,
-        items: state.items.filter(
-          (cartItem) => cartItem.menus.Id !== action.payload
-        ),
+        items: state.items.filter((_, index) => index !== action.payload),
       };
 
     case CartsActionType.SET_ITEM_QUANTITY:
       return {
         ...state,
         items: state.items.map((cartItem) => {
-          if (cartItem.menus.Id === action.payload.menus.Id) {
+          if (
+            cartItem.menus.Id === action.payload.menus.Id &&
+            cartItem.option === action.payload.option
+          ) {
             cartItem.quantity = action.payload.quantity;
+            cartItem.price = action.payload.price;
           }
 
           return cartItem;
