@@ -27,8 +27,8 @@ const CartItemList = () => {
     <CartItemListWrapper>
       <div className="container py-5">
         <h1>Cart</h1>
-        {items.map((item) => (
-          <CartItem className="mb-3 p-3">
+        {items.map((item, index) => (
+          <CartItem className="mb-3 p-3" key={index}>
             <div className="row">
               <div className="col-12 col-lg-2 p-auto my-auto">
                 <img src={item.menus.MenuPhoto} alt="menu photo" />
@@ -36,7 +36,7 @@ const CartItemList = () => {
               <div className="col d-flex flex-wrap mt-4 mt-lg-0">
                 <div className="col">
                   <p className="fw-bolder mb-1">{item.menus.Name}</p>
-                  <p>Rp {item.menus.Price}</p>
+                  <p>Rp {item.price}</p>
                   <p>Add-ons: {item.option || "none"}</p>
                 </div>
                 <div className="col d-flex align-items-center justify-content-between">
