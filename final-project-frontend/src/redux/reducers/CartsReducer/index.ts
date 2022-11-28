@@ -9,9 +9,32 @@ const initialCartState: ICart = {
 export default function (state = initialCartState, action: CartsAction): ICart {
   switch (action.type) {
     case CartsActionType.ADD_ITEMS:
-      state.items.push(action.payload);
-      return state;
+      let sameItem = false;
+      const items = state.items.map((item) => {
+        if (
+          item.menus.Name === action.payload.menus.Name &&
+          item.option === action.payload.option
+        ) {
+          sameItem = true;
 
+          item.quantity += action.payload.quantity;
+          item.price += action.payload.price;
+          return item;
+        } else {
+          return item;
+        }
+      });
+
+      if (sameItem) {
+        return {
+          ...state,
+          items: items,
+        };
+      } else {
+        state.items.push(action.payload);
+      }
+
+      return state;
     case CartsActionType.DELETE_ITEMS:
       return {
         ...state,
