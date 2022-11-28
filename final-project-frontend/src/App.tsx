@@ -10,6 +10,8 @@ import Register from "pages/public/Authentication/Register";
 import Home from "pages/public/Home";
 import Menu from "pages/public/Menu";
 import MenuDetail from "pages/public/MenuDetail";
+import ProtectedRoutes from "pages/protected";
+import Cart from "pages/protected/Cart";
 
 function App() {
   return (
@@ -22,6 +24,10 @@ function App() {
         <Route element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+        </Route>
+
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/carts" element={<Cart />} />
         </Route>
       </Routes>
     </div>
