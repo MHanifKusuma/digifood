@@ -14,7 +14,7 @@ export const CartItem = styled.div`
   }
 
   input {
-    width: 100px;
+    width: 75px;
   }
 `;
 
