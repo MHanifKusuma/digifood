@@ -51,11 +51,19 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
     if (!cookies.login) {
       navigate("/login");
     } else {
+      let mergedOption = "";
+
+      if (selectionAddOn !== "" && optionalAddOn.length > 0) {
+        mergedOption = selectionAddOn + ", " + optionalAddOn.join(", ");
+      } else {
+        mergedOption = selectionAddOn;
+      }
+
       const newCartItem: ICartItem = {
         menus: menu,
         price: totalPrice,
         quantity: quantity,
-        option: selectionAddOn + ", " + optionalAddOn.join(", "),
+        option: mergedOption,
       };
 
       cartDispatch(addCartsitem(newCartItem));
