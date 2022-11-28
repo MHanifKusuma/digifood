@@ -100,7 +100,13 @@ const CartItemList = () => {
                       </Button>
                     </div>
                   </div>
-                  <div className="trash-icon-wrapper">
+                  <div
+                    className="trash-icon-wrapper"
+                    onClick={() => {
+                      cartsDispatch(setCartsTotalPrice(item.price * -1));
+                      cartsDispatch(deleteCartsItem(index));
+                    }}
+                  >
                     <TrashIcon
                       height="30"
                       fill="#E98E7D"
