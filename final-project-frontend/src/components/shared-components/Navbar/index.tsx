@@ -82,18 +82,22 @@ const Navbar = () => {
               </Link>
             </li>
           </ul>
-          <CartIcon height="25" fill="#000" className="me-3" />
+          <Link to="/carts" className="hover-none">
+            <CartIcon height="25" fill="#000" className="me-3" />
+          </Link>
           <div
             className="dropdown d-inline"
             role="button"
             data-bs-toggle="dropdown"
           >
-            <UserIcon height="25" fill="#000" className="me-1" />
-            <TriangleIcon
-              height="15"
-              fill="#000000"
-              style={{ transform: "rotate(180deg)" }}
-            />
+            <Link to={"/profile"} className="hover-none">
+              <UserIcon height="25" fill="#000" className="me-1" />
+              <TriangleIcon
+                height="15"
+                fill="#000000"
+                style={{ transform: "rotate(180deg)" }}
+              />
+            </Link>
             <ul className="dropdown-menu dropdown-menu-start dropdown-menu-lg-end">
               {cookies.login ? (
                 <>
