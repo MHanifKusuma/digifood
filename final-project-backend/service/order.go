@@ -43,8 +43,8 @@ func (os *orderService) CreateUserOrder(newOrder *model.NewOrder) (string, int, 
 	if checkCouponError != nil {
 		return "error", http.StatusInternalServerError, checkCouponError
 	}
-	if checkCouponStatus == 400 {
-		return "user coupon not found", checkCouponStatus, utils.ErrCouponNotFound
+	if checkCouponStatus == 404 {
+		return "user coupon not found", http.StatusBadRequest, utils.ErrCouponNotFound
 	}
 
 	checkPaymentOptionStatus, checkPaymentOptionsError := os.paymentService.CheckPaymentOption(newOrder.PaymentOptionId)
