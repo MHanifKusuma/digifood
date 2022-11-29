@@ -55,7 +55,7 @@ func (cs *couponService) CheckUserCoupon(userId, couponId int) (int, error) {
 		}
 	}
 	if !foundCoupon {
-		return http.StatusBadRequest, utils.ErrCouponNotFound
+		return http.StatusNotFound, utils.ErrCouponNotFound
 	}
 
 	return http.StatusOK, nil
