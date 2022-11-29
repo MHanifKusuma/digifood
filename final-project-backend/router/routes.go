@@ -42,6 +42,7 @@ func HandleRequests(db *gorm.DB) {
 
 	gin := gin.Default()
 	gin.Use(cors.New(config))
+	gin.Use(middleware.CorsMiddleware)
 
 	gin.Static("docs", "./dist")
 
