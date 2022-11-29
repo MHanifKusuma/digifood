@@ -8,8 +8,10 @@ import (
 )
 
 type orderService struct {
-	repository    repository.OrderRepository
-	couponService CouponService
+	repository      repository.OrderRepository
+	couponService   CouponService
+	paymentService  PaymentService
+	deliveryService DeliveryService
 }
 
 type OrderService interface {
@@ -17,10 +19,13 @@ type OrderService interface {
 	CreateUserOrder(newOrder *model.NewOrder) (string, int, error)
 }
 
-func NewOrderService(repository repository.OrderRepository, couponService CouponService) OrderService {
+func NewOrderService(repository repository.OrderRepository, couponService CouponService,
+	paymentService PaymentService, deliveryService DeliveryService) OrderService {
 	return &orderService{
-		repository:    repository,
-		couponService: couponService,
+		repository:      repository,
+		couponService:   couponService,
+		paymentService:  paymentService,
+		deliveryService: deliveryService,
 	}
 }
 
@@ -40,6 +45,22 @@ func (os *orderService) CreateUserOrder(newOrder *model.NewOrder) (string, int, 
 	}
 	if checkCouponStatus == 400 {
 		return "user coupon not found", checkCouponStatus, utils.ErrCouponNotFound
+	}
+
+	checkPaymentOptionStatus, checkPaymentOptionsError := os.paymentService.CheckPaymentOption(newOrder.PaymentOptionId)
+	if checkPaymentOptionsError != nil {
+		return "error", http.StatusInternalServerError, checkPaymentOptionsError
+	}
+	if checkPaymentOptionStatus == 404 {
+		return "payment option not found", http.StatusBadRequest, utils.ErrPaymentOptionNotFound
+	}
+
+	checkDeliveryStatusStatus, checkDeliveryStatusStatusError := os.deliveryService.CheckDeliveryStatus(newOrder.DeliveryStatusId)
+	if checkDeliveryStatusStatusError != nil {
+		return "error", http.StatusInternalServerError, utils.ErrNotExpected
+	}
+	if checkDeliveryStatusStatus == 404 {
+		return "delivery status not found", http.StatusBadRequest, utils.ErrDeliveryStatusNotFound
 	}
 
 	message, createError := os.repository.CreateUserOrder(newOrder)
