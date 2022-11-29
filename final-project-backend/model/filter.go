@@ -41,6 +41,10 @@ func (p *PageableRequest) SortBy() string {
 		if strings.ToLower(p.Sort_by) != "order_date" {
 			return "order_date DESC"
 		}
+	case "coupon":
+		if strings.ToLower(p.Sort_by) != "expired_at" {
+			return "expired_at DESC"
+		}
 	default:
 		return "avg_rating DESC"
 	}
