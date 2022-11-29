@@ -13,6 +13,7 @@ type paymentService struct {
 
 type PaymentService interface {
 	GetAllPaymentOptions() ([]*model.PaymentOption, int, error)
+	CheckPaymentOption(paymentOptionId int) (int, error)
 }
 
 func NewPaymentService(repository repository.PaymentRepository) PaymentService {
