@@ -16,16 +16,19 @@ func HandleRequests(db *gorm.DB) {
 	authRepository := repository.NewAuthRepository(db)
 	categoryRepository := repository.NewCategoryRepository(db)
 	menuRepository := repository.NewMenuRepository(db)
+	couponRepository := repository.NewCouponRepository(db)
 	orderRepository := repository.NewOrderRepository(db)
 
 	authService := service.NewAuthService(authRepository)
 	categoryService := service.NewCategoryService(categoryRepository)
 	menuService := service.NewMenuService(menuRepository)
-	orderService := service.NewOrderService(orderRepository)
+	couponService := service.NewCouponService(couponRepository)
+	orderService := service.NewOrderService(orderRepository, couponService)
 
 	authHandler := handler.NewAuthHandler(authService)
 	categoryHandler := handler.NewCategoryHandler(categoryService)
 	menuHandler := handler.NewMenuHandler(menuService)
+	couponHandler := handler.NewCouponHandler(couponService)
 	orderHandler := handler.NewOrderHandler(orderService)
 
 	config := cors.DefaultConfig()
@@ -42,6 +45,7 @@ func HandleRequests(db *gorm.DB) {
 
 	gin.Use(middleware.AuthMiddleware())
 	orderRoutes(gin, db, orderHandler)
+	couponRoutes(gin, db, couponHandler)
 
 	gin.Run()
 }
