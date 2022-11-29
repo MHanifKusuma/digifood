@@ -10,6 +10,7 @@ var (
 	ErrUserNotFound         = errorNotFound("user")
 	ErrCategoryNotFound     = errorNotFound("category")
 	ErrMenuNotFound         = errorNotFound("menu")
+	ErrCouponNotFound       = errorNotFound("coupon")
 	ErrWrongLoginCredential = NewError("wrong credentials")
 	ErrNoAuthorization      = NewError("no authorization header provided")
 	ErrEmailExists          = NewError("email already exists")
