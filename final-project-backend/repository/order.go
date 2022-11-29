@@ -13,6 +13,7 @@ type orderRepository struct {
 
 type OrderRepository interface {
 	GetAllUserOrder(userId int, pageable utils.Pageable) (*utils.Page, error)
+	CreateUserOrder(newOrder *model.NewOrder) (string, error)
 }
 
 func NewOrderRepository(db *gorm.DB) OrderRepository {
@@ -96,4 +97,28 @@ func (or *orderRepository) GetAllUserOrder(userId int, pageable utils.Pageable) 
 	}
 
 	return paginator.Pageable(orders), findError
+}
+
+func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (string, error) {
+	var order = model.Order{
+		UserId:           newOrder.UserId,
+		CouponId:         newOrder.CouponId,
+		PaymentOptionId:  newOrder.PaymentOptionId,
+		DeliveryStatusId: newOrder.DeliveryStatusId,
+		TotalPrice:       newOrder.TotalPrice,
+	}
+
+	res := or.db.Create(&order)
+	if res.Error != nil {
+		return "", res.Error
+	}
+
+	for _, detail := range newOrder.OrderDetail {
+		detail.OrderId = order.Id
+		if createNewOrderDetailError := or.db.Create(&detail).Error; createNewOrderDetailError != nil {
+			return "", createNewOrderDetailError
+		}
+	}
+
+	return "create order success", nil
 }

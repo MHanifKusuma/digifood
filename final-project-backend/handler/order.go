@@ -6,6 +6,7 @@ import (
 	"final-project-backend/service"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -37,6 +38,36 @@ func (oh *OrderHandler) GetAllUserOrder(c *gin.Context) {
 	}
 
 	utils.SuccessResponse(c.Writer, allOrders, status)
+}
+
+func (oh *OrderHandler) CreateUserOrder(c *gin.Context) {
+	getUserId, userExists := c.Get("user_id")
+	if !userExists {
+		utils.ErrorResponse(c.Writer, utils.ErrUserNotFound.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	id := getUserId.(string)
+	userId, _ := strconv.Atoi(id)
+
+	var newOrder model.NewOrder
+
+	if bindJsonError := c.ShouldBindJSON(&newOrder); bindJsonError != nil {
+		utils.ErrorResponse(c.Writer, utils.ErrConvertRequesData.Error(), http.StatusBadRequest)
+		return
+	}
+
+	newOrder.DeliveryStatusId = 1
+	newOrder.UserId = userId
+	newOrder.OrderDate = time.Now()
+
+	message, status, createOrderError := oh.service.CreateUserOrder(&newOrder)
+	if createOrderError != nil {
+		utils.ErrorResponse(c.Writer, createOrderError.Error(), status)
+		return
+	}
+
+	utils.SuccessResponse(c.Writer, message, status)
 }
 
 func newOrderPageableRequest(c *gin.Context) *model.PageableRequest {
