@@ -18,6 +18,7 @@ func HandleRequests(db *gorm.DB) {
 	menuRepository := repository.NewMenuRepository(db)
 	couponRepository := repository.NewCouponRepository(db)
 	paymentRepository := repository.NewPaymentRepository(db)
+	deliveryRepository := repository.NewDeliveryRepository(db)
 	orderRepository := repository.NewOrderRepository(db)
 
 	authService := service.NewAuthService(authRepository)
@@ -25,6 +26,7 @@ func HandleRequests(db *gorm.DB) {
 	menuService := service.NewMenuService(menuRepository)
 	couponService := service.NewCouponService(couponRepository)
 	paymentService := service.NewPaymentService(paymentRepository)
+	deliveryService := service.NewDeliveryService(deliveryRepository)
 	orderService := service.NewOrderService(orderRepository, couponService)
 
 	authHandler := handler.NewAuthHandler(authService)
@@ -32,6 +34,7 @@ func HandleRequests(db *gorm.DB) {
 	menuHandler := handler.NewMenuHandler(menuService)
 	couponHandler := handler.NewCouponHandler(couponService)
 	paymentHandler := handler.NewPaymentHandler(paymentService)
+	deliveryHandler := handler.NewDeliveryHandler(deliveryService)
 	orderHandler := handler.NewOrderHandler(orderService)
 
 	config := cors.DefaultConfig()
@@ -50,6 +53,7 @@ func HandleRequests(db *gorm.DB) {
 	orderRoutes(gin, db, orderHandler)
 	couponRoutes(gin, db, couponHandler)
 	paymentRoutes(gin, db, paymentHandler)
+	deliveryRoutes(gin, db, deliveryHandler)
 
 	gin.Run()
 }
