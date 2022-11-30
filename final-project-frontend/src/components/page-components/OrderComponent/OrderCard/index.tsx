@@ -2,6 +2,7 @@ import Button from "components/shared-components/Button";
 import { IOrder } from "interfaces/Order";
 import moment from "moment";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import OrderCardWrapper from "./style";
 
 interface OrderCardProp {
@@ -9,6 +10,7 @@ interface OrderCardProp {
 }
 
 const OrderCard = ({ order }: OrderCardProp) => {
+  const navigate = useNavigate();
   const deliveryStatusClass =
     order.DeliveryStatus.Status.toLowerCase().replaceAll(" ", "-");
   return (
@@ -56,6 +58,7 @@ const OrderCard = ({ order }: OrderCardProp) => {
               backgroundColor: "#579EFF",
               width: "100%",
             }}
+            btnFunction={() => navigate(`/orders/${order.Id}`)}
           >
             Detail
           </Button>

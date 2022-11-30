@@ -13,6 +13,7 @@ import MenuDetail from "pages/public/MenuDetail";
 import ProtectedRoutes from "pages/protected";
 import Cart from "pages/protected/Cart";
 import Order from "pages/protected/Order";
+import OrderDetail from "pages/protected/OrderDetail";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path="/carts" element={<Cart />} />
           <Route path="/orders" element={<Order />} />
+          <Route path="/orders/:id" element={<OrderDetail />} />
         </Route>
       </Routes>
     </div>

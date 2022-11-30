@@ -59,7 +59,6 @@ const CheckoutModal = ({
       total_price: totalPrice - couponDiscount,
       order_detail: items,
     };
-    console.log(newOrder);
 
     axios
       .post("http://localhost:8080/orders", newOrder, {

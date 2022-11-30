@@ -9,7 +9,7 @@ export interface IOrder {
   Coupon: IUserCoupons;
   PaymentOption: IPaymentOptions;
   DeliveryStatus: IDeliveryStatus;
-  OrderDetail: IOrderDetail;
+  OrderDetail: IOrderDetail[];
   TotalPrice: number;
   CreatedAt: Date;
 }
