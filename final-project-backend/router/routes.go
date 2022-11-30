@@ -6,8 +6,6 @@ import (
 	"final-project-backend/repository"
 	"final-project-backend/service"
 
-	"github.com/gin-contrib/cors"
-
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -20,6 +18,7 @@ func HandleRequests(db *gorm.DB) {
 	paymentRepository := repository.NewPaymentRepository(db)
 	deliveryRepository := repository.NewDeliveryRepository(db)
 	orderRepository := repository.NewOrderRepository(db)
+	userRepository := repository.NewUserRepository(db)
 
 	authService := service.NewAuthService(authRepository)
 	categoryService := service.NewCategoryService(categoryRepository)
@@ -28,6 +27,7 @@ func HandleRequests(db *gorm.DB) {
 	paymentService := service.NewPaymentService(paymentRepository)
 	deliveryService := service.NewDeliveryService(deliveryRepository)
 	orderService := service.NewOrderService(orderRepository, couponService, paymentService, deliveryService)
+	userService := service.NewUserService(userRepository, menuService)
 
 	authHandler := handler.NewAuthHandler(authService)
 	categoryHandler := handler.NewCategoryHandler(categoryService)
@@ -36,12 +36,13 @@ func HandleRequests(db *gorm.DB) {
 	paymentHandler := handler.NewPaymentHandler(paymentService)
 	deliveryHandler := handler.NewDeliveryHandler(deliveryService)
 	orderHandler := handler.NewOrderHandler(orderService)
+	userHandler := handler.NewUserHandler(userService)
 
-	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"*"}
+	// config := cors.DefaultConfig()
+	// config.AllowOrigins = []string{"*"}
 
 	gin := gin.Default()
-	gin.Use(cors.New(config))
+	// gin.Use(cors.New(config))
 	gin.Use(middleware.CorsMiddleware)
 
 	gin.Static("docs", "./dist")
@@ -55,6 +56,7 @@ func HandleRequests(db *gorm.DB) {
 	couponRoutes(gin, db, couponHandler)
 	paymentRoutes(gin, db, paymentHandler)
 	deliveryRoutes(gin, db, deliveryHandler)
+	userRoutes(gin, db, userHandler)
 
 	gin.Run()
 }
