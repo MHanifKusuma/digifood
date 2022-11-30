@@ -14,6 +14,7 @@ type orderRepository struct {
 
 type OrderRepository interface {
 	GetAllUserOrder(userId int, pageable utils.Pageable) (*utils.Page, error)
+	GetUserOrderById(userId, orderId int) (*model.Order, error)
 	CreateUserOrder(newOrder *model.NewOrder) (string, error)
 }
 
@@ -100,6 +101,20 @@ func (or *orderRepository) GetAllUserOrder(userId int, pageable utils.Pageable) 
 	return paginator.Pageable(orders), findError
 }
 
+func (or *orderRepository) GetUserOrderById(userId, orderId int) (*model.Order, error) {
+	var order *model.Order
+
+	res := or.db.
+		Preload("OrderDetail").Preload("OrderDetail.Menu").
+		Where("user_id = ? and id = ?", userId, orderId).
+		Find(&order)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+
+	return order, nil
+}
+
 func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (string, error) {
 	var order = model.Order{
 		UserId:           newOrder.UserId,
@@ -109,9 +124,9 @@ func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (string, er
 		TotalPrice:       newOrder.TotalPrice,
 	}
 
-	if (order.CouponId == 0) {
+	if order.CouponId == 0 {
 		res := or.db.Omit("CouponId").Create(&order)
-		
+
 		if res.Error != nil {
 			return "", res.Error
 		}

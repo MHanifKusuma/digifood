@@ -16,6 +16,7 @@ type orderService struct {
 
 type OrderService interface {
 	GetAllUserOrder(userId int, pageable utils.Pageable) (*utils.Page, int, error)
+	GetUserOrderById(userId, orderId int) (*model.Order, int, error)
 	CreateUserOrder(newOrder *model.NewOrder) (string, int, error)
 }
 
@@ -36,6 +37,15 @@ func (os *orderService) GetAllUserOrder(userId int, pageable utils.Pageable) (*u
 	}
 
 	return data, http.StatusOK, nil
+}
+
+func (os *orderService) GetUserOrderById(userId, orderId int) (*model.Order, int, error) {
+	order, orderError := os.repository.GetUserOrderById(userId, orderId)
+	if orderError != nil {
+		return nil, http.StatusNotFound, utils.ErrOrderNotFound
+	}
+
+	return order, http.StatusOK, nil
 }
 
 func (os *orderService) CreateUserOrder(newOrder *model.NewOrder) (string, int, error) {

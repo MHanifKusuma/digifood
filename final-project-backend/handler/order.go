@@ -39,6 +39,31 @@ func (oh *OrderHandler) GetAllUserOrder(c *gin.Context) {
 	utils.SuccessResponse(c.Writer, allOrders, status)
 }
 
+func (oh *OrderHandler) GetUserOrderById(c *gin.Context) {
+	getUserId, userExists := c.Get("user_id")
+	if !userExists {
+		utils.ErrorResponse(c.Writer, utils.ErrUserNotFound.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	id := getUserId.(string)
+	userId, _ := strconv.Atoi(id)
+
+	orderId, orderIdError := strconv.Atoi(c.Param("id"))
+	if orderIdError != nil {
+		utils.ErrorResponse(c.Writer, orderIdError.Error(), http.StatusBadRequest)
+		return
+	}
+
+	getUserOrder, status, getUserOrderError := oh.service.GetUserOrderById(userId, orderId)
+	if getUserOrderError != nil {
+		utils.ErrorResponse(c.Writer, getUserOrderError.Error(), status)
+		return
+	}
+
+	utils.SuccessResponse(c.Writer, getUserOrder, status)
+}
+
 func (oh *OrderHandler) CreateUserOrder(c *gin.Context) {
 	getUserId, userExists := c.Get("user_id")
 	if !userExists {
