@@ -4,8 +4,10 @@ import { INewOrder } from "interfaces/Order";
 import { IPaymentOptions } from "interfaces/Payment";
 import React, { useState } from "react";
 import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { resetCarts } from "redux/actions/CartAction";
+import { CartDispatch } from "redux/actions/CartAction/types";
 import { RootState } from "redux/reducers";
 import CheckoutModalWrapper from "./style";
 
@@ -27,6 +29,7 @@ const CheckoutModal = ({
   );
 
   const { user } = useSelector((state: RootState) => state.UsersReducer);
+  const cartDispatch: CartDispatch = useDispatch();
 
   const [couponDiscount, setCouponDiscount] = useState(0);
   const [selectedCouponId, setSelectedCouponId] = useState(0);
@@ -63,7 +66,10 @@ const CheckoutModal = ({
           Authorization: `Bearer ${cookies.login}`,
         },
       })
-      .then(() => navigate("/orders"));
+      .then(() => {
+        cartDispatch(resetCarts());
+        navigate("/orders");
+      });
   };
 
   return (

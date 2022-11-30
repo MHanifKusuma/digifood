@@ -39,12 +39,14 @@ func (os *orderService) GetAllUserOrder(userId int, pageable utils.Pageable) (*u
 }
 
 func (os *orderService) CreateUserOrder(newOrder *model.NewOrder) (string, int, error) {
-	checkCouponStatus, checkCouponError := os.couponService.CheckUserCoupon(newOrder.UserId, newOrder.CouponId)
-	if checkCouponError != nil {
-		return "error", http.StatusInternalServerError, checkCouponError
-	}
-	if checkCouponStatus == 404 {
-		return "user coupon not found", http.StatusBadRequest, utils.ErrCouponNotFound
+	if newOrder.CouponId != 0 {
+		checkCouponStatus, checkCouponError := os.couponService.CheckUserCoupon(newOrder.UserId, newOrder.CouponId)
+		if checkCouponError != nil && checkCouponStatus != 404 {
+			return "error", http.StatusInternalServerError, checkCouponError
+		}
+		if checkCouponStatus == 404 {
+			return "user coupon not found", http.StatusBadRequest, utils.ErrCouponNotFound
+		}
 	}
 
 	checkPaymentOptionStatus, checkPaymentOptionsError := os.paymentService.CheckPaymentOption(newOrder.PaymentOptionId)

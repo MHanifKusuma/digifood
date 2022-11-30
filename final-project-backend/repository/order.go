@@ -109,9 +109,17 @@ func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (string, er
 		TotalPrice:       newOrder.TotalPrice,
 	}
 
-	res := or.db.Create(&order)
-	if res.Error != nil {
-		return "", res.Error
+	if (order.CouponId == 0) {
+		res := or.db.Omit("CouponId").Create(&order)
+		
+		if res.Error != nil {
+			return "", res.Error
+		}
+	} else {
+		res := or.db.Create(&order)
+		if res.Error != nil {
+			return "", res.Error
+		}
 	}
 
 	for _, detail := range newOrder.OrderDetail {
