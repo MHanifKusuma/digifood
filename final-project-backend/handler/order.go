@@ -93,6 +93,28 @@ func (oh *OrderHandler) CreateUserOrder(c *gin.Context) {
 	utils.SuccessResponse(c.Writer, newOrderId, status)
 }
 
+func (oh *OrderHandler) UpdateDeliveryStatus(c *gin.Context) {
+	type updateDeliveryStatus struct {
+		OrderId int
+		DeliveryId int
+	}
+
+	var payload updateDeliveryStatus
+
+	if bindJsonError := c.ShouldBindJSON(&payload); bindJsonError != nil {
+		utils.ErrorResponse(c.Writer, utils.ErrConvertRequesData.Error(), http.StatusBadRequest)
+		return
+	}
+
+	message, status, updateDeliveryStatusError := oh.service.UpdateDeliveryStatus(payload.OrderId, payload.DeliveryId)
+	if updateDeliveryStatusError != nil {
+		utils.ErrorResponse(c.Writer, updateDeliveryStatusError.Error(), status)
+		return
+	}
+
+	utils.SuccessResponse(c.Writer, message, status)
+}
+
 func newOrderPageableRequest(c *gin.Context) *model.PageableRequest {
 	p := &model.PageableRequest{}
 	p.Page = utils.PageFromQueryParam(c)

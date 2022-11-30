@@ -18,6 +18,7 @@ type OrderService interface {
 	GetAllUserOrder(userId int, pageable utils.Pageable) (*utils.Page, int, error)
 	GetUserOrderById(userId, orderId int) (*model.Order, int, error)
 	CreateUserOrder(newOrder *model.NewOrder) (*model.OrderIdResponse, int, error)
+	UpdateDeliveryStatus(orderId, deliveryStatusId int) (string, int, error)
 }
 
 func NewOrderService(repository repository.OrderRepository, couponService CouponService,
@@ -81,4 +82,21 @@ func (os *orderService) CreateUserOrder(newOrder *model.NewOrder) (*model.OrderI
 	}
 
 	return newOrderId, http.StatusCreated, nil
+}
+
+func (os *orderService) UpdateDeliveryStatus(orderId, deliveryStatusId int) (string, int, error) {
+	checkDeliveryStatusStatus, checkDeliveryStatusStatusError := os.deliveryService.CheckDeliveryStatus(deliveryStatusId)
+	if checkDeliveryStatusStatusError != nil {
+		return "error", http.StatusInternalServerError, utils.ErrNotExpected
+	}
+	if checkDeliveryStatusStatus == 404 {
+		return "error", http.StatusBadRequest, utils.ErrDeliveryStatusNotFound
+	}
+
+	message, updateError := os.repository.UpdateDeliveryStatus(orderId, deliveryStatusId)
+	if updateError != nil {
+		return "error", http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return message, http.StatusOK, nil
 }

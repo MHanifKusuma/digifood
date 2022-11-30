@@ -16,6 +16,7 @@ type OrderRepository interface {
 	GetAllUserOrder(userId int, pageable utils.Pageable) (*utils.Page, error)
 	GetUserOrderById(userId, orderId int) (*model.Order, error)
 	CreateUserOrder(newOrder *model.NewOrder) (*model.OrderIdResponse, error)
+	UpdateDeliveryStatus(orderId, deliveryStatusId int) (string, error)
 }
 
 func NewOrderRepository(db *gorm.DB) OrderRepository {
@@ -152,4 +153,16 @@ func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (*model.Ord
 	newOrderId.OrderId = order.Id
 
 	return newOrderId, nil
+}
+
+func (or *orderRepository) UpdateDeliveryStatus(orderId, deliveryStatusId int) (string, error) {
+	res := or.db.
+		Model(&model.Order{}).
+		Where("id = ?", orderId).
+		Update("delivery_status_id", deliveryStatusId)
+	if res.Error != nil {
+		return "", res.Error
+	}
+
+	return "update success", nil
 }

@@ -11,4 +11,5 @@ func orderRoutes(gin *gin.Engine, db *gorm.DB, orderHandler *handler.OrderHandle
 	gin.GET("/orders", orderHandler.GetAllUserOrder)
 	gin.GET("/orders/:id", orderHandler.GetUserOrderById)
 	gin.POST("/orders", orderHandler.CreateUserOrder)
+	gin.POST("/orders-delivery-status", orderHandler.UpdateDeliveryStatus)
 }
