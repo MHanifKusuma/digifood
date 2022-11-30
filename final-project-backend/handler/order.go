@@ -6,7 +6,6 @@ import (
 	"final-project-backend/service"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -59,7 +58,6 @@ func (oh *OrderHandler) CreateUserOrder(c *gin.Context) {
 
 	newOrder.DeliveryStatusId = 1
 	newOrder.UserId = userId
-	newOrder.OrderDate = time.Now()
 
 	message, status, createOrderError := oh.service.CreateUserOrder(&newOrder)
 	if createOrderError != nil {

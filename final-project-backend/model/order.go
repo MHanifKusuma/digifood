@@ -17,7 +17,6 @@ type Order struct {
 	DeliveryStatus   Delivery       `gorm:"foreignKey:Id;references:DeliveryStatusId"`
 	TotalPrice       int            `gorm:"column:total_price"`
 	OrderDetail      []OrderDetail  `gorm:"foreignKey:OrderId;references:Id"`
-	OrderDate        time.Time      `gorm:"column:order_date"`
 	CreatedAt        time.Time      `gorm:"column:created_at"`
 	UpdatedAt        time.Time      `gorm:"column:updated_at"`
 	DeletedAt        gorm.DeletedAt `gorm:"column:deleted_at"`

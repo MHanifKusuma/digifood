@@ -39,7 +39,7 @@ func (p *PageableRequest) SortBy() string {
 		}
 	case "order":
 		if strings.ToLower(p.Sort_by) != "order_date" {
-			return "order_date DESC"
+			return "created_at DESC"
 		}
 	case "coupon":
 		if strings.ToLower(p.Sort_by) != "expired_at" {

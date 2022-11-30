@@ -12,7 +12,7 @@ const (
 	SEARCH_BY_MENU_NAME = "name"
 	FILTER_BY_CATEGORY  = "category"
 	DEFAULT_SORT_BY     = "avg_rating"
-	SORT_BY_DATE        = "order_date"
+	SORT_BY_DATE        = "created_at"
 )
 
 type Pageable interface {
