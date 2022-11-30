@@ -11,7 +11,7 @@ type userRepository struct {
 }
 
 type UserRepository interface {
-	GetUserProfile(userId int) (*model.User, error)
+	GetUserProfile(userId int) (*model.UserResponse, error)
 	AddUserFavorite(newFavorite model.NewUserFavorite) (string, error)
 }
 
@@ -21,11 +21,13 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 	}
 }
 
-func (ur *userRepository) GetUserProfile(userId int) (*model.User, error) {
-	var user *model.User
+func (ur *userRepository) GetUserProfile(userId int) (*model.UserResponse, error) {
+	var user *model.UserResponse
 
 	res := ur.db.
+		Model(&model.User{}).
 		Preload("UserFavorite").Preload("UserFavorite.Menu").
+		Preload("UserCoupon").Preload("UserCoupon.Coupon").
 		Where("id = ?", userId).
 		Find(&user)
 	if res.Error != nil {

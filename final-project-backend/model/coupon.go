@@ -18,6 +18,7 @@ type Coupon struct {
 
 type UserCoupon struct {
 	Id         int            `gorm:"primaryKey;column:id"`
+	UserId     int            `gorm:"column:user_id"`
 	CouponId   int            `gorm:"column:coupon_id"`
 	Coupon     Coupon         `gorm:"foreignKey:Id;references:CouponId"`
 	Expired_at time.Time      `gorm:"column:expired_at"`

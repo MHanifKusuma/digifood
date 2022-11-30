@@ -13,7 +13,7 @@ type userService struct {
 }
 
 type UserService interface {
-	GetUserProfile(userId int) (*model.User, int, error)
+	GetUserProfile(userId int) (*model.UserResponse, int, error)
 	AddUserFavorite(newFavorite model.NewUserFavorite) (string, int, error)
 }
 
@@ -24,7 +24,7 @@ func NewUserService(repository repository.UserRepository, menuService MenuServic
 	}
 }
 
-func (us *userService) GetUserProfile(userId int) (*model.User, int, error) {
+func (us *userService) GetUserProfile(userId int) (*model.UserResponse, int, error) {
 	user, userError := us.repository.GetUserProfile(userId)
 	if userError != nil {
 		return nil, http.StatusInternalServerError, utils.ErrNotExpected
