@@ -105,7 +105,10 @@ func (or *orderRepository) GetUserOrderById(userId, orderId int) (*model.Order, 
 	var order *model.Order
 
 	res := or.db.
-		Preload("OrderDetail").Preload("OrderDetail.Menu").
+		Preload("Coupon").Preload("Coupon.Coupon").
+		Preload("PaymentOption").
+		Preload("DeliveryStatus").
+		Preload("OrderDetail").Preload("OrderDetail.Menu").Preload("OrderDetail.Menu.Promotion").
 		Where("user_id = ? and id = ?", userId, orderId).
 		Find(&order)
 	if res.Error != nil {
