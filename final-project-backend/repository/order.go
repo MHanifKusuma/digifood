@@ -15,7 +15,7 @@ type orderRepository struct {
 type OrderRepository interface {
 	GetAllUserOrder(userId int, pageable utils.Pageable) (*utils.Page, error)
 	GetUserOrderById(userId, orderId int) (*model.Order, error)
-	CreateUserOrder(newOrder *model.NewOrder) (string, error)
+	CreateUserOrder(newOrder *model.NewOrder) (*model.OrderIdResponse, error)
 }
 
 func NewOrderRepository(db *gorm.DB) OrderRepository {
@@ -115,7 +115,7 @@ func (or *orderRepository) GetUserOrderById(userId, orderId int) (*model.Order, 
 	return order, nil
 }
 
-func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (string, error) {
+func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (*model.OrderIdResponse, error) {
 	var order = model.Order{
 		UserId:           newOrder.UserId,
 		CouponId:         newOrder.CouponId,
@@ -128,12 +128,12 @@ func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (string, er
 		res := or.db.Omit("CouponId").Create(&order)
 
 		if res.Error != nil {
-			return "", res.Error
+			return nil, res.Error
 		}
 	} else {
 		res := or.db.Create(&order)
 		if res.Error != nil {
-			return "", res.Error
+			return nil, res.Error
 		}
 	}
 
@@ -141,9 +141,12 @@ func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (string, er
 		fmt.Println(detail)
 		detail.OrderId = order.Id
 		if createNewOrderDetailError := or.db.Create(&detail).Error; createNewOrderDetailError != nil {
-			return "", createNewOrderDetailError
+			return nil, createNewOrderDetailError
 		}
 	}
 
-	return "create order success", nil
+	newOrderId := new(model.OrderIdResponse)
+	newOrderId.OrderId = order.Id
+
+	return newOrderId, nil
 }

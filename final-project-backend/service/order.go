@@ -17,7 +17,7 @@ type orderService struct {
 type OrderService interface {
 	GetAllUserOrder(userId int, pageable utils.Pageable) (*utils.Page, int, error)
 	GetUserOrderById(userId, orderId int) (*model.Order, int, error)
-	CreateUserOrder(newOrder *model.NewOrder) (string, int, error)
+	CreateUserOrder(newOrder *model.NewOrder) (*model.OrderIdResponse, int, error)
 }
 
 func NewOrderService(repository repository.OrderRepository, couponService CouponService,
@@ -48,37 +48,37 @@ func (os *orderService) GetUserOrderById(userId, orderId int) (*model.Order, int
 	return order, http.StatusOK, nil
 }
 
-func (os *orderService) CreateUserOrder(newOrder *model.NewOrder) (string, int, error) {
+func (os *orderService) CreateUserOrder(newOrder *model.NewOrder) (*model.OrderIdResponse, int, error) {
 	if newOrder.CouponId != 0 {
 		checkCouponStatus, checkCouponError := os.couponService.CheckUserCoupon(newOrder.UserId, newOrder.CouponId)
 		if checkCouponError != nil && checkCouponStatus != 404 {
-			return "error", http.StatusInternalServerError, checkCouponError
+			return nil, http.StatusInternalServerError, checkCouponError
 		}
 		if checkCouponStatus == 404 {
-			return "user coupon not found", http.StatusBadRequest, utils.ErrCouponNotFound
+			return nil, http.StatusBadRequest, utils.ErrCouponNotFound
 		}
 	}
 
 	checkPaymentOptionStatus, checkPaymentOptionsError := os.paymentService.CheckPaymentOption(newOrder.PaymentOptionId)
 	if checkPaymentOptionsError != nil {
-		return "error", http.StatusInternalServerError, checkPaymentOptionsError
+		return nil, http.StatusInternalServerError, checkPaymentOptionsError
 	}
 	if checkPaymentOptionStatus == 404 {
-		return "payment option not found", http.StatusBadRequest, utils.ErrPaymentOptionNotFound
+		return nil, http.StatusBadRequest, utils.ErrPaymentOptionNotFound
 	}
 
 	checkDeliveryStatusStatus, checkDeliveryStatusStatusError := os.deliveryService.CheckDeliveryStatus(newOrder.DeliveryStatusId)
 	if checkDeliveryStatusStatusError != nil {
-		return "error", http.StatusInternalServerError, utils.ErrNotExpected
+		return nil, http.StatusInternalServerError, utils.ErrNotExpected
 	}
 	if checkDeliveryStatusStatus == 404 {
-		return "delivery status not found", http.StatusBadRequest, utils.ErrDeliveryStatusNotFound
+		return nil, http.StatusBadRequest, utils.ErrDeliveryStatusNotFound
 	}
 
-	message, createError := os.repository.CreateUserOrder(newOrder)
+	newOrderId, createError := os.repository.CreateUserOrder(newOrder)
 	if createError != nil {
-		return "", http.StatusInternalServerError, utils.ErrNotExpected
+		return nil, http.StatusInternalServerError, utils.ErrNotExpected
 	}
 
-	return message, http.StatusCreated, nil
+	return newOrderId, http.StatusCreated, nil
 }

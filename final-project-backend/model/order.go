@@ -22,6 +22,10 @@ type Order struct {
 	DeletedAt        gorm.DeletedAt `gorm:"column:deleted_at"`
 }
 
+type OrderIdResponse struct {
+	OrderId int
+}
+
 type OrderDetail struct {
 	Id        int  `gorm:"primaryKey;column:id"`
 	OrderId   int  `gorm:"column:order_id"`

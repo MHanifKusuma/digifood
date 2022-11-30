@@ -84,13 +84,13 @@ func (oh *OrderHandler) CreateUserOrder(c *gin.Context) {
 	newOrder.DeliveryStatusId = 1
 	newOrder.UserId = userId
 
-	message, status, createOrderError := oh.service.CreateUserOrder(&newOrder)
+	newOrderId, status, createOrderError := oh.service.CreateUserOrder(&newOrder)
 	if createOrderError != nil {
 		utils.ErrorResponse(c.Writer, createOrderError.Error(), status)
 		return
 	}
 
-	utils.SuccessResponse(c.Writer, message, status)
+	utils.SuccessResponse(c.Writer, newOrderId, status)
 }
 
 func newOrderPageableRequest(c *gin.Context) *model.PageableRequest {
