@@ -1,3 +1,4 @@
+import { ICart, ICartItem } from "interfaces/Cart";
 import { IUserCoupons } from "interfaces/Coupon";
 import { IDeliveryStatus } from "interfaces/Delivery";
 import { IMenu } from "interfaces/Menu";
@@ -9,8 +10,8 @@ export interface IOrder {
   PaymentOption: IPaymentOptions;
   DeliveryStatus: IDeliveryStatus;
   OrderDetail: IOrderDetail;
-  TotalPrice: number
-  CreatedAt: Date
+  TotalPrice: number;
+  CreatedAt: Date;
 }
 
 export interface IOrderDetail {
@@ -20,4 +21,11 @@ export interface IOrderDetail {
   Price: number;
   Quantity: number;
   AddOns: string;
+}
+
+export interface INewOrder {
+  coupon_id: number;
+  payment_option_id: number;
+  total_price: number;
+  order_detail: ICartItem[];
 }

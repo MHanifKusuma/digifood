@@ -1,18 +1,71 @@
+import axios from "axios";
 import Button from "components/shared-components/Button";
-import React, { useEffect, useState } from "react";
+import { INewOrder } from "interfaces/Order";
+import { IPaymentOptions } from "interfaces/Payment";
+import React, { useState } from "react";
+import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootState } from "redux/reducers";
 import CheckoutModalWrapper from "./style";
 
 interface CheckoutModalProp {
   show: boolean;
   handleClose: () => void;
+  paymentOptions: IPaymentOptions[];
 }
 
-const CheckoutModal = ({ show, handleClose }: CheckoutModalProp) => {
+const CheckoutModal = ({
+  show,
+  handleClose,
+  paymentOptions,
+}: CheckoutModalProp) => {
+  const [cookies] = useCookies(["login"]);
+  const navigate = useNavigate();
   const { items, totalPrice } = useSelector(
     (state: RootState) => state.CartsReducer
   );
+
+  const { user } = useSelector((state: RootState) => state.UsersReducer);
+
+  const [couponDiscount, setCouponDiscount] = useState(0);
+  const [selectedCouponId, setSelectedCouponId] = useState(0);
+  const [selectedPaymentOptionId, setSelectedPaymentOptionId] = useState(0);
+
+  const handleCouponChange = (e: React.FormEvent<HTMLSelectElement>) => {
+    if (e.currentTarget.value !== "0") {
+      const values = e.currentTarget.value.split(",");
+      setCouponDiscount(Number.parseInt(values[0]));
+      setSelectedCouponId(Number.parseInt(values[1]));
+    } else {
+      setCouponDiscount(Number.parseInt(e.currentTarget.value));
+      setSelectedCouponId(Number.parseInt(e.currentTarget.value));
+    }
+  };
+
+  const handleChangePaymentOptions = (
+    e: React.FormEvent<HTMLSelectElement>
+  ) => {
+    setSelectedPaymentOptionId(Number.parseInt(e.currentTarget.value));
+  };
+
+  const handleCheckout = () => {
+    const newOrder: INewOrder = {
+      coupon_id: selectedCouponId,
+      payment_option_id: selectedPaymentOptionId,
+      total_price: totalPrice - couponDiscount,
+      order_detail: items,
+    };
+
+    axios
+      .post("http://localhost:8080/orders", newOrder, {
+        headers: {
+          Authorization: `Bearer ${cookies.login}`,
+        },
+      })
+      .then(() => navigate("/orders"));
+  };
+
   return (
     <CheckoutModalWrapper
       className={`modal fade ${show ? "show" : ""}`}
@@ -29,32 +82,82 @@ const CheckoutModal = ({ show, handleClose }: CheckoutModalProp) => {
             <div className="table-responsive">
               <table className="table">
                 <thead>
-                  <th>Item</th>
-                  <th className="text-center">Qty</th>
-                  <th className="text-center">Price</th>
+                  <tr>
+                    <th>Item</th>
+                    <th className="text-center">Qty</th>
+                    <th className="text-center">Price</th>
+                  </tr>
                 </thead>
                 <tbody>
-                  {items.map((item) => (
-                    <tr>
-                      <td>{item.menus.Name}</td>
-                      <td className="text-center">{item.quantity}</td>
+                  {items.map((item, index) => (
+                    <tr key={index}>
+                      <td>
+                        <p>{item.menus.Name}</p>
+                        {item.AddOns && (
+                          <p className="add-ons">{item.AddOns}</p>
+                        )}
+                      </td>
+                      <td className="text-center">{item.Quantity}</td>
                       <td className="text-end">
-                        <p>{item.price}</p>
+                        <p>{item.Price}</p>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <p className="fw-bolder">Total price: Rp{totalPrice}</p>
-            <div className="d-flex mt-3">
-              <p>Use coupon:</p>
-              <select name="useCoupon" id="useCoupon" className="ms-3">
-                <option value="">coupon1</option>
-                <option value="">coupon2</option>
-                <option value="">coupon3</option>
-                <option value="">coupon4</option>
-              </select>
+            <div className="my-3">
+              <p className="card-text mb-0 d-flex align-items-start">
+                Total Price:&nbsp;
+                {couponDiscount !== 0 && (
+                  <span className="discounted-price fw-bolder">
+                    Rp {totalPrice - couponDiscount}
+                  </span>
+                )}
+                <span
+                  className={`original-price fw-bolder ${
+                    couponDiscount !== 0 && "strike"
+                  }`}
+                >
+                  Rp {totalPrice}
+                </span>
+              </p>
+              <div className="d-flex mt-3">
+                <p>Use coupon:</p>
+                <select
+                  name="useCoupon"
+                  id="useCoupon"
+                  className="ms-3"
+                  onChange={handleCouponChange}
+                >
+                  <option value="0">Not now</option>
+                  {user.UserCoupon.map((coupon, index) => (
+                    <option
+                      value={
+                        coupon.Coupon.DiscountAmount + "," + coupon.Coupon.Id
+                      }
+                      key={index}
+                    >
+                      {coupon.Coupon.Code}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="d-flex mt-3">
+                <p>Select Payment Method:</p>
+                <select
+                  name="useCoupon"
+                  id="useCoupon"
+                  className="ms-3"
+                  onChange={handleChangePaymentOptions}
+                >
+                  {paymentOptions.map((option, index) => (
+                    <option value={option.Id} key={index}>
+                      {option.Name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
           <div className="modal-footer">
@@ -74,6 +177,7 @@ const CheckoutModal = ({ show, handleClose }: CheckoutModalProp) => {
                 color: "#FFFFFF",
                 padding: "0.5rem 1.5rem",
               }}
+              btnFunction={handleCheckout}
             >
               Order
             </Button>

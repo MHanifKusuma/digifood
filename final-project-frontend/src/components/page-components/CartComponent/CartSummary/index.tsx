@@ -1,26 +1,20 @@
 import Button from "components/shared-components/Button";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { CartDispatch } from "redux/actions/CartAction/types";
 import { RootState } from "redux/reducers";
-import CheckoutModal from "../CheckoutModal";
 import CartSummaryWrapper, { SummaryWrapper } from "./style";
 
-const CartSummary = () => {
-  const navigate = useNavigate();
+interface CartSummaryProp {
+  setShowCheckoutModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const cartsDispatch: CartDispatch = useDispatch();
+const CartSummary = ({ setShowCheckoutModal }: CartSummaryProp) => {
+  const navigate = useNavigate();
   const { items, totalPrice } = useSelector(
     (state: RootState) => state.CartsReducer
   );
   const isCartEmpty: boolean = items.length < 1;
-
-  const [showCheckout, setShowCheckout] = useState(false);
-
-  const handleCloseCheckoutModal = () => {
-    setShowCheckout(false);
-  };
 
   if (isCartEmpty) return <></>;
 
@@ -54,16 +48,11 @@ const CartSummary = () => {
             color: "#FFFFFF",
           }}
           btnClass="mx-2 mt-3"
-          btnFunction={() => setShowCheckout(true)}
+          btnFunction={() => setShowCheckoutModal(true)}
         >
           Order
         </Button>
       </div>
-
-      <CheckoutModal
-        show={showCheckout}
-        handleClose={handleCloseCheckoutModal}
-      />
     </CartSummaryWrapper>
   );
 };

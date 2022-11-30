@@ -1,6 +1,6 @@
 export interface ICoupon {
   Id: number;
-  code: string;
+  Code: string;
   DiscountAmount: number;
   Available: boolean;
 }

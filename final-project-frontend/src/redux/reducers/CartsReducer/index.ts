@@ -13,12 +13,12 @@ export default function (state = initialCartState, action: CartsAction): ICart {
       const items = state.items.map((item) => {
         if (
           item.menus.Name === action.payload.menus.Name &&
-          item.option === action.payload.option
+          item.AddOns === action.payload.AddOns
         ) {
           sameItem = true;
 
-          item.quantity += action.payload.quantity;
-          item.price += action.payload.price;
+          item.Quantity += action.payload.Quantity;
+          item.Price += action.payload.Price;
           return item;
         } else {
           return item;
@@ -47,10 +47,10 @@ export default function (state = initialCartState, action: CartsAction): ICart {
         items: state.items.map((cartItem) => {
           if (
             cartItem.menus.Id === action.payload.menus.Id &&
-            cartItem.option === action.payload.option
+            cartItem.AddOns === action.payload.AddOns
           ) {
-            cartItem.quantity = action.payload.quantity;
-            cartItem.price = action.payload.price;
+            cartItem.Quantity = action.payload.Quantity;
+            cartItem.Price = action.payload.Price;
           }
 
           return cartItem;

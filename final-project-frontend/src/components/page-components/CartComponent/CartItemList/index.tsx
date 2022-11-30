@@ -19,11 +19,11 @@ const CartItemList = () => {
   const isCartEmpty: boolean = items.length < 1;
 
   const handleReducItemQuantity = (item: ICartItem, index: number) => {
-    const singleItemPrice = item.price / item.quantity;
-    item.quantity -= 1;
-    item.price -= singleItemPrice;
+    const singleItemPrice = item.Price / item.Quantity;
+    item.Quantity -= 1;
+    item.Price -= singleItemPrice;
 
-    if (item.quantity > 0) {
+    if (item.Quantity > 0) {
       cartsDispatch(setCartItemsQuantity(item));
     } else {
       cartsDispatch(deleteCartsItem(index));
@@ -33,9 +33,9 @@ const CartItemList = () => {
   };
 
   const handleAddItemQuantity = (item: ICartItem) => {
-    const singleItemPrice = item.price / item.quantity;
-    item.quantity += 1;
-    item.price += singleItemPrice;
+    const singleItemPrice = item.Price / item.Quantity;
+    item.Quantity += 1;
+    item.Price += singleItemPrice;
 
     cartsDispatch(setCartItemsQuantity(item));
     cartsDispatch(setCartsTotalPrice(singleItemPrice));
@@ -65,8 +65,8 @@ const CartItemList = () => {
               <div className="col d-flex flex-wrap mt-4 mt-lg-0">
                 <div className="col">
                   <p className="fw-bolder mb-1">{item.menus.Name}</p>
-                  <p>Rp {item.price}</p>
-                  <p>Add-ons: {item.option || "none"}</p>
+                  <p>Rp {item.Price}</p>
+                  <p>Add-ons: {item.AddOns || "none"}</p>
                 </div>
                 <div className="col d-flex align-items-center justify-content-between">
                   <div className="quantity-wrapper d-flex align-items-center">
@@ -86,7 +86,7 @@ const CartItemList = () => {
                         className="text-center"
                         type="text"
                         readOnly
-                        value={item.quantity}
+                        value={item.Quantity}
                       />
                       <Button
                         btnClass="ms-2"
@@ -103,7 +103,7 @@ const CartItemList = () => {
                   <div
                     className="trash-icon-wrapper"
                     onClick={() => {
-                      cartsDispatch(setCartsTotalPrice(item.price * -1));
+                      cartsDispatch(setCartsTotalPrice(item.Price * -1));
                       cartsDispatch(deleteCartsItem(index));
                     }}
                   >

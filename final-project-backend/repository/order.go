@@ -3,6 +3,7 @@ package repository
 import (
 	"final-project-backend/model"
 	"final-project-backend/pkg/utils"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -114,6 +115,7 @@ func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (string, er
 	}
 
 	for _, detail := range newOrder.OrderDetail {
+		fmt.Println(detail)
 		detail.OrderId = order.Id
 		if createNewOrderDetailError := or.db.Create(&detail).Error; createNewOrderDetailError != nil {
 			return "", createNewOrderDetailError

@@ -1,14 +1,19 @@
+import { IUserCoupons } from "interfaces/Coupon";
+import { IMenu } from "interfaces/Menu";
+
 export interface IUser {
-  name: string;
-  email: string;
-  wallet_number: string;
-  balance: number;
+  FullName: string;
+  Email: string;
+  ProfilePicture: string;
+  UserFavorite: IUserFavorite[];
+  UserCoupon: IUserCoupons[];
 }
 
 export interface IUserState {
-  code: number;
-  data: IUser;
-  is_error: boolean;
-  error_message: string | null;
-  is_loading: boolean;
+  user: IUser;
+}
+
+export interface IUserFavorite {
+  Id: number;
+  Menu: IMenu[];
 }

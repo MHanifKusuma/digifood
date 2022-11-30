@@ -61,9 +61,10 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
 
       const newCartItem: ICartItem = {
         menus: menu,
-        price: totalPrice,
-        quantity: quantity,
-        option: mergedOption,
+        MenuId: menu.Id,
+        Price: totalPrice,
+        Quantity: quantity,
+        AddOns: mergedOption,
       };
 
       cartDispatch(addCartsitem(newCartItem));
