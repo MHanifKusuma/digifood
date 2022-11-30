@@ -105,7 +105,7 @@ const CheckoutModal = ({
                       </td>
                       <td className="text-center">{item.Quantity}</td>
                       <td className="text-end">
-                        <p>{item.Price}</p>
+                        <p>Rp {item.Price * item.Quantity}</p>
                       </td>
                     </tr>
                   ))}

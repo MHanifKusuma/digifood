@@ -19,9 +19,7 @@ const CartItemList = () => {
   const isCartEmpty: boolean = items.length < 1;
 
   const handleReducItemQuantity = (item: ICartItem, index: number) => {
-    const singleItemPrice = item.Price / item.Quantity;
     item.Quantity -= 1;
-    item.Price -= singleItemPrice;
 
     if (item.Quantity > 0) {
       cartsDispatch(setCartItemsQuantity(item));
@@ -29,16 +27,14 @@ const CartItemList = () => {
       cartsDispatch(deleteCartsItem(index));
     }
 
-    cartsDispatch(setCartsTotalPrice(singleItemPrice * -1));
+    cartsDispatch(setCartsTotalPrice(item.Price * -1));
   };
 
   const handleAddItemQuantity = (item: ICartItem) => {
-    const singleItemPrice = item.Price / item.Quantity;
     item.Quantity += 1;
-    item.Price += singleItemPrice;
 
     cartsDispatch(setCartItemsQuantity(item));
-    cartsDispatch(setCartsTotalPrice(singleItemPrice));
+    cartsDispatch(setCartsTotalPrice(item.Price));
   };
 
   if (isCartEmpty) {
@@ -100,6 +96,7 @@ const CartItemList = () => {
                       </Button>
                     </div>
                   </div>
+                  <div>Rp {item.Price * item.Quantity}</div>
                   <div
                     className="trash-icon-wrapper"
                     onClick={() => {
