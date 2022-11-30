@@ -33,7 +33,7 @@ const CheckoutModal = ({
 
   const [couponDiscount, setCouponDiscount] = useState(0);
   const [selectedCouponId, setSelectedCouponId] = useState(0);
-  const [selectedPaymentOptionId, setSelectedPaymentOptionId] = useState(0);
+  const [selectedPaymentOptionId, setSelectedPaymentOptionId] = useState(1);
 
   const handleCouponChange = (e: React.FormEvent<HTMLSelectElement>) => {
     if (e.currentTarget.value !== "0") {
@@ -59,6 +59,7 @@ const CheckoutModal = ({
       total_price: totalPrice - couponDiscount,
       order_detail: items,
     };
+    console.log(newOrder);
 
     axios
       .post("http://localhost:8080/orders", newOrder, {
@@ -66,9 +67,9 @@ const CheckoutModal = ({
           Authorization: `Bearer ${cookies.login}`,
         },
       })
-      .then(() => {
+      .then((data) => {
         cartDispatch(resetCarts());
-        navigate("/orders");
+        navigate(`/orders/${data.data.data.OrderId}`);
       });
   };
 
