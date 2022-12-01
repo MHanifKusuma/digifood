@@ -16,13 +16,13 @@ const MenuDisplayOption = ({
   categories,
 }: MenuDisplayOptionProps) => {
   const sortOption = [
-    { label: "Price", value: "price" },
     { label: "Rating", value: "rating" },
+    { label: "Price", value: "price" },
   ];
 
   const orderOption = [
-    { label: "Lowest to Highest", value: "asc" },
     { label: "Highest to Lowest", value: "desc" },
+    { label: "Lowest to Highest", value: "asc" },
   ];
 
   return (
