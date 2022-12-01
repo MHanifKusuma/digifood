@@ -16,6 +16,7 @@ type authService struct {
 type AuthService interface {
 	Login(loginUser *model.UserLogin) (string, int, error)
 	RegisterUser(newUser *model.User) (string, int, error)
+	CheckDuplicateUserData(data *model.User) (int, error)
 }
 
 func NewAuthService(repository repository.AuthRepository) AuthService {
@@ -85,4 +86,42 @@ func (as *authService) RegisterUser(newUser *model.User) (string, int, error) {
 	}
 
 	return msg, http.StatusCreated, nil
+}
+
+func (as *authService) CheckDuplicateUserData(data *model.User) (int, error) {
+	findUserEmail := model.UserLogin{
+		Login:    data.Email,
+		Password: data.Password,
+	}
+
+	user, _ := as.repository.CheckDuplicateInfo(findUserEmail)
+	if user > 1 {
+		return http.StatusConflict, utils.ErrEmailExists
+	}
+
+	findUserPhone := model.UserLogin{
+		Login:    data.Phone,
+		Password: data.Password,
+	}
+
+	user, _ = as.repository.CheckDuplicateInfo(findUserPhone)
+	if user > 1 {
+		return http.StatusConflict, utils.ErrPhoneExists
+	}
+
+	findUserUsername := model.UserLogin{
+		Login:    data.Username,
+		Password: data.Password,
+	}
+
+	user, _ = as.repository.CheckDuplicateInfo(findUserUsername)
+	if user > 1 {
+		return http.StatusConflict, utils.ErrUsernameExists
+	}
+
+	if user < 0 {
+		return http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return http.StatusOK, nil
 }
