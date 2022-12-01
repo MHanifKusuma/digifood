@@ -65,7 +65,7 @@ const CartItemList = () => {
                   <p>Rp {formatCurrency(item.Price)}</p>
                   <p>Add-ons: {item.AddOns || "none"}</p>
                 </div>
-                <div className="col d-flex align-items-center justify-content-between">
+                <div className="col d-flex flex-wrap gap-3 align-items-center justify-content-between">
                   <div className="quantity-wrapper d-flex align-items-center">
                     <p className="mb-0 me-3">Quantity:</p>
                     <div className="d-flex">
