@@ -170,7 +170,11 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
                 padding: "0.25rem 1.5rem",
                 backgroundColor: "#579eff",
               }}
-              btnFunction={() => setQuantity(quantity - 1)}
+              btnFunction={() => {
+                if (quantity > 1) {
+                  setQuantity(quantity - 1);
+                }
+              }}
             >
               -
             </Button>
