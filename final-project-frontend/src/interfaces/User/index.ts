@@ -13,6 +13,7 @@ export interface IUser {
 
 export interface IUserState {
   user: IUser;
+  userError: string | null;
 }
 
 export interface IUserFavorite {

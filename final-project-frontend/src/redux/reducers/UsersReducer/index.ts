@@ -11,6 +11,7 @@ const initialUserState: IUserState = {
     UserFavorite: [],
     UserCoupon: [],
   },
+  userError: "",
 };
 
 export function UsersReducer(
@@ -26,6 +27,7 @@ export function UsersReducer(
 
     case UserActionType.RESET_USER:
       return {
+        ...state,
         user: {
           FullName: "",
           Email: "",
@@ -36,6 +38,13 @@ export function UsersReducer(
           UserCoupon: [],
         },
       };
+
+    case UserActionType.SET_ERROR: {
+      return {
+        ...state,
+        userError: action.payload,
+      };
+    }
 
     default:
       return state;

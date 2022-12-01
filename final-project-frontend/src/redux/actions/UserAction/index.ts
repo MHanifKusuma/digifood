@@ -15,8 +15,16 @@ export const ResetUser = (): UserAction => {
   };
 };
 
+export const SetUserError = (payload: string | null): UserAction => {
+  return {
+    type: UserActionType.SET_ERROR,
+    payload: payload,
+  };
+};
+
 export const fetchUser = (token: string) => {
   return (dispatch: Dispatch<UserAction>): void => {
+    dispatch(SetUserError(null));
     const res = fetch(`http://localhost:8080/profile`, {
       headers: {
         "Content-Type": "application/json",
@@ -32,6 +40,10 @@ export const fetchUser = (token: string) => {
 
         return res.json();
       })
-      .then((data) => dispatch(SetUser(data.data)));
+      .then((data) => dispatch(SetUser(data.data)))
+      .catch((error) => {
+        dispatch(ResetUser());
+        dispatch(SetUserError(error.message));
+      });
   };
 };
