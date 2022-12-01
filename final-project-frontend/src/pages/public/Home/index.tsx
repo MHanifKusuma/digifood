@@ -12,8 +12,8 @@ import { useCookies } from "react-cookie";
 
 const Home = () => {
   const [categories, setCategories] = useState<IMenuByCategory[]>([]);
-  const userDispatch: UserDispatch = useDispatch();
-  const [cookies] = useCookies(["login"]);
+  // const userDispatch: UserDispatch = useDispatch();
+  // const [cookies] = useCookies(["login"]);
 
   const FetchMenuByCategory = () => {
     axios
@@ -21,13 +21,13 @@ const Home = () => {
       .then((data) => setCategories(data.data.data));
   };
 
-  const setUserProfile = () => {
-    userDispatch(fetchUser(cookies.login));
-  };
+  // const setUserProfile = () => {
+  //   userDispatch(fetchUser(cookies.login));
+  // };
 
   useEffect(() => {
     FetchMenuByCategory();
-    setUserProfile();
+    // setUserProfile();
   }, []);
   return (
     <>

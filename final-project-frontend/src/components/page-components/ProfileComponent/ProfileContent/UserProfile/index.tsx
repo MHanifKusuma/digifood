@@ -1,10 +1,12 @@
 import UserIcon from "assets/UserIcon";
+import axios from "axios";
 import Button from "components/shared-components/Button";
 import { ErrorMessage } from "components/shared-style";
 import { ProfileUpdateInput, RegisterInput } from "interfaces/FormInput";
 import { IUser } from "interfaces/User";
-import React, { FormEvent, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { SubmitHandler, useForm } from "react-hook-form";
 import UserProfileWrapper, { UpdateProfileForm } from "./style";
 
 interface UserProfileProp {
@@ -12,15 +14,24 @@ interface UserProfileProp {
 }
 
 const UserProfile = ({ user }: UserProfileProp) => {
+  const [cookies] = useCookies(["login"]);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-    watch,
-  } = useForm<ProfileUpdateInput>();
+  } = useForm<ProfileUpdateInput>({
+    defaultValues: {
+      profilePicture: user.ProfilePicture,
+      fullName: user.FullName,
+      email: user.Email,
+      phone: user.Phone,
+      username: user.Username,
+    },
+  });
 
   const [input, setInput] = useState<ProfileUpdateInput>({
-    profilePicture: "",
+    profilePicture: user.ProfilePicture,
     fullName: user.FullName,
     email: user.Email,
     phone: user.Phone,
@@ -36,18 +47,47 @@ const UserProfile = ({ user }: UserProfileProp) => {
     });
   };
 
+  const onSubmit: SubmitHandler<ProfileUpdateInput> = async (data) => {
+    await axios
+      .post(`http://localhost:8080/profile`, data, {
+        headers: {
+          Authorization: `Bearer ${cookies.login}`,
+        },
+      })
+      .then(() => window.location.reload())
+      .catch((error) => console.log(error));
+  };
+
   const handleClickUpdate = () => {
-    if (enableInput) {
-      console.log(input);
-    } else {
+    if (!enableInput) {
       setEnableInput(true);
     }
   };
 
+  useEffect(() => {
+    reset({
+      profilePicture: user.ProfilePicture,
+      fullName: user.FullName,
+      email: user.Email,
+      phone: user.Phone,
+      username: user.Username,
+    });
+    setInput({
+      profilePicture: user.ProfilePicture,
+      fullName: user.FullName,
+      email: user.Email,
+      phone: user.Phone,
+      username: user.Username,
+    });
+  }, [user]);
+
   return (
     <UserProfileWrapper className="pt-3">
       <div className="col-12 col-lg-6">
-        <UpdateProfileForm className="mt-4 mt-lg-5">
+        <UpdateProfileForm
+          className="mt-4 mt-lg-5"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="col-12 mx-auto input-group mb-2 justify-content-between">
             <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
               <p className="text-lg-end">Profile Picture: </p>
@@ -59,13 +99,10 @@ const UserProfile = ({ user }: UserProfileProp) => {
                 className="form-control px-4"
                 id="profilePictureInput"
                 placeholder="Full name"
-                {...register("profilePicture", { required: true })}
+                {...register("profilePicture")}
                 onChange={handleChange}
                 disabled={!enableInput}
               />
-              {errors.fullName?.type === "required" && (
-                <ErrorMessage>Full name is required</ErrorMessage>
-              )}
             </div>
           </div>
           <div className="col-12 mx-auto input-group mb-2 justify-content-betweena">
@@ -150,17 +187,32 @@ const UserProfile = ({ user }: UserProfileProp) => {
           </div>
           <div className="col-12 mx-auto input-group my-5 justify-content-start">
             <div className="col-12 col-lg-2 d-flex align-items-center">
-              <Button
-                btnStyle={{
-                  width: "100%",
-                  backgroundColor: "#579EFF",
-                  color: "#FFFFFF",
-                }}
-                btnFunction={handleClickUpdate}
-                type={!enableInput ? "submit" : "button"}
-              >
-                Update
-              </Button>
+              {!enableInput && (
+                <Button
+                  btnStyle={{
+                    width: "100%",
+                    backgroundColor: "#579EFF",
+                    color: "#FFFFFF",
+                  }}
+                  btnFunction={handleClickUpdate}
+                  type={"button"}
+                >
+                  Update
+                </Button>
+              )}
+
+              {enableInput && (
+                <Button
+                  btnStyle={{
+                    width: "100%",
+                    backgroundColor: "#579EFF",
+                    color: "#FFFFFF",
+                  }}
+                  type={"submit"}
+                >
+                  Submit
+                </Button>
+              )}
             </div>
             {error && (
               <div className="col-12 col-lg-8 d-flex align-items-center ms-0 ms-lg-3 mt-2 mt-lg-0">

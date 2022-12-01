@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,8 +15,22 @@ import Cart from "pages/protected/Cart";
 import Order from "pages/protected/Order";
 import OrderDetail from "pages/protected/OrderDetail";
 import Profile from "pages/protected/Profile";
+import { UserDispatch } from "redux/actions/UserAction/type";
+import { useDispatch } from "react-redux";
+import { useCookies } from "react-cookie";
+import { fetchUser } from "redux/actions/UserAction";
 
 function App() {
+  const userDispatch: UserDispatch = useDispatch();
+  const [cookies] = useCookies(["login"]);
+  const setUserProfile = () => {
+    userDispatch(fetchUser(cookies.login));
+  };
+
+  useEffect(() => {
+    setUserProfile();
+  }, []);
+
   return (
     <div className="App">
       <Routes>
