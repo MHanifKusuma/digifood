@@ -107,6 +107,7 @@ const Login = () => {
                     backgroundColor: "#579EFF",
                     color: "#FFFFFF",
                   }}
+                  type="submit"
                 >
                   Login
                 </Button>

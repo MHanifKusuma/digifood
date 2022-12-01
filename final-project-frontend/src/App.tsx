@@ -14,6 +14,7 @@ import ProtectedRoutes from "pages/protected";
 import Cart from "pages/protected/Cart";
 import Order from "pages/protected/Order";
 import OrderDetail from "pages/protected/OrderDetail";
+import Profile from "pages/protected/Profile";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path="/carts" element={<Cart />} />
           <Route path="/orders" element={<Order />} />
           <Route path="/orders/:id" element={<OrderDetail />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Routes>
     </div>

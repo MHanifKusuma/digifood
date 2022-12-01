@@ -112,15 +112,6 @@ const Navbar = () => {
                   </li>
                   <li className="nav-item">
                     <Link
-                      to={"/coupons"}
-                      onClick={() => navigate("/coupon")}
-                      className="dropdown-item p-2"
-                    >
-                      Coupons
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
                       to={"/login"}
                       onClick={() => {
                         removeCookie("login");

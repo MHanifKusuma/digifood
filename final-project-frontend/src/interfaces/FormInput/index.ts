@@ -15,3 +15,11 @@ export type RegisterInput = {
 export type SearchInput = {
   search: string;
 };
+
+export type ProfileUpdateInput = {
+  profilePicture: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  username: string;
+};

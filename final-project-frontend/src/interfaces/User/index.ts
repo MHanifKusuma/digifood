@@ -5,6 +5,8 @@ export interface IUser {
   FullName: string;
   Email: string;
   ProfilePicture: string;
+  Phone: string;
+  Username: string;
   UserFavorite: IUserFavorite[];
   UserCoupon: IUserCoupons[];
 }

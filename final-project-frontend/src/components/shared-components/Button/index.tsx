@@ -8,6 +8,7 @@ export interface IButtonProps {
   btnStyle?: CSSProperties;
   children?: React.ReactNode;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 const Button = ({
@@ -16,6 +17,7 @@ const Button = ({
   btnStyle,
   children,
   disabled = false,
+  type,
 }: IButtonProps) => {
   return (
     <CustomButton
@@ -23,6 +25,7 @@ const Button = ({
       onClick={btnFunction}
       buttonStyle={btnStyle}
       disabled={disabled}
+      type={type || "button"}
     >
       {children}
     </CustomButton>

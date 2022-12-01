@@ -161,6 +161,7 @@ const Register = () => {
                     backgroundColor: "#579EFF",
                     color: "#FFFFFF",
                   }}
+                  type="submit"
                 >
                   Register
                 </Button>
