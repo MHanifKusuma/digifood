@@ -19,6 +19,7 @@ import { UserDispatch } from "redux/actions/UserAction/type";
 import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { fetchUser } from "redux/actions/UserAction";
+import Promo from "pages/public/Promo";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
         <Route element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/promos" element={<Promo />} />
         </Route>
 
         <Route element={<ProtectedRoutes />}>
