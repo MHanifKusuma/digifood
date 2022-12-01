@@ -19,7 +19,7 @@ const UserCoupon = () => {
               <span className="fw-normal fs-4">x{coupon.Amount}</span>
             </p>
             <p className="expired-text">
-              Expired at: {moment(coupon.Expired_at).format("DD-MM-YYYY")}
+              Expired at: {moment(coupon.Expired_at).format("D MMMM YYYY")}
             </p>
             <p>Discount: Rp {coupon.Coupon.DiscountAmount}</p>
           </CouponWrapper>
