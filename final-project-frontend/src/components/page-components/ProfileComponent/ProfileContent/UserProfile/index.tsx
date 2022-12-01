@@ -49,8 +49,8 @@ const UserProfile = ({ user }: UserProfileProp) => {
       <div className="col-12 col-lg-6">
         <UpdateProfileForm className="mt-4 mt-lg-5">
           <div className="col-12 mx-auto input-group mb-2 justify-content-between">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-end">
-              <p className="text-end">Profile Picture: </p>
+            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+              <p className="text-lg-end">Profile Picture: </p>
             </div>
             <div className="col-12 col-lg-9 d-flex align-items-center">
               <input
@@ -69,8 +69,8 @@ const UserProfile = ({ user }: UserProfileProp) => {
             </div>
           </div>
           <div className="col-12 mx-auto input-group mb-2 justify-content-betweena">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-end">
-              <p className="text-end">Full Name: </p>
+            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+              <p className="text-lg-end">Full Name: </p>
             </div>
             <div className="col-12 col-lg-9 d-flex align-items-center">
               <input
@@ -89,8 +89,8 @@ const UserProfile = ({ user }: UserProfileProp) => {
             </div>
           </div>
           <div className="col-12 mx-auto input-group mb-2 justify-content-between">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-end">
-              <p className="text-end">Email: </p>
+            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+              <p className="text-lg-end">Email: </p>
             </div>
             <div className="col-12 col-lg-9 d-flex align-items-center">
               <input
@@ -109,8 +109,8 @@ const UserProfile = ({ user }: UserProfileProp) => {
             </div>
           </div>
           <div className="col-12 mx-auto input-group mb-2 justify-content-between">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-end">
-              <p className="text-end">Phone Number: </p>
+            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+              <p className="text-lg-end">Phone Number: </p>
             </div>
             <div className="col-12 col-lg-9 d-flex align-items-center">
               <input
@@ -129,8 +129,8 @@ const UserProfile = ({ user }: UserProfileProp) => {
             </div>
           </div>
           <div className="col-12 mx-auto input-group mb-2 justify-content-between">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-end">
-              <p className="text-end">Username: </p>
+            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+              <p className="text-lg-end">Username: </p>
             </div>
             <div className="col-12 col-lg-9 d-flex align-items-center">
               <input
