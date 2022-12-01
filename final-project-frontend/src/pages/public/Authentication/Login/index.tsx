@@ -11,6 +11,9 @@ import AuthenticationWrapper, {
 import logo from "assets/logo.webp";
 import { useCookies } from "react-cookie";
 import Navbar from "components/shared-components/Navbar";
+import { UserDispatch } from "redux/actions/UserAction/type";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "redux/actions/UserAction";
 
 const Login = () => {
   const {
@@ -23,6 +26,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [cookies, setCookie] = useCookies(["login"]);
+  const userDispatch:UserDispatch = useDispatch();
 
   const onSubmit: SubmitHandler<LoginInput> = async (data) => {
     try {
@@ -51,6 +55,8 @@ const Login = () => {
         path: "/",
         maxAge: 60 * 60 * 24,
       });
+
+      userDispatch(fetchUser(res.data.Token))
 
       navigate("/", { replace: false });
     } catch (error) {

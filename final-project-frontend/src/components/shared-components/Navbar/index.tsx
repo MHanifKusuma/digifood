@@ -9,12 +9,15 @@ import { useCookies } from "react-cookie";
 import { CartDispatch } from "redux/actions/CartAction/types";
 import { useDispatch } from "react-redux";
 import { resetCarts } from "redux/actions/CartAction";
+import { UserDispatch } from "redux/actions/UserAction/type";
+import { ResetUser } from "redux/actions/UserAction";
 
 const Navbar = () => {
   const currPath = useLocation();
   const navigate = useNavigate();
   const [cookies, setCookie, removeCookie] = useCookies(["login"]);
   const cartDispatch: CartDispatch = useDispatch();
+  const userDispatch: UserDispatch = useDispatch();
 
   return (
     <NavbarWrapper className="navbar navbar-expand-lg">
@@ -116,6 +119,7 @@ const Navbar = () => {
                       onClick={() => {
                         removeCookie("login");
                         cartDispatch(resetCarts());
+                        userDispatch(ResetUser());
                         navigate("/login");
                       }}
                       className="dropdown-item p-2"
