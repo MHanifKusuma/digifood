@@ -11,7 +11,8 @@ import (
 const (
 	SEARCH_BY_MENU_NAME = "name"
 	FILTER_BY_CATEGORY  = "category"
-	DEFAULT_SORT_BY     = "avg_rating"
+	SORT_BY_MENU_RATING = "avg_rating"
+	SORT_BY_PRICE       = "price"
 	SORT_BY_DATE        = "created_at"
 )
 

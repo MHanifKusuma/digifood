@@ -65,7 +65,7 @@ func newMenuPageableRequest(c *gin.Context) *model.PageableRequest {
 	p.Type = "menu"
 
 	if p.Sort_by == "" {
-		p.Sort_by = utils.DEFAULT_SORT_BY
+		p.Sort_by = utils.SORT_BY_MENU_RATING
 	}
 
 	p.Order = utils.OrderFromQueryParam(c)

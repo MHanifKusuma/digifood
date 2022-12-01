@@ -47,7 +47,7 @@ func newCouponPageableRequest(c *gin.Context) *model.PageableRequest {
 	p.Type = "coupon"
 
 	if p.Sort_by == "" {
-		p.Sort_by = utils.DEFAULT_SORT_BY
+		p.Sort_by = utils.SORT_BY_DATE
 	}
 
 	p.Order = utils.OrderFromQueryParam(c)
