@@ -19,7 +19,7 @@ const OrderCard = ({ order }: OrderCardProp) => {
         <div className="col-12 col-lg align-center align-lg-start mb-3 mb-lg-0">
           <h4>Order #{order.Id}</h4>
           <p className="mb-0">
-            {`${moment(order.CreatedAt).format("DD-MM-YYYY")}`}
+            {`${moment(order.CreatedAt).format("D MMM YYYY")}`}
           </p>
         </div>
         <div className="col-12 col-lg-3 align-center align-lg-start mb-3 mb-lg-0">
