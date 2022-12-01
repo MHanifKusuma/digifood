@@ -29,3 +29,14 @@ export interface INewOrder {
   total_price: number;
   order_detail: ICartItem[];
 }
+
+export interface IUpdateOrderDeliveryStatus {
+  OrderId: number;
+  DeliveryId: number;
+}
+
+export interface IOrderState {
+  data: IOrder;
+  isLoading: boolean;
+  isError: string | null;
+}
