@@ -10,7 +10,9 @@ const UserCoupon = () => {
 
   return (
     <div className="mt-5 mt-lg-0">
-      <h5 className="text-center">Your Coupons</h5>
+      <h5 className="text-center">
+        {user.UserCoupon.length > 0 ? "Your Coupons": "You don't have any coupon"}
+      </h5>
 
       <UserCouponWrapper>
         {user.UserCoupon.map((coupon) => (
