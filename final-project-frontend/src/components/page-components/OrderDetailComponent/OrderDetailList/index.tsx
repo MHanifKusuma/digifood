@@ -1,6 +1,7 @@
 import Button from "components/shared-components/Button";
 import { IOrderDetail } from "interfaces/Order";
 import React from "react";
+import { formatCurrency } from "utils/index";
 import OrderDetailListWrapper, { OrderDetailMenu } from "./style";
 
 interface OrderDetailListProp {
@@ -19,11 +20,13 @@ const OrderDetailList = ({ orderDetailList }: OrderDetailListProp) => {
             <div className="col d-flex flex-wrap mt-4 mt-lg-0">
               <div className="col">
                 <p className="fw-bolder mb-1">{orderDetail.Menu.Name}</p>
-                <p>Rp {orderDetail.Price}</p>
+                <p>Rp {formatCurrency(orderDetail.Price)}</p>
                 <p>Add-ons: {orderDetail.AddOns || "none"}</p>
               </div>
               <div className="col d-flex align-items-center justify-content-between">
-                <div>Rp {orderDetail.Price * orderDetail.Quantity}</div>
+                <div>
+                  Rp {formatCurrency(orderDetail.Price * orderDetail.Quantity)}
+                </div>
               </div>
             </div>
           </div>

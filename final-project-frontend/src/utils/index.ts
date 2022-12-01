@@ -108,3 +108,9 @@ export const lighterColor = (color: string, ratio: number) => {
 export const darkerColor = (color?: string, ratio?: number) => {
   return changeColor(color, ratio, true);
 };
+
+export const formatCurrency = (price: number) => {
+  let formatter = new Intl.NumberFormat("id-ID");
+
+  return formatter.format(price);
+};

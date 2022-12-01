@@ -3,6 +3,7 @@ import { IOrder } from "interfaces/Order";
 import moment from "moment";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { formatCurrency } from "utils/index";
 import OrderCardWrapper from "./style";
 
 interface OrderCardProp {
@@ -28,14 +29,16 @@ const OrderCard = ({ order }: OrderCardProp) => {
             <div className="d-flex align-items-start">
               {order.Coupon.Id != 0 && (
                 <span className="discounted-price">
-                  Rp
-                  {order.TotalPrice - order.Coupon.Coupon.DiscountAmount}
+                  Rp&nbsp;
+                  {formatCurrency(
+                    order.TotalPrice - order.Coupon.Coupon.DiscountAmount
+                  )}
                 </span>
               )}
               <span
                 className={`original-price ${order.Coupon.Id != 0 && "strike"}`}
               >
-                Rp{order.TotalPrice}
+                Rp {formatCurrency(order.TotalPrice)}
               </span>
             </div>
           </p>

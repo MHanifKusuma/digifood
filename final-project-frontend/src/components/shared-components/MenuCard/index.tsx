@@ -3,6 +3,7 @@ import StarIcon from "assets/StarIcon";
 import { IMenu } from "interfaces/Menu";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatCurrency } from "utils/index";
 import MenuCardWrapper, { FavoriteIcon } from "./style";
 
 interface MenuCardProps {
@@ -37,7 +38,7 @@ const MenuCard = ({ menu }: MenuCardProps) => {
             <p className="card-text mb-0 d-flex align-items-start">
               {menu.Promotion.Id != 0 && (
                 <span className="discounted-price">
-                  Rp {menu.Price - menu.Promotion.Discount}
+                  Rp {formatCurrency(menu.Price - menu.Promotion.Discount)}
                 </span>
               )}
               <span
@@ -45,7 +46,7 @@ const MenuCard = ({ menu }: MenuCardProps) => {
                   menu.Promotion.Id != 0 && "strike"
                 }`}
               >
-                Rp {menu.Price}
+                Rp {formatCurrency(menu.Price)}
               </span>
             </p>
             <p className="mb-0 d-flex align-items-center">

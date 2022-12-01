@@ -7,6 +7,7 @@ import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { updateOrderIsPaid } from "redux/actions/OrderAction";
 import { OrderDispatch } from "redux/actions/OrderAction/type";
+import { formatCurrency } from "utils/index";
 import OrderDetailSummaryWrapper from "./style";
 
 interface OrderDetailSummaryProp {
@@ -40,7 +41,7 @@ const OrderDetailSummary = ({
         <DiscountedPrice>
           {coupon.Id !== 0 && (
             <span className="discounted-price fw-bolder">
-              Rp {totalPrice - coupon.Coupon.DiscountAmount}
+              Rp {formatCurrency(totalPrice - coupon.Coupon.DiscountAmount)}
             </span>
           )}
           <span
@@ -48,7 +49,7 @@ const OrderDetailSummary = ({
               coupon.Id !== 0 && "strike"
             }`}
           >
-            Rp {totalPrice}
+            Rp {formatCurrency(totalPrice)}
           </span>
         </DiscountedPrice>
         <p className="mb-0">Coupon code:</p>

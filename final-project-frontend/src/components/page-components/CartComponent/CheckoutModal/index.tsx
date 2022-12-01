@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { resetCarts } from "redux/actions/CartAction";
 import { CartDispatch } from "redux/actions/CartAction/types";
 import { RootState } from "redux/reducers";
+import { formatCurrency } from "utils/index";
 import CheckoutModalWrapper from "./style";
 
 interface CheckoutModalProp {
@@ -105,7 +106,7 @@ const CheckoutModal = ({
                       </td>
                       <td className="text-center">{item.Quantity}</td>
                       <td className="text-end">
-                        <p>Rp {item.Price * item.Quantity}</p>
+                        <p>Rp {formatCurrency(item.Price * item.Quantity)}</p>
                       </td>
                     </tr>
                   ))}
@@ -117,7 +118,7 @@ const CheckoutModal = ({
                 Total Price:&nbsp;
                 {couponDiscount !== 0 && (
                   <span className="discounted-price fw-bolder">
-                    Rp {totalPrice - couponDiscount}
+                    Rp {formatCurrency(totalPrice - couponDiscount)}
                   </span>
                 )}
                 <span
@@ -125,7 +126,7 @@ const CheckoutModal = ({
                     couponDiscount !== 0 && "strike"
                   }`}
                 >
-                  Rp {totalPrice}
+                  Rp {formatCurrency(totalPrice)}
                 </span>
               </p>
               <div className="d-flex mt-3">

@@ -2,6 +2,7 @@ import moment from "moment";
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "redux/reducers";
+import { formatCurrency } from "utils/index";
 import UserCouponWrapper, { CouponWrapper } from "./style";
 
 const UserCoupon = () => {
@@ -21,7 +22,7 @@ const UserCoupon = () => {
             <p className="expired-text">
               Expired at: {moment(coupon.Expired_at).format("D MMMM YYYY")}
             </p>
-            <p>Discount: Rp {coupon.Coupon.DiscountAmount}</p>
+            <p>Discount: Rp {formatCurrency(coupon.Coupon.DiscountAmount)}</p>
           </CouponWrapper>
         ))}
       </UserCouponWrapper>

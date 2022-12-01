@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addCartsitem, setCartsTotalPrice } from "redux/actions/CartAction";
 import { CartDispatch } from "redux/actions/CartAction/types";
+import { formatCurrency } from "utils/index";
 import MenuInfoWrapper, { MenuOptionWrapper, OptionItem } from "./style";
 
 interface MenuInfoProps {
@@ -91,13 +92,13 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
       <p className="card-text mb-0 d-flex align-items-start fs-4 mt-4">
         {menu.Promotion.Id !== 0 && (
           <span className="discounted-price">
-            Rp {menu.Price - menu.Promotion.Discount}
+            Rp {formatCurrency(menu.Price - menu.Promotion.Discount)}
           </span>
         )}
         <span
           className={`original-price ${menu.Promotion.Id !== 0 && "strike"}`}
         >
-          Rp {menu.Price}
+          Rp {formatCurrency(menu.Price)}
         </span>
       </p>
 
@@ -128,7 +129,8 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
                 {option.Type === "check" && (
                   <>
                     <label htmlFor={`${option.Id}`}>
-                      {option.Name} <span>(+ Rp {option.Price})</span>
+                      {option.Name}{" "}
+                      <span>(+ Rp {formatCurrency(option.Price)})</span>
                     </label>
                     <input
                       id={`${option.Id}`}
@@ -201,7 +203,7 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
           }}
           btnFunction={handleAddToCart}
         >
-          Add to cart (Rp {totalPrice})
+          Add to cart (Rp {formatCurrency(totalPrice)})
         </Button>
       </div>
     </MenuInfoWrapper>

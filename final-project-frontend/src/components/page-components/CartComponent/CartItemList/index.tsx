@@ -11,6 +11,7 @@ import {
 } from "redux/actions/CartAction";
 import { CartDispatch } from "redux/actions/CartAction/types";
 import { RootState } from "redux/reducers";
+import { formatCurrency } from "utils/index";
 import CartItemListWrapper, { CartItem } from "./style";
 
 const CartItemList = () => {
@@ -61,7 +62,7 @@ const CartItemList = () => {
               <div className="col d-flex flex-wrap mt-4 mt-lg-0">
                 <div className="col">
                   <p className="fw-bolder mb-1">{item.menus.Name}</p>
-                  <p>Rp {item.Price}</p>
+                  <p>Rp {formatCurrency(item.Price)}</p>
                   <p>Add-ons: {item.AddOns || "none"}</p>
                 </div>
                 <div className="col d-flex align-items-center justify-content-between">
@@ -96,7 +97,7 @@ const CartItemList = () => {
                       </Button>
                     </div>
                   </div>
-                  <div>Rp {item.Price * item.Quantity}</div>
+                  <div>Rp {formatCurrency(item.Price * item.Quantity)}</div>
                   <div
                     className="trash-icon-wrapper"
                     onClick={() => {

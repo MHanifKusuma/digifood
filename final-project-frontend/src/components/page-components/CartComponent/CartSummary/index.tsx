@@ -1,8 +1,10 @@
 import Button from "components/shared-components/Button";
+import { format } from "path";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "redux/reducers";
+import { formatCurrency } from "utils/index";
 import CartSummaryWrapper, { SummaryWrapper } from "./style";
 
 interface CartSummaryProp {
@@ -24,7 +26,7 @@ const CartSummary = ({ setShowCheckoutModal }: CartSummaryProp) => {
         <div className="summary">
           <h4>Summary</h4>
           <p>
-            Total: <span>Rp {totalPrice}</span>{" "}
+            Total: <span>Rp {formatCurrency(totalPrice)}</span>{" "}
           </p>
         </div>
         <div className="coupon mt-3 mt-lg-0">Add Coupon:</div>
