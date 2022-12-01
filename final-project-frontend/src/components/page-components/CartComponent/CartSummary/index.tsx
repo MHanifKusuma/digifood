@@ -29,7 +29,6 @@ const CartSummary = ({ setShowCheckoutModal }: CartSummaryProp) => {
             Total: <span>Rp {formatCurrency(totalPrice)}</span>{" "}
           </p>
         </div>
-        <div className="coupon mt-3 mt-lg-0">Add Coupon:</div>
       </SummaryWrapper>
       <div className="buttons d-flex justify-content-center">
         <Button
