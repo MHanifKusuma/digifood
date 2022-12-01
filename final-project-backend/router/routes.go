@@ -27,7 +27,7 @@ func HandleRequests(db *gorm.DB) {
 	paymentService := service.NewPaymentService(paymentRepository)
 	deliveryService := service.NewDeliveryService(deliveryRepository)
 	orderService := service.NewOrderService(orderRepository, couponService, paymentService, deliveryService)
-	userService := service.NewUserService(userRepository, menuService)
+	userService := service.NewUserService(userRepository, menuService, authService)
 
 	authHandler := handler.NewAuthHandler(authService)
 	categoryHandler := handler.NewCategoryHandler(categoryService)

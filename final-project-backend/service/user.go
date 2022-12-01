@@ -10,17 +10,20 @@ import (
 type userService struct {
 	repository  repository.UserRepository
 	menuService MenuService
+	authService AuthService
 }
 
 type UserService interface {
 	GetUserProfile(userId int) (*model.UserResponse, int, error)
 	AddUserFavorite(newFavorite model.NewUserFavorite) (string, int, error)
+	UpdateUserProfile(data model.User) (string, int, error)
 }
 
-func NewUserService(repository repository.UserRepository, menuService MenuService) UserService {
+func NewUserService(repository repository.UserRepository, menuService MenuService, authService AuthService) UserService {
 	return &userService{
 		repository:  repository,
 		menuService: menuService,
+		authService: authService,
 	}
 }
 
@@ -45,4 +48,28 @@ func (us *userService) AddUserFavorite(newFavorite model.NewUserFavorite) (strin
 	}
 
 	return message, http.StatusOK, nil
+}
+
+func (us *userService) UpdateUserProfile(user model.User) (string, int, error) {
+	checkDuplicateStatus, checkDuplicateError := us.authService.CheckDuplicateUserData(&user)
+	if checkDuplicateError != nil {
+		return "error", checkDuplicateStatus, checkDuplicateError
+	}
+
+	userId := user.Id
+	data := map[string]interface{}{
+		"full_name":       user.FullName,
+		"email":           user.Email,
+		"phone":           user.Phone,
+		"username":        user.Username,
+		"profile_picture": user.ProfilePicture,
+	}
+
+	message, updateError := us.repository.UpdateUserProfile(userId, data)
+	if updateError != nil {
+		return "", http.StatusNotFound, utils.ErrUserNotFound
+	}
+
+	return message, http.StatusOK, nil
+
 }

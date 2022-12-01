@@ -65,3 +65,30 @@ func (uh *UserHandler) AddFavorite(c *gin.Context) {
 
 	utils.SuccessResponse(c.Writer, message, status)
 }
+
+func (uh *UserHandler) UpdateUserProfile(c *gin.Context) {
+	var user model.User
+
+	if bindJsonError := c.ShouldBindJSON(&user); bindJsonError != nil {
+		utils.ErrorResponse(c.Writer, utils.ErrConvertRequesData.Error(), http.StatusBadRequest)
+		return
+	}
+
+	getUserId, userExists := c.Get("user_id")
+	if !userExists {
+		utils.ErrorResponse(c.Writer, utils.ErrUserNotFound.Error(), http.StatusUnauthorized)
+		return
+	}
+	id := getUserId.(string)
+	userId, _ := strconv.Atoi(id)
+
+	user.Id = userId
+
+	message, status, updateError := uh.service.UpdateUserProfile(user)
+	if updateError != nil {
+		utils.ErrorResponse(c.Writer, updateError.Error(), status)
+		return
+	}
+
+	utils.SuccessResponse(c.Writer, message, status)
+}

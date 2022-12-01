@@ -13,6 +13,7 @@ type userRepository struct {
 type UserRepository interface {
 	GetUserProfile(userId int) (*model.UserResponse, error)
 	AddUserFavorite(newFavorite model.NewUserFavorite) (string, error)
+	UpdateUserProfile(userId int, data map[string]interface{}) (string, error)
 }
 
 func NewUserRepository(db *gorm.DB) UserRepository {
@@ -49,4 +50,16 @@ func (ur *userRepository) AddUserFavorite(newFavorite model.NewUserFavorite) (st
 	}
 
 	return "add user favorite success", nil
+}
+
+func (ur *userRepository) UpdateUserProfile(userId int, data map[string]interface{}) (string, error) {
+	res := ur.db.
+		Model(&model.User{}).
+		Where("id = ?", userId).
+		Updates(data)
+	if res.Error != nil {
+		return "", res.Error
+	}
+
+	return "success", res.Error
 }
