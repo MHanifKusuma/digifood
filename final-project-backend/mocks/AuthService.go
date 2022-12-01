@@ -13,6 +13,27 @@ type AuthService struct {
 	mock.Mock
 }
 
+// CheckDuplicateUserData provides a mock function with given fields: data
+func (_m *AuthService) CheckDuplicateUserData(data *model.User) (int, error) {
+	ret := _m.Called(data)
+
+	var r0 int
+	if rf, ok := ret.Get(0).(func(*model.User) int); ok {
+		r0 = rf(data)
+	} else {
+		r0 = ret.Get(0).(int)
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(*model.User) error); ok {
+		r1 = rf(data)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // Login provides a mock function with given fields: loginUser
 func (_m *AuthService) Login(loginUser *model.UserLogin) (string, int, error) {
 	ret := _m.Called(loginUser)

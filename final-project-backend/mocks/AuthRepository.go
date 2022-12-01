@@ -13,6 +13,27 @@ type AuthRepository struct {
 	mock.Mock
 }
 
+// CheckDuplicateInfo provides a mock function with given fields: data
+func (_m *AuthRepository) CheckDuplicateInfo(data model.UserLogin) (int, error) {
+	ret := _m.Called(data)
+
+	var r0 int
+	if rf, ok := ret.Get(0).(func(model.UserLogin) int); ok {
+		r0 = rf(data)
+	} else {
+		r0 = ret.Get(0).(int)
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(model.UserLogin) error); ok {
+		r1 = rf(data)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // FindUserByLoginInfo provides a mock function with given fields: userLogin
 func (_m *AuthRepository) FindUserByLoginInfo(userLogin model.UserLogin) (*model.User, error) {
 	ret := _m.Called(userLogin)
