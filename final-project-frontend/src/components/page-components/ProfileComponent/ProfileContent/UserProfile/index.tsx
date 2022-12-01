@@ -92,7 +92,7 @@ const UserProfile = ({ user }: UserProfileProp) => {
             <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
               <p className="text-lg-end">Profile Picture: </p>
             </div>
-            <div className="col-12 col-lg-9 d-flex align-items-center">
+            <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
               <input
                 type="file"
                 accept="image/*"
@@ -109,7 +109,7 @@ const UserProfile = ({ user }: UserProfileProp) => {
             <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
               <p className="text-lg-end">Full Name: </p>
             </div>
-            <div className="col-12 col-lg-9 d-flex align-items-center">
+            <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
               <input
                 type="text"
                 className="form-control"
@@ -121,7 +121,9 @@ const UserProfile = ({ user }: UserProfileProp) => {
                 disabled={!enableInput}
               />
               {errors.fullName?.type === "required" && (
-                <ErrorMessage>Full name is required</ErrorMessage>
+                <div className="col-12 col-lg-3">
+                  <ErrorMessage>Full name is required</ErrorMessage>
+                </div>
               )}
             </div>
           </div>
@@ -129,7 +131,7 @@ const UserProfile = ({ user }: UserProfileProp) => {
             <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
               <p className="text-lg-end">Email: </p>
             </div>
-            <div className="col-12 col-lg-9 d-flex align-items-center">
+            <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
               <input
                 type="email"
                 className="form-control"
@@ -141,7 +143,9 @@ const UserProfile = ({ user }: UserProfileProp) => {
                 disabled={!enableInput}
               />
               {errors.email?.type === "required" && (
-                <ErrorMessage>Email is required</ErrorMessage>
+                <div className="col-12 col-lg-3">
+                  <ErrorMessage>Email is required</ErrorMessage>
+                </div>
               )}
             </div>
           </div>
@@ -149,7 +153,7 @@ const UserProfile = ({ user }: UserProfileProp) => {
             <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
               <p className="text-lg-end">Phone Number: </p>
             </div>
-            <div className="col-12 col-lg-9 d-flex align-items-center">
+            <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
               <input
                 type="text"
                 className="form-control"
@@ -161,7 +165,9 @@ const UserProfile = ({ user }: UserProfileProp) => {
                 disabled={!enableInput}
               />
               {errors.phone?.type === "required" && (
-                <ErrorMessage>Phone number is required</ErrorMessage>
+                <div className="col-12 col-lg-3">
+                  <ErrorMessage>Phone number is required</ErrorMessage>
+                </div>
               )}
             </div>
           </div>
@@ -169,7 +175,7 @@ const UserProfile = ({ user }: UserProfileProp) => {
             <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
               <p className="text-lg-end">Username: </p>
             </div>
-            <div className="col-12 col-lg-9 d-flex align-items-center">
+            <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
               <input
                 type="text"
                 className="form-control"
@@ -181,7 +187,9 @@ const UserProfile = ({ user }: UserProfileProp) => {
                 disabled={!enableInput}
               />
               {errors.username?.type === "required" && (
-                <ErrorMessage>Username is required</ErrorMessage>
+                <div className="col-12 col-lg-3">
+                  <ErrorMessage>Username is required</ErrorMessage>
+                </div>
               )}
             </div>
           </div>
@@ -216,7 +224,9 @@ const UserProfile = ({ user }: UserProfileProp) => {
             </div>
             {error && (
               <div className="col-12 col-lg-8 d-flex align-items-center ms-0 ms-lg-3 mt-2 mt-lg-0">
-                <ErrorMessage>{error}</ErrorMessage>
+                <div className="col-12 col-lg-3">
+                  <ErrorMessage>{error}</ErrorMessage>
+                </div>
               </div>
             )}
           </div>
