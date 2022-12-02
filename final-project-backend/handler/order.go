@@ -46,9 +46,21 @@ func (oh *OrderHandler) GetUserOrderById(c *gin.Context) {
 		utils.ErrorResponse(c.Writer, utils.ErrUserNotFound.Error(), http.StatusUnauthorized)
 		return
 	}
-
 	id := getUserId.(string)
-	userId, _ := strconv.Atoi(id)
+	
+	getUserRole, roleExists := c.Get("user_role")
+	if !roleExists {
+		utils.ErrorResponse(c.Writer, "error baru", http.StatusUnauthorized)
+		return
+	}
+
+	
+	var userId int
+	if(getUserRole.(string) == "0") {
+		userId = -1
+	} else {
+		userId, _ = strconv.Atoi(id)
+	}
 
 	orderId, orderIdError := strconv.Atoi(c.Param("id"))
 	if orderIdError != nil {

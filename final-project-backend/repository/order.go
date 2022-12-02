@@ -114,8 +114,13 @@ func (or *orderRepository) GetUserOrderById(userId, orderId int) (*model.Order, 
 		Preload("PaymentOption").
 		Preload("DeliveryStatus").
 		Preload("OrderDetail").Preload("OrderDetail.Menu").Preload("OrderDetail.Menu.Promotion").
-		Where("user_id = ? and id = ?", userId, orderId).
-		Find(&order)
+		Where("id = ?", orderId)
+		
+	if userId != -1 {
+		res.Where("user_id = ?", userId)
+	}
+
+	res.Find(&order)
 	if res.Error != nil {
 		return nil, res.Error
 	}
