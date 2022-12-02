@@ -41,10 +41,14 @@ const MenuDetail = () => {
 
   if (fetchError) {
     return (
-      <MenuDetailWrapper>
+      <>
         <Navbar />
-        <h1>Menu is Missing</h1>
-      </MenuDetailWrapper>
+        <MenuDetailWrapper className="container py-5 justify-content-center">
+          <h5 className="text-center">
+            Sorry, we currently don't have what you're looking for
+          </h5>
+        </MenuDetailWrapper>
+      </>
     );
   }
 
