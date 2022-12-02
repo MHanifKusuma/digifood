@@ -4,8 +4,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 import { Route, Routes } from "react-router-dom";
-import Login from "pages/public/Authentication/Login";
-import Register from "pages/public/Authentication/Register";
 import Home from "pages/public/Home";
 import Menu from "pages/public/Menu";
 import MenuDetail from "pages/public/MenuDetail";
@@ -19,9 +17,11 @@ import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { fetchUser } from "redux/actions/UserAction";
 import Promo from "pages/public/Promo";
-import AuthenticationRoutes from "pages/public/Authentication";
 import Error404 from "pages/public/Error/Error404";
 import Game from "pages/protected/Game";
+import AuthenticationRoutes from "pages/authentication";
+import Login from "pages/authentication/Login";
+import Register from "pages/authentication/Register";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
