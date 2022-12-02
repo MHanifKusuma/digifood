@@ -1,15 +1,19 @@
+import AdminNavbar from "components/shared-components/AdminNavbar";
 import Button from "components/shared-components/Button";
 import Navbar from "components/shared-components/Navbar";
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "redux/reducers";
 import Error404Wrapper from "./style";
 
 const Error404 = () => {
   const navigate = useNavigate();
+  const { user } = useSelector((state: RootState) => state.UsersReducer);
 
   return (
     <>
-      <Navbar />
+      {user.Role != 0 ? <Navbar /> : <AdminNavbar />}
       <Error404Wrapper className="py-5">
         <div>
           <h1>Error 404</h1>
