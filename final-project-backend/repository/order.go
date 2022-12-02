@@ -110,6 +110,9 @@ func (or *orderRepository) GetUserOrderById(userId, orderId int) (*model.Order, 
 	var order *model.Order
 
 	res := or.db.
+		Preload("User", func(db *gorm.DB) *gorm.DB {
+			return db.Select("users.id", "users.full_name", "users.email", "users.username")
+		}).
 		Preload("Coupon").Preload("Coupon.Coupon").
 		Preload("PaymentOption").
 		Preload("DeliveryStatus").
