@@ -37,6 +37,6 @@ export interface IUpdateOrderDeliveryStatus {
 
 export interface IOrderState {
   data: IOrder;
-  isLoading: boolean;
-  isError: string | null;
+  orderLoading: boolean;
+  orderError: string | null;
 }

@@ -28,8 +28,8 @@ const initialOrderState: IOrderState = {
     TotalPrice: 0,
     CreatedAt: date,
   },
-  isLoading: false,
-  isError: null,
+  orderLoading: false,
+  orderError: null,
 };
 
 export function OrdersReducer(
@@ -46,13 +46,13 @@ export function OrdersReducer(
     case OrderActionType.SET_LOADING:
       return {
         ...state,
-        isLoading: action.payload,
+        orderLoading: action.payload,
       };
 
     case OrderActionType.SET_ERROR:
       return {
         ...state,
-        isError: action.payload,
+        orderError: action.payload,
       };
 
     default:

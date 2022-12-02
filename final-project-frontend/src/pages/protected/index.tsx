@@ -19,10 +19,18 @@ const ProtectedRoutes = () => {
 
   const navigate = useNavigate();
   const { userError } = useSelector((state: RootState) => state.UsersReducer);
+  const { orderError } = useSelector((state: RootState) => state.OrdersReducer);
+
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   useEffect(() => {
     if (userError) {
+      setModalMessage(userError);
+      setShowErrorModal(true);
+      removeCookie("login");
+    } else if (orderError) {
+      setModalMessage(orderError);
       setShowErrorModal(true);
       removeCookie("login");
     } else {
@@ -36,7 +44,7 @@ const ProtectedRoutes = () => {
         <ErrorModal
           show={showErrorModal}
           handleClose={() => setShowErrorModal(false)}
-          message={userError}
+          message={modalMessage}
           button={
             <Button
               btnStyle={{
