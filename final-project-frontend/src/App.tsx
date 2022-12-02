@@ -13,7 +13,7 @@ import Order from "pages/protected/Order";
 import OrderDetail from "pages/protected/OrderDetail";
 import Profile from "pages/protected/Profile";
 import { UserDispatch } from "redux/actions/UserAction/type";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { fetchUser } from "redux/actions/UserAction";
 import Promo from "pages/public/Promo";
@@ -22,6 +22,9 @@ import Game from "pages/protected/Game";
 import AuthenticationRoutes from "pages/authentication";
 import Login from "pages/authentication/Login";
 import Register from "pages/authentication/Register";
+import { RootState } from "redux/reducers";
+import Dashboard from "pages/admin/Dashboard";
+import AdminRoutes from "pages/admin";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
@@ -30,33 +33,49 @@ function App() {
     userDispatch(fetchUser(cookies.login));
   };
 
+  const { user } = useSelector((state: RootState) => state.UsersReducer);
   useEffect(() => {
     setUserProfile();
   }, []);
 
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/menus" element={<Menu />} />
-        <Route path="/menus/:id/:name" element={<MenuDetail />} />
-        <Route path="/promos" element={<Promo />} />
+      {user.Role != 0 ? (
+        <Routes>
+          <Route element={<AuthenticationRoutes />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
 
-        <Route element={<AuthenticationRoutes />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/menus" element={<Menu />} />
+          <Route path="/menus/:id/:name" element={<MenuDetail />} />
+          <Route path="/promos" element={<Promo />} />
 
-        <Route element={<ProtectedRoutes />}>
-          <Route path="/carts" element={<Cart />} />
-          <Route path="/orders" element={<Order />} />
-          <Route path="/orders/:id" element={<OrderDetail />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/games" element={<Game />} />
-        </Route>
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/carts" element={<Cart />} />
+            <Route path="/orders" element={<Order />} />
+            <Route path="/orders/:id" element={<OrderDetail />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/games" element={<Game />} />
+          </Route>
 
-        <Route path="*" element={<Error404 />} />
-      </Routes>
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+      ) : (
+        <Routes>
+          <Route element={<AuthenticationRoutes />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
+
+          <Route element={<AdminRoutes />}>
+            <Route path="/" element={<Dashboard />} />
+          </Route>
+
+          <Route path="*" element={<Error404 />} />
+        </Routes>
+      )}
     </div>
   );
 }

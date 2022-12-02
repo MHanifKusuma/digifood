@@ -20,8 +20,6 @@ const MenuList = ({
 }: MenuListProps) => {
   const [pagination, setPagination] = useState<string[]>([]);
 
-  console.log(window.innerWidth);
-
   const handlePagination = (totalPage: number, currentPage: number) => {
     let element: string[] = [];
 

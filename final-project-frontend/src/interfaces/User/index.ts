@@ -7,6 +7,7 @@ export interface IUser {
   ProfilePicture: string;
   Phone: string;
   Username: string;
+  Role: number;
   UserFavorite: IUserFavorite[];
   UserCoupon: IUserCoupons[];
 }
