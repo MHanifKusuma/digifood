@@ -20,6 +20,7 @@ import { useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
 import { fetchUser } from "redux/actions/UserAction";
 import Promo from "pages/public/Promo";
+import AuthenticationRoutes from "pages/public/Authentication";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
@@ -38,11 +39,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/menus" element={<Menu />} />
         <Route path="/menus/:id/:name" element={<MenuDetail />} />
+        <Route path="/promos" element={<Promo />} />
 
-        <Route element={<PublicRoutes />}>
+        <Route element={<AuthenticationRoutes />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/promos" element={<Promo />} />
         </Route>
 
         <Route element={<ProtectedRoutes />}>
