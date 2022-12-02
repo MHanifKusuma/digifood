@@ -17,6 +17,7 @@ type OrderRepository interface {
 	GetUserOrderById(userId, orderId int) (*model.Order, error)
 	CreateUserOrder(newOrder *model.NewOrder) (*model.OrderIdResponse, error)
 	UpdateDeliveryStatus(orderId, deliveryStatusId int) (string, error)
+	GetAllOrder(pageable utils.Pageable) (*utils.Page, error)
 }
 
 func NewOrderRepository(db *gorm.DB) OrderRepository {
@@ -40,6 +41,7 @@ func (or *orderRepository) GetAllUserOrder(userId int, pageable utils.Pageable) 
 			Joins("join order_details on order_details.order_id = orders.id").
 			Joins("join menus on menus.id = order_details.menu_id").
 			Group("orders.id").
+			Where("orders.user_id = ?", userId).
 			Where("menus.name ILIKE ?", arguments[0]).
 			Where("menus.category_id = ?", arguments[1]).
 			Count(&count).Error
@@ -49,6 +51,7 @@ func (or *orderRepository) GetAllUserOrder(userId int, pageable utils.Pageable) 
 			Joins("join order_details on order_details.order_id = orders.id").
 			Joins("join menus on menus.id = order_details.menu_id").
 			Group("orders.id").
+			Where("orders.user_id = ?", userId).
 			Where("menus.name ILIKE ?", arguments[0]).
 			Count(&count).Error
 	}
@@ -76,6 +79,7 @@ func (or *orderRepository) GetAllUserOrder(userId int, pageable utils.Pageable) 
 			Joins("join order_details on order_details.order_id = orders.id").
 			Joins("join menus on menus.id = order_details.menu_id").
 			Group("orders.id").
+			Where("orders.user_id = ?", userId).
 			Where("menus.name ILIKE ?", arguments[0]).
 			Where("menus.category_id = ?", arguments[1]).
 			Order(arguments[2]).
@@ -142,7 +146,6 @@ func (or *orderRepository) CreateUserOrder(newOrder *model.NewOrder) (*model.Ord
 	}
 
 	for _, detail := range newOrder.OrderDetail {
-		fmt.Println(detail)
 		detail.OrderId = order.Id
 		if createNewOrderDetailError := or.db.Create(&detail).Error; createNewOrderDetailError != nil {
 			return nil, createNewOrderDetailError
@@ -165,4 +168,78 @@ func (or *orderRepository) UpdateDeliveryStatus(orderId, deliveryStatusId int) (
 	}
 
 	return "update success", nil
+}
+
+func (or *orderRepository) GetAllOrder(pageable utils.Pageable) (*utils.Page, error) {
+	var count int64
+
+	arguments := []interface{}{
+		pageable.FilterParams()[utils.FILTER_BY_CREATED_DATE],
+	}
+
+	getCount := or.db.Model(&model.Order{}).
+		Joins("join order_details on order_details.order_id = orders.id").
+		Joins("join menus on menus.id = order_details.menu_id").
+		Group("orders.id")
+
+	if arguments[0] != nil {
+		dateField := arguments[0].(*model.OrderDateFilter)
+
+		if !dateField.End.IsZero() {
+			getCount.Where("orders.created_at < ? and orders.created_at > ?", dateField.Start, dateField.End)
+		} else {
+			getCount.Where("orders.created_at > ?", dateField.Start)
+		}
+	}
+
+	countError := getCount.Count(&count).Error
+
+	if countError != nil {
+		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable(model.Order{}), nil
+	}
+
+	if count == 0 {
+		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable(model.Order{}), nil
+	}
+
+	paginator := utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), int(count))
+	arguments = append(arguments, pageable.SortBy(), paginator.PerPageNums, paginator.Offset())
+
+	var orders []model.Order
+	var getError error
+
+	getData := or.db.
+		Preload("User").
+		Preload("Coupon").Preload("Coupon.Coupon").
+		Preload("PaymentOption").
+		Preload("DeliveryStatus").
+		Preload("OrderDetail").Preload("OrderDetail.Menu").Preload("OrderDetail.Menu.Promotion").
+		Joins("join order_details on order_details.order_id = orders.id").
+		Joins("join menus on menus.id = order_details.menu_id").
+		Group("orders.id")
+
+	if arguments[0] != nil {
+		dateField := arguments[0].(*model.OrderDateFilter)
+
+		if !dateField.End.IsZero() {
+			getCount.Where("orders.created_at < ? and orders.created_at > ?", dateField.Start, dateField.End)
+		} else {
+			getCount.Where("orders.created_at > ?", dateField.Start)
+		}
+
+		getData.Order(arguments[1]).
+			Limit(arguments[2].(int)).
+			Offset(arguments[3].(int)).
+			Find(&orders)
+	} else {
+		fmt.Println("dont filter date")
+		getData.Order(arguments[1]).
+			Limit(arguments[2].(int)).
+			Offset(arguments[3].(int)).
+			Find(&orders)
+	}
+
+	getError = getData.Error
+
+	return paginator.Pageable(orders), getError
 }

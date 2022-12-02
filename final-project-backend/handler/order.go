@@ -6,6 +6,7 @@ import (
 	"final-project-backend/service"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -95,7 +96,7 @@ func (oh *OrderHandler) CreateUserOrder(c *gin.Context) {
 
 func (oh *OrderHandler) UpdateDeliveryStatus(c *gin.Context) {
 	type updateDeliveryStatus struct {
-		OrderId int
+		OrderId    int
 		DeliveryId int
 	}
 
@@ -115,6 +116,25 @@ func (oh *OrderHandler) UpdateDeliveryStatus(c *gin.Context) {
 	utils.SuccessResponse(c.Writer, message, status)
 }
 
+func (oh *OrderHandler) GetAllOrder(c *gin.Context) {
+	getUserRole, userExists := c.Get("user_role")
+	if !userExists {
+		utils.ErrorResponse(c.Writer, utils.ErrUserNotFound.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	role := getUserRole.(string)
+	userRole, _ := strconv.Atoi(role)
+
+	allOrders, status, allOrdersError := oh.service.GetAllOrder(userRole, newAdminOrderPageableRequest(c))
+	if allOrdersError != nil {
+		utils.ErrorResponse(c.Writer, allOrdersError.Error(), status)
+		return
+	}
+
+	utils.SuccessResponse(c.Writer, allOrders, status)
+}
+
 func newOrderPageableRequest(c *gin.Context) *model.PageableRequest {
 	p := &model.PageableRequest{}
 	p.Page = utils.PageFromQueryParam(c)
@@ -132,6 +152,48 @@ func newOrderPageableRequest(c *gin.Context) *model.PageableRequest {
 
 	p.Search[utils.SEARCH_BY_MENU_NAME] = utils.QueryLikeParamOrNull(c, utils.SEARCH_BY_MENU_NAME)
 	p.Filters[utils.FILTER_BY_CATEGORY] = utils.QueryParamOrNull(c, utils.FILTER_BY_CATEGORY)
+
+	return p
+}
+
+func newAdminOrderPageableRequest(c *gin.Context) *model.PageableRequest {
+	p := &model.PageableRequest{}
+	p.Page = utils.PageFromQueryParam(c)
+	p.Limit = utils.LimitFromQueryParam(c)
+	p.Sort_by = utils.SortValueFromQueryParam(c)
+	p.Type = "adminOrder"
+
+	if p.Sort_by == "" {
+		p.Sort_by = utils.SORT_BY_DATE
+	}
+
+	p.Order = utils.OrderFromQueryParam(c)
+	p.Search = map[string]interface{}{}
+	p.Filters = map[string]interface{}{}
+
+	filterDate := utils.QueryParamOrNull(c, utils.FILTER_BY_CREATED_DATE)
+	dateFilter := new(model.OrderDateFilter)
+
+	if filterDate != nil {
+		switch filterDate {
+		case "this_week":
+			dateFilter.Start = time.Now().AddDate(0, 0, -7)
+
+			p.Filters[utils.FILTER_BY_CREATED_DATE] = dateFilter
+
+		case "this_month":
+			dateFilter.Start = time.Now().AddDate(0, -1, 0)
+
+			p.Filters[utils.FILTER_BY_CREATED_DATE] = dateFilter
+
+		case "last_month":
+			dateFilter.Start = time.Now().AddDate(0, -1, 0)
+			dateFilter.End = time.Now().AddDate(0, -2, 0)
+
+			p.Filters[utils.FILTER_BY_CREATED_DATE] = dateFilter
+		}
+
+	}
 
 	return p
 }

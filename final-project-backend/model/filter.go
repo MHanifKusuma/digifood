@@ -45,6 +45,10 @@ func (p *PageableRequest) SortBy() string {
 		if strings.ToLower(p.Sort_by) != "expired_at" {
 			return "expired_at DESC"
 		}
+	case "adminOrder":
+		if strings.ToLower(p.Sort_by) != "created_at" {
+			return "created_at DESC"
+		}
 	default:
 		return "avg_rating DESC"
 	}

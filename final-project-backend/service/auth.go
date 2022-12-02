@@ -35,7 +35,7 @@ func (as *authService) Login(loginUser *model.UserLogin) (string, int, error) {
 		return "", http.StatusForbidden, utils.ErrWrongLoginCredential
 	}
 
-	token, err := jwt.GenerateToken(fmt.Sprintf("%d", user.Id))
+	token, err := jwt.GenerateToken(fmt.Sprintf("%d", user.Role), fmt.Sprintf("%d", user.Id))
 	if err != nil {
 		return "", http.StatusInternalServerError, utils.ErrNotExpected
 	}

@@ -9,11 +9,12 @@ import (
 )
 
 const (
-	SEARCH_BY_MENU_NAME = "name"
-	FILTER_BY_CATEGORY  = "category"
-	SORT_BY_MENU_RATING = "avg_rating"
-	SORT_BY_PRICE       = "price"
-	SORT_BY_DATE        = "created_at"
+	SEARCH_BY_MENU_NAME    = "name"
+	FILTER_BY_CATEGORY     = "category"
+	FILTER_BY_CREATED_DATE = "date"
+	SORT_BY_MENU_RATING    = "avg_rating"
+	SORT_BY_PRICE          = "price"
+	SORT_BY_DATE           = "created_at"
 )
 
 type Pageable interface {

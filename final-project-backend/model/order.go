@@ -49,3 +49,8 @@ type NewOrder struct {
 	OrderDate        time.Time
 	OrderDetail      []OrderDetail `json:"order_detail"`
 }
+
+type OrderDateFilter struct {
+	Start time.Time
+	End   time.Time
+}

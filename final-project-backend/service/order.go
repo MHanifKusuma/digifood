@@ -19,6 +19,7 @@ type OrderService interface {
 	GetUserOrderById(userId, orderId int) (*model.Order, int, error)
 	CreateUserOrder(newOrder *model.NewOrder) (*model.OrderIdResponse, int, error)
 	UpdateDeliveryStatus(orderId, deliveryStatusId int) (string, int, error)
+	GetAllOrder(userRole int, pageable utils.Pageable) (*utils.Page, int, error)
 }
 
 func NewOrderService(repository repository.OrderRepository, couponService CouponService,
@@ -99,4 +100,17 @@ func (os *orderService) UpdateDeliveryStatus(orderId, deliveryStatusId int) (str
 	}
 
 	return message, http.StatusOK, nil
+}
+
+func (os *orderService) GetAllOrder(userRole int, pageable utils.Pageable) (*utils.Page, int, error) {
+	if userRole != 0 {
+		return nil, http.StatusUnauthorized, utils.ErrPageRestricted
+	}
+
+	order, dataError := os.repository.GetAllOrder(pageable)
+	if dataError != nil {
+		return nil, http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return order, http.StatusOK, nil
 }
