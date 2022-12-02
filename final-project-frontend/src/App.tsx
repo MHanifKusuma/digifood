@@ -21,6 +21,7 @@ import { fetchUser } from "redux/actions/UserAction";
 import Promo from "pages/public/Promo";
 import AuthenticationRoutes from "pages/public/Authentication";
 import Error404 from "pages/public/Error/Error404";
+import Game from "pages/protected/Game";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
           <Route path="/orders" element={<Order />} />
           <Route path="/orders/:id" element={<OrderDetail />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/games" element={<Game />} />
         </Route>
 
         <Route path="*" element={<Error404 />} />
