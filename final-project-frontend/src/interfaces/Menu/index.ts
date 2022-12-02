@@ -20,6 +20,13 @@ export interface IMenu {
   Promotion: IPromotion;
 }
 
+export interface IMenuPagination {
+  data: IMenu[];
+  current_page: number;
+  total: number;
+  total_page: number;
+}
+
 export interface IMenuByCategory {
   Id: number;
   Name: string;

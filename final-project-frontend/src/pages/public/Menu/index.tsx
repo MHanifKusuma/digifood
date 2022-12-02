@@ -6,7 +6,7 @@ import Button from "components/shared-components/Button";
 import Navbar from "components/shared-components/Navbar";
 import { ICategory } from "interfaces/Category";
 import { IFilterOption } from "interfaces/FilterOption";
-import { IMenu } from "interfaces/Menu";
+import { IMenu, IMenuPagination } from "interfaces/Menu";
 import React, { useEffect, useState } from "react";
 import MenuWrapper from "./style";
 
@@ -34,9 +34,14 @@ const Menu = () => {
   };
 
   const [categories, setCategories] = useState<ICategory[]>([]);
-  const [menu, setMenu] = useState<IMenu[]>([]);
+  const [menu, setMenu] = useState<IMenuPagination>({
+    current_page: 0,
+    data: [],
+    total: 0,
+    total_page: 0,
+  });
   const [filterOption, setFilterOption] = useState<IFilterOption>({
-    limit: 12,
+    limit: 1,
   });
   const [isLastPage, setIsLastPage] = useState(false);
 
@@ -52,7 +57,7 @@ const Menu = () => {
         params: filterOption,
       })
       .then((data) => {
-        setMenu(data.data.data.data);
+        setMenu(data.data.data);
         setIsLastPage(data.data.data.current_page == data.data.data.total_page);
       });
   };
