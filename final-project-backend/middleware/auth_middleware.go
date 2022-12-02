@@ -26,7 +26,7 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		authToken = strings.Replace(authToken, "Bearer ", "", 1)
 
-		user_id, err := jwt.ValidateToken(authToken)
+		role, user_id, err := jwt.ValidateToken(authToken)
 		if err != nil || user_id == "" {
 			utils.ErrorResponse(ctx.Writer, utils.ErrTokenInvalid.Error(), http.StatusForbidden)
 			ctx.Abort()
@@ -34,6 +34,7 @@ func AuthMiddleware() gin.HandlerFunc {
 		}
 
 		ctx.Set("user_id", user_id)
+		ctx.Set("user_role", role)
 		ctx.Next()
 	}
 }

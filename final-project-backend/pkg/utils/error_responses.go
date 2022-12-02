@@ -22,6 +22,7 @@ var (
 	ErrNotExpected            = NewError("unexpected error occured, please try again later")
 	ErrTokenInvalid           = NewError("token invalid")
 	ErrConvertRequesData      = NewError("invalid request data")
+	ErrPageRestricted         = NewError("page restricted")
 )
 
 func NewError(msg string) error {

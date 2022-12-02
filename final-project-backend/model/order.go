@@ -9,6 +9,7 @@ import (
 type Order struct {
 	Id               int            `gorm:"primaryKey;column:id"`
 	UserId           int            `gorm:"column:user_id"`
+	User             User           `gorm:"foreignKey:Id;references:UserId"`
 	CouponId         int            `gorm:"column:coupon_id"`
 	Coupon           UserCoupon     `gorm:"foreignKey:Id;references:CouponId"`
 	PaymentOptionId  int            `gorm:"payment_option_id"`
