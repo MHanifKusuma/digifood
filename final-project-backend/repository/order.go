@@ -209,7 +209,9 @@ func (or *orderRepository) GetAllOrder(pageable utils.Pageable) (*utils.Page, er
 	var getError error
 
 	getData := or.db.
-		Preload("User").
+		Preload("User", func(db *gorm.DB) *gorm.DB {
+			return db.Select("users.id", "users.full_name", "users.email", "users.username")
+		}).
 		Preload("Coupon").Preload("Coupon.Coupon").
 		Preload("PaymentOption").
 		Preload("DeliveryStatus").
@@ -222,9 +224,9 @@ func (or *orderRepository) GetAllOrder(pageable utils.Pageable) (*utils.Page, er
 		dateField := arguments[0].(*model.OrderDateFilter)
 
 		if !dateField.End.IsZero() {
-			getCount.Where("orders.created_at < ? and orders.created_at > ?", dateField.Start, dateField.End)
+			getData.Where("orders.created_at < ? and orders.created_at > ?", dateField.Start, dateField.End)
 		} else {
-			getCount.Where("orders.created_at > ?", dateField.Start)
+			getData.Where("orders.created_at > ?", dateField.Start)
 		}
 
 		getData.Order(arguments[1]).

@@ -5,4 +5,5 @@ export interface IFilterOption {
   order?: string;
   name?: string;
   category?: string;
+  date?: string;
 }

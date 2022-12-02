@@ -5,6 +5,12 @@ const date = new Date();
 const initialOrderState: IOrderState = {
   data: {
     Id: 0,
+    User: {
+      Id: 0,
+      Email: "",
+      FullName: "",
+      Username: "",
+    },
     Coupon: {
       Id: 0,
       Coupon: {

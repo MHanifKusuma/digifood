@@ -21,3 +21,10 @@ export interface IUserFavorite {
   Id: number;
   Menu: IMenu[];
 }
+
+export interface IUserInfo {
+  Id: number;
+  Email: string;
+  FullName: string;
+  Username: string;
+}
