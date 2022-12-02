@@ -13,7 +13,7 @@ export type RegisterInput = {
 };
 
 export type SearchInput = {
-  search: string;
+  name: string;
 };
 
 export type ProfileUpdateInput = {

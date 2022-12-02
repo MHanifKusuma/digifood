@@ -6,8 +6,10 @@ import Button from "components/shared-components/Button";
 import Navbar from "components/shared-components/Navbar";
 import { ICategory } from "interfaces/Category";
 import { IFilterOption } from "interfaces/FilterOption";
+import { SearchInput } from "interfaces/FormInput";
 import { IMenu, IMenuPagination } from "interfaces/Menu";
 import React, { useEffect, useState } from "react";
+import { SubmitHandler } from "react-hook-form";
 import MenuWrapper from "./style";
 
 const Menu = () => {
@@ -41,7 +43,7 @@ const Menu = () => {
     total_page: 0,
   });
   const [filterOption, setFilterOption] = useState<IFilterOption>({
-    limit: 1,
+    limit: 12,
   });
   const [isLastPage, setIsLastPage] = useState(false);
 
@@ -67,10 +69,28 @@ const Menu = () => {
     fetchMenus();
   }, [filterOption]);
 
+  const onSubmit: SubmitHandler<SearchInput> = (data) => {
+    axios
+      .get(`http://localhost:8080/menus?name=${data.name}&limit=12`)
+      .then((data) => data.data.data)
+      .then((menu) => {
+        if (menu.data[0]) {
+          setMenu(menu);
+        } else {
+          setMenu({
+            current_page: 0,
+            data: [],
+            total: 0,
+            total_page: 0,
+          });
+        }
+      });
+  };
+
   return (
     <MenuWrapper>
       <Navbar />
-      <SearchBar />
+      <SearchBar onSubmit={onSubmit} />
       <MenuDisplayOption
         handleFilterChange={handleFilterChange}
         handleOrderChange={handleOrderChange}
