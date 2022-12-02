@@ -25,6 +25,7 @@ import Register from "pages/authentication/Register";
 import { RootState } from "redux/reducers";
 import Dashboard from "pages/admin/Dashboard";
 import AdminRoutes from "pages/admin";
+import AdminOrderDetail from "pages/admin/OrderDetail";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
@@ -71,6 +72,7 @@ function App() {
 
           <Route element={<AdminRoutes />}>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/orders/:id" element={<AdminOrderDetail />} />
           </Route>
 
           <Route path="*" element={<Error404 />} />

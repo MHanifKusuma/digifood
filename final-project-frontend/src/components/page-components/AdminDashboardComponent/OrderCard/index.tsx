@@ -18,7 +18,7 @@ const OrderCard = ({ order }: OrderCardProp) => {
     <OrderCardWrapper className="mb-3 p-5">
       <div className="row mb-3 mb-lg-0">
         <p className="fw-bolder mb-2 text-center text-lg-start">
-          Order: {order.User.Email}
+          Order#{order.Id} - {order.User.Email}
         </p>
         <p className="mb-0 text-center text-lg-start">
           {`${moment(order.CreatedAt).format("D MMM YYYY HH:MM:SS")}`}

@@ -58,3 +58,24 @@ export const updateOrderIsPaid = (token: string, orderId: number) => {
       .then(() => fetchOrder(token, String(orderId)));
   };
 };
+
+export const adminUpdateOrderStatus = (
+  token: string,
+  orderId: number,
+  deliveryId: number
+) => {
+  const payload: IUpdateOrderDeliveryStatus = {
+    OrderId: orderId,
+    DeliveryId: deliveryId,
+  };
+
+  return (): void => {
+    axios
+      .post(`http://localhost:8080/orders-delivery-status`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => fetchOrder(token, String(orderId)));
+  };
+};
