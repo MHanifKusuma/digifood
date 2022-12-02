@@ -20,6 +20,7 @@ import { useCookies } from "react-cookie";
 import { fetchUser } from "redux/actions/UserAction";
 import Promo from "pages/public/Promo";
 import AuthenticationRoutes from "pages/public/Authentication";
+import Error404 from "pages/public/Error/Error404";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
@@ -51,6 +52,8 @@ function App() {
           <Route path="/orders/:id" element={<OrderDetail />} />
           <Route path="/profile" element={<Profile />} />
         </Route>
+
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </div>
   );
