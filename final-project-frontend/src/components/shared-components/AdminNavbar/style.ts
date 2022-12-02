@@ -29,6 +29,7 @@ export const NavbarLogo = styled.div`
 export const NavigationLink = styled.div`
   a {
     &:not(.hover-none) {
+      color: #ffffff !important;
       background-image: linear-gradient(#ffffff 0 0);
       background-position: 0 100%; /*OR bottom left*/
       background-size: 0% 2px;

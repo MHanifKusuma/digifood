@@ -48,7 +48,7 @@ const AdminNavbar = () => {
               <Link
                 to={"/orders"}
                 className={`nav-link ${
-                  currPath.pathname === "/menus" ? "active" : ""
+                  currPath.pathname === "/orders" ? "active" : ""
                 }`}
               >
                 Orders
@@ -58,7 +58,7 @@ const AdminNavbar = () => {
               <Link
                 to={"/menus"}
                 className={`nav-link ${
-                  currPath.pathname === "/orders" ? "active" : ""
+                  currPath.pathname === "/menus" ? "active" : ""
                 }`}
               >
                 Menus
@@ -68,7 +68,7 @@ const AdminNavbar = () => {
               <Link
                 to={"/coupons"}
                 className={`nav-link ${
-                  currPath.pathname === "/games" ? "active" : ""
+                  currPath.pathname === "/coupons" ? "active" : ""
                 }`}
               >
                 Coupons
@@ -78,7 +78,7 @@ const AdminNavbar = () => {
               <Link
                 to={"/reviews"}
                 className={`nav-link ${
-                  currPath.pathname === "/promos" ? "active" : ""
+                  currPath.pathname === "/reviews" ? "active" : ""
                 }`}
               >
                 Reviews
