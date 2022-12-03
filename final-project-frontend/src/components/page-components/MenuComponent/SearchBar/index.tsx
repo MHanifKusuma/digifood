@@ -2,19 +2,20 @@ import axios from "axios";
 import { CustomForm } from "components/shared-style";
 import { SearchInput } from "interfaces/FormInput";
 import { IMenu, IMenuPagination } from "interfaces/Menu";
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import SearchBarWrapper from "./style";
 
 interface MenuSearchProp {
   onSubmit: SubmitHandler<SearchInput>;
+  customStyle?: CSSProperties;
 }
 
-const SearchBar = ({ onSubmit }: MenuSearchProp) => {
+const SearchBar = ({ onSubmit, customStyle }: MenuSearchProp) => {
   const { register, handleSubmit } = useForm<SearchInput>();
 
   return (
-    <SearchBarWrapper>
+    <SearchBarWrapper style={customStyle ? customStyle : {}}>
       <CustomForm className="p-3" onSubmit={handleSubmit(onSubmit)}>
         <div className="col-12 col-lg-8 col-xl-4 mx-auto">
           <div className="mb-3">

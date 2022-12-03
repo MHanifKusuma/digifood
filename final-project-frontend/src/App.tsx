@@ -26,6 +26,8 @@ import { RootState } from "redux/reducers";
 import Dashboard from "pages/admin/Dashboard";
 import AdminRoutes from "pages/admin";
 import AdminOrderDetail from "pages/admin/OrderDetail";
+import AdminMenu from "pages/admin/Menu";
+import AdminMenuDetail from "pages/admin/MenuDetail";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
@@ -73,6 +75,8 @@ function App() {
           <Route element={<AdminRoutes />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/orders/:id" element={<AdminOrderDetail />} />
+            <Route path="/menus" element={<AdminMenu />} />
+            <Route path="/menus/:id/:name" element={<AdminMenuDetail />} />
           </Route>
 
           <Route path="*" element={<Error404 />} />
