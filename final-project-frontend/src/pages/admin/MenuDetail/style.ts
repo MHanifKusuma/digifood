@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 const AdminMenuDetailWrapper = styled.div`
-  min-height: 100vh;
+  display: flex;
+  flex-direction: colun-reverse;
+
+  @media screen and (min-width: 992px) {
+    flex-directino: row;
+  }
 `;
 
 export default AdminMenuDetailWrapper;

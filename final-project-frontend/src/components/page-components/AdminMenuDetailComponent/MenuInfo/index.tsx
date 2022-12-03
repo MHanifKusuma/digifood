@@ -122,169 +122,168 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
 
   return (
     <AdminMenuInfoWrapper className="pt-3">
-      <div className="col-12 col-lg-6">
-        <AdminMenuInfoForm
-          className="mt-4 mt-lg-5"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <div className="col-12 mx-auto input-group mb-2 justify-content-between">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
-              <p className="text-lg-end">Menu Photo: </p>
-            </div>
-            <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
-              <input
-                type="file"
-                accept="image/*"
-                className="form-control px-4"
-                id="menuPhotoInput"
-                placeholder="Menu Photo"
-                {...register("menuPhoto")}
-                onChange={handleChange}
-                disabled={!enableInput}
-              />
-            </div>
+      <AdminMenuInfoForm
+        className="mt-4 mt-lg-5"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="col-12 mx-auto input-group mb-2 justify-content-between">
+          <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+            <p className="text-lg-end">Menu Photo: </p>
           </div>
-          <div className="col-12 mx-auto input-group mb-2 justify-content-betweena">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
-              <p className="text-lg-end">Menu Name: </p>
-            </div>
-            <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
-              <input
-                type="text"
-                className="form-control"
-                id="menuNameinput"
-                placeholder="Menu Name"
-                {...register("name", { required: true })}
-                value={input.name}
-                onChange={handleChange}
-                disabled={!enableInput}
-              />
-              {errors.name?.type === "required" && (
-                <div className="col-12 col-lg-3">
-                  <ErrorMessage>Menu name is required</ErrorMessage>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="col-12 mx-auto input-group mb-2 justify-content-between">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
-              <p className="text-lg-end">Menu Description: </p>
-            </div>
-            <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
-              <textarea
-                className="form-control"
-                id="menuDescription"
-                placeholder="Menu description"
-                cols={30}
-                rows={5}
-                {...register("description", { required: true })}
-                value={input.description}
-                onChange={handleDescriptionChange}
-                disabled={!enableInput}
-              ></textarea>
-              {errors.description?.type === "required" && (
-                <div className="col-12 col-lg-3">
-                  <ErrorMessage>Menu description is required</ErrorMessage>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="col-12 mx-auto input-group mb-2 justify-content-between">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
-              <p className="text-lg-end">Menu Price: </p>
-            </div>
-            <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
-              <input
-                type="number"
-                className="form-control"
-                id="menuPriceInput"
-                placeholder="Menu price"
-                {...register("price", { required: true })}
-                value={input.price}
-                onChange={handleChange}
-                disabled={!enableInput}
-              />
-              {errors.price?.type === "required" && (
-                <div className="col-12 col-lg-3">
-                  <ErrorMessage>Menu price is required</ErrorMessage>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="col-12 mx-auto input-group mb-2 justify-content-between">
-            <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
-              <p className="text-lg-end">Menu Options: </p>
-            </div>
-            <Button
-              btnStyle={{
-                width: "100%",
-                backgroundColor: "#579EFF",
-                color: "#FFFFFF",
-              }}
-              btnFunction={() => setShowAddMenuOptionModal(true)}
-              type={"button"}
+          <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
+            <input
+              type="file"
+              accept="image/*"
+              className="form-control px-4"
+              id="menuPhotoInput"
+              placeholder="Menu Photo"
+              {...register("menuPhoto")}
+              onChange={handleChange}
               disabled={!enableInput}
-            >
-              Add Options
-            </Button>
+            />
           </div>
-          <div className="col-12 mx-auto mb-2 justify-content-start">
-            <div className="row gap-3 p-3">
-              {menuOptionsArray.map((option, index) => (
-                <MenuOptionsWrapper className="col-12 col-lg-5" key={index}>
-                  <p>{option.Name}</p>
-                  <div className="d-flex align-items-center justify-content-between pe-3">
-                    <p>+ Rp {formatCurrency(option.Price)}</p>
-                    {enableInput && (
-                      <div onClick={() => handleDeleteMenuOptions(index)}>
-                        <TrashIcon height="20" fill="#E98E7D" />
-                      </div>
-                    )}
-                  </div>
-                </MenuOptionsWrapper>
-              ))}
-            </div>
+        </div>
+        <div className="col-12 mx-auto input-group mb-2 justify-content-betweena">
+          <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+            <p className="text-lg-end">Menu Name: </p>
           </div>
-
-          <div className="col-12 mx-auto input-group my-5 justify-content-start">
-            <div className="col-12 col-lg-2 d-flex align-items-center">
-              {!enableInput && (
-                <Button
-                  btnStyle={{
-                    width: "100%",
-                    backgroundColor: "#579EFF",
-                    color: "#FFFFFF",
-                  }}
-                  btnFunction={handleClickUpdate}
-                  type={"button"}
-                >
-                  Update
-                </Button>
-              )}
-
-              {enableInput && (
-                <Button
-                  btnStyle={{
-                    width: "100%",
-                    backgroundColor: "#579EFF",
-                    color: "#FFFFFF",
-                  }}
-                  type={"submit"}
-                >
-                  Submit
-                </Button>
-              )}
-            </div>
-            {error && (
-              <div className="col-12 col-lg-8 d-flex align-items-center ms-0 ms-lg-3 mt-2 mt-lg-0">
-                <div className="col-12 col-lg-3">
-                  <ErrorMessage>{error}</ErrorMessage>
-                </div>
+          <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
+            <input
+              type="text"
+              className="form-control"
+              id="menuNameinput"
+              placeholder="Menu Name"
+              {...register("name", { required: true })}
+              value={input.name}
+              onChange={handleChange}
+              disabled={!enableInput}
+            />
+            {errors.name?.type === "required" && (
+              <div className="col-12 col-lg-3">
+                <ErrorMessage>Menu name is required</ErrorMessage>
               </div>
             )}
           </div>
-        </AdminMenuInfoForm>
-      </div>
+        </div>
+        <div className="col-12 mx-auto input-group mb-2 justify-content-between">
+          <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+            <p className="text-lg-end">Menu Description: </p>
+          </div>
+          <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
+            <textarea
+              className="form-control"
+              id="menuDescription"
+              placeholder="Menu description"
+              cols={30}
+              rows={5}
+              {...register("description", { required: true })}
+              value={input.description}
+              onChange={handleDescriptionChange}
+              disabled={!enableInput}
+            ></textarea>
+            {errors.description?.type === "required" && (
+              <div className="col-12 col-lg-3">
+                <ErrorMessage>Menu description is required</ErrorMessage>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="col-12 mx-auto input-group mb-2 justify-content-between">
+          <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+            <p className="text-lg-end">Menu Price: </p>
+          </div>
+          <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
+            <input
+              type="number"
+              className="form-control"
+              id="menuPriceInput"
+              placeholder="Menu price"
+              {...register("price", { required: true })}
+              value={input.price}
+              onChange={handleChange}
+              disabled={!enableInput}
+            />
+            {errors.price?.type === "required" && (
+              <div className="col-12 col-lg-3">
+                <ErrorMessage>Menu price is required</ErrorMessage>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="col-12 mx-auto input-group mb-2 justify-content-between">
+          <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+            <p className="text-lg-end">Menu Options: </p>
+          </div>
+          <Button
+            btnStyle={{
+              width: "100%",
+              backgroundColor: "#579EFF",
+              color: "#FFFFFF",
+            }}
+            btnFunction={() => setShowAddMenuOptionModal(true)}
+            type={"button"}
+            disabled={!enableInput}
+          >
+            Add Options
+          </Button>
+        </div>
+        <div className="col-12 mx-auto mb-2 justify-content-start">
+          <div className="row gap-3 p-3">
+            {menuOptionsArray.map((option, index) => (
+              <MenuOptionsWrapper className="col-12 col-lg-5" key={index}>
+                <p>{option.Name}</p>
+                <div className="d-flex align-items-center justify-content-between pe-3">
+                  <p>+ Rp {formatCurrency(option.Price)}</p>
+                  {enableInput && (
+                    <div onClick={() => handleDeleteMenuOptions(index)}>
+                      <TrashIcon height="20" fill="#E98E7D" />
+                    </div>
+                  )}
+                </div>
+              </MenuOptionsWrapper>
+            ))}
+          </div>
+        </div>
+
+        <div className="col-12 mx-auto input-group my-5 justify-content-start">
+          <div className="col-12 col-lg-2 d-flex align-items-center">
+            {!enableInput && (
+              <Button
+                btnStyle={{
+                  width: "100%",
+                  backgroundColor: "#579EFF",
+                  color: "#FFFFFF",
+                }}
+                btnFunction={handleClickUpdate}
+                type={"button"}
+              >
+                Update
+              </Button>
+            )}
+
+            {enableInput && (
+              <Button
+                btnStyle={{
+                  width: "100%",
+                  backgroundColor: "#579EFF",
+                  color: "#FFFFFF",
+                }}
+                type={"submit"}
+              >
+                Submit
+              </Button>
+            )}
+          </div>
+          {error && (
+            <div className="col-12 col-lg-8 d-flex align-items-center ms-0 ms-lg-3 mt-2 mt-lg-0">
+              <div className="col-12 col-lg-3">
+                <ErrorMessage>{error}</ErrorMessage>
+              </div>
+            </div>
+          )}
+        </div>
+      </AdminMenuInfoForm>
+
       <AddMenuOptionsModal
         show={showAddMenuOptionModal}
         handleClose={() => setShowAddMenuOptionModal(false)}
