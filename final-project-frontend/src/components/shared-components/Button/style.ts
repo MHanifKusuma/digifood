@@ -18,6 +18,15 @@ const CustomButton = styled.button<ButtonStyle>`
       darkerColor(props.buttonStyle?.backgroundColor, 0.2)};
   }
 
+  &.disabled {
+    cursor: not-allowed;
+    background-color: #a8a8a8;
+
+    &:hover {
+      background-color: #a8a8a8;
+    }
+  }
+
   ${(props) => (props.buttonStyle ? { ...props.buttonStyle } : "")};
 `;
 

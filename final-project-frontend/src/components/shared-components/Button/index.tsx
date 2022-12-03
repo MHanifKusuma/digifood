@@ -21,7 +21,7 @@ const Button = ({
 }: IButtonProps) => {
   return (
     <CustomButton
-      className={`${btnClass}`}
+      className={`${btnClass} ${disabled ? "disabled" : ""}`}
       onClick={btnFunction}
       buttonStyle={btnStyle}
       disabled={disabled}
