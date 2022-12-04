@@ -27,6 +27,7 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<MenuCreateUpdateInput>({
     defaultValues: {
@@ -34,8 +35,9 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
       name: menu.Name,
       description: menu.Description,
       price: menu.Price,
-      menuPhoto: menu.MenuPhoto,
-      MenuOptions: menu.MenuOptions,
+      menu_photo: menu.MenuPhoto,
+      menu_options: menu.MenuOptions,
+      deleted_menu_options: [],
     },
   });
 
@@ -45,10 +47,12 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
   const [input, setInput] = useState<MenuCreateUpdateInput>({
     id: menu.Id,
     name: menu.Name,
+    category_id: menu.CategoryId,
     description: menu.Description,
     price: menu.Price,
-    menuPhoto: menu.MenuPhoto,
-    MenuOptions: menu.MenuOptions,
+    menu_photo: menu.MenuPhoto,
+    menu_options: menu.MenuOptions,
+    deleted_menu_options: [],
   });
 
   const [enableInput, setEnableInput] = useState(false);
@@ -73,6 +77,9 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
   };
 
   const handleDeleteMenuOptions = (index: number) => {
+    input.deleted_menu_options.push(menuOptionsArray[index].Id);
+    setValue("deleted_menu_options", input.deleted_menu_options);
+
     const newMenuOptionsArray = menuOptionsArray.filter(
       (option, optionIndex) => optionIndex !== index
     );
@@ -85,35 +92,39 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
     }
   };
 
-  const onSubmit: SubmitHandler<MenuCreateUpdateInput> = async (data) => {
-    data.MenuOptions = menuOptionsArray;
-    console.log(data);
-    // await axios
-    //   .put(`http://localhost:8080/admin/menus/:${data.id}`, data, {
-    //     headers: {
-    //       Authorization: `Bearer ${cookies.login}`,
-    //     },
-    //   })
-    //   .then(() => window.location.reload())
-    //   .catch((error) => setError(error.message));
+  const onSubmit: SubmitHandler<MenuCreateUpdateInput> = (data) => {
+    data.menu_options = menuOptionsArray;
+
+    axios
+      .put(`http://localhost:8080/admin/menus/:${data.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${cookies.login}`,
+        },
+      })
+      .then((data) => window.location.reload())
+      .catch((error) => setError(error.message));
   };
 
   useEffect(() => {
     reset({
       id: menu.Id,
+      category_id: menu.CategoryId,
       name: menu.Name,
       description: menu.Description,
       price: menu.Price,
-      menuPhoto: menu.MenuPhoto,
-      MenuOptions: menu.MenuOptions,
+      menu_photo: menu.MenuPhoto,
+      menu_options: menu.MenuOptions,
+      deleted_menu_options: [],
     });
     setInput({
       id: menu.Id,
+      category_id: menu.CategoryId,
       name: menu.Name,
       description: menu.Description,
       price: menu.Price,
-      menuPhoto: menu.MenuPhoto,
-      MenuOptions: menu.MenuOptions,
+      menu_photo: menu.MenuPhoto,
+      menu_options: menu.MenuOptions,
+      deleted_menu_options: [],
     });
     setMenuOptionsArray(menu.MenuOptions);
   }, [menu]);
@@ -137,7 +148,7 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
               className="form-control px-4"
               id="menuPhotoInput"
               placeholder="Menu Photo"
-              {...register("menuPhoto")}
+              {...register("menu_photo")}
               onChange={handleChange}
               disabled={!enableInput}
             />
@@ -198,7 +209,7 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
               className="form-control"
               id="menuPriceInput"
               placeholder="Menu price"
-              {...register("price", { required: true })}
+              {...register("price", { required: true, valueAsNumber: true })}
               value={input.price}
               onChange={handleChange}
               disabled={!enableInput}
@@ -288,6 +299,7 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
         show={showAddMenuOptionModal}
         handleClose={() => setShowAddMenuOptionModal(false)}
         addMenuOption={handleAddMenuOptions}
+        menuId={menu.Id}
       />
     </AdminMenuInfoWrapper>
   );

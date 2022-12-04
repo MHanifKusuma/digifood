@@ -7,6 +7,7 @@ interface AddMenuOptionsModalProp {
   show: boolean;
   handleClose: () => void;
   addMenuOption: (option: IMenuOptions) => void;
+  menuId: number;
 }
 
 enum OptionType {
@@ -18,6 +19,7 @@ const AddMenuOptionsModal = ({
   show,
   handleClose,
   addMenuOption,
+  menuId,
 }: AddMenuOptionsModalProp) => {
   const [input, setInput] = useState({
     optionNameInput: "",
@@ -115,8 +117,9 @@ const AddMenuOptionsModal = ({
               btnFunction={() => {
                 const newMenuOption: IMenuOptions = {
                   Id: 0,
+                  MenuId: menuId,
                   Name: input.optionNameInput,
-                  Price: input.optionPriceInput,
+                  Price: Number.parseInt(String(input.optionPriceInput)),
                   Type: input.optionTypeInput,
                 };
 

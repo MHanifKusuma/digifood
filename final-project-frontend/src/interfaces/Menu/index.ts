@@ -4,12 +4,14 @@ export interface IMenuOptions {
   Id: number;
   Name: string;
   Price: number;
+  MenuId: number;
   Type: "radio" | "check";
 }
 
 export interface IMenu {
   Id: number;
   Name: string;
+  CategoryId: number;
   Description: string;
   AverageRating: number;
   TotalFavorites: number;

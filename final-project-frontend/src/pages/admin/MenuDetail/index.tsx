@@ -14,6 +14,7 @@ const AdminMenuDetail = () => {
   const [menu, setMenu] = useState<IMenu>({
     Id: 0,
     Name: "",
+    CategoryId: 0,
     Description: "",
     Price: 0,
     AverageRating: 0,

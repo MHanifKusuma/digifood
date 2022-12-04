@@ -29,8 +29,10 @@ export type ProfileUpdateInput = {
 export type MenuCreateUpdateInput = {
   id: number;
   name: string;
+  category_id: number;
   description: string;
   price: number;
-  menuPhoto: string;
-  MenuOptions: IMenuOptions[];
+  menu_photo: string;
+  menu_options: IMenuOptions[];
+  deleted_menu_options: number[];
 };
