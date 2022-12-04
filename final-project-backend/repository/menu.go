@@ -16,6 +16,8 @@ type MenuRepository interface {
 	GetAllMenu(pageable utils.Pageable) (*utils.Page, error)
 	GetAllMenuByCategory() ([]*model.Category, error)
 	GetMenuById(id int) (*model.Menu, error)
+	UpdateMenu(menu model.Menu) (*model.Menu, error)
+	DeleteMenuOptions(optionIds []int) (string, error)
 }
 
 func NewMenuRepository(db *gorm.DB) MenuRepository {
@@ -100,4 +102,49 @@ func (mr *menuRepository) GetMenuById(id int) (*model.Menu, error) {
 	}
 
 	return menu, nil
+}
+
+func (mr *menuRepository) UpdateMenu(menu model.Menu) (*model.Menu, error) {
+	if len(menu.MenuOptions) != 0 {
+		for _, option := range menu.MenuOptions {
+			if option.Id != 0 {
+				updateOptionRes := mr.db.Save(&option)
+				if updateOptionRes.Error != nil {
+					return nil, updateOptionRes.Error
+				}
+			} else {
+				newMenuOption := model.MenuOption{
+					MenuId: menu.Id,
+					Name:   option.Name,
+					Price:  option.Price,
+					Type:   option.Type,
+				}
+
+				createOptionRes := mr.db.Create(&newMenuOption)
+				if createOptionRes.Error != nil {
+					return nil, createOptionRes.Error
+				}
+			}
+		}
+	}
+	
+	updateMenuRes := mr.db.
+		Clauses(clause.Returning{}).
+		Model(&menu).
+		Select("menus.name", "menus.category_id", "menus.price", "menus.description", "menus.menu_photo").
+		Updates(menu)
+	if updateMenuRes.Error != nil {
+		return nil, updateMenuRes.Error
+	}
+
+	return &menu, nil
+}
+
+func (mr *menuRepository) DeleteMenuOptions(optionIds []int) (string, error) {
+	deleteRes := mr.db.Delete(&model.MenuOption{}, optionIds)
+	if deleteRes.Error != nil {
+		return "", deleteRes.Error
+	}
+
+	return "success", deleteRes.Error
 }

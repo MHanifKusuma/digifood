@@ -57,6 +57,35 @@ func (mh *MenuHandler) GetMenuById(c *gin.Context) {
 	utils.SuccessResponse(c.Writer, menu, status)
 }
 
+func (mh *MenuHandler) UpdateMenu(c *gin.Context) {
+	var payload model.UpdateMenuField
+
+	if bindJsonError := c.ShouldBindJSON(&payload); bindJsonError != nil {
+		utils.ErrorResponse(c.Writer, utils.ErrConvertRequesData.Error(), http.StatusBadRequest)
+		return
+	}
+
+	updateMenu := model.Menu{
+		Id: payload.Id,
+		CategoryId: payload.CategoryId,
+		Name: payload.Name,
+		Description: payload.Description,
+		Price: payload.Price,
+		MenuPhoto: payload.MenuPhoto,
+		MenuOptions: payload.MenuOptions,
+	}
+
+	deletedMenuOptions := payload.DeletedMenuOptions
+
+	updatedMenu, status, updateError := mh.service.UpdateMenu(updateMenu, deletedMenuOptions)
+	if updateError != nil {
+		utils.ErrorResponse(c.Writer, updateError.Error(), status)
+		return
+	}
+
+	utils.SuccessResponse(c.Writer, updatedMenu, status)
+}
+
 func newMenuPageableRequest(c *gin.Context) *model.PageableRequest {
 	p := &model.PageableRequest{}
 	p.Page = utils.PageFromQueryParam(c)

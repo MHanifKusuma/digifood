@@ -15,6 +15,7 @@ type MenuService interface {
 	GetAllMenu(pageable utils.Pageable) (*utils.Page, int, error)
 	GetAllMenuByCategory() ([]*model.Category, int, error)
 	GetMenuById(id int) (*model.Menu, int, error)
+	UpdateMenu(menu model.Menu, deletedMenuOptions []int) (*model.Menu, int, error)
 }
 
 func NewMenuService(repository repository.MenuRepository) MenuService {
@@ -48,4 +49,34 @@ func (ms *menuService) GetMenuById(id int) (*model.Menu, int, error) {
 	}
 
 	return menuById, http.StatusOK, nil
+}
+
+func (ms *menuService) UpdateMenu(menu model.Menu, deletedMenuOptions []int) (*model.Menu, int, error) {
+	_, isFound, _ := ms.GetMenuById(menu.Id)
+	if isFound != 200 {
+		return nil, http.StatusNotFound, utils.ErrMenuNotFound
+	}
+
+	if len(deletedMenuOptions) > 0 {
+		_, deleteMenuOptionstatus, deleteMenuOptionError := ms.DeleteMenuOptions(deletedMenuOptions)
+		if deleteMenuOptionError != nil {
+			return nil, deleteMenuOptionstatus, deleteMenuOptionError
+		}
+	}
+
+	updatedMenu, updateMenuError := ms.repository.UpdateMenu(menu)
+	if updateMenuError != nil {
+		return nil, http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return updatedMenu, http.StatusOK, nil
+}
+
+func (ms *menuService) DeleteMenuOptions(optionIds []int) (string, int, error) {
+	deleteMessage, deleteError := ms.repository.DeleteMenuOptions(optionIds)
+	if deleteError != nil {
+		return deleteMessage, http.StatusInternalServerError, deleteError
+	}
+
+	return deleteMessage, http.StatusOK, nil
 }

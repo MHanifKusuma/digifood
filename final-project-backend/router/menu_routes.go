@@ -11,4 +11,6 @@ func menuRoutes(gin *gin.Engine, db *gorm.DB, menuHandler *handler.MenuHandler) 
 	gin.GET("/menus", menuHandler.GetAllMenu)
 	gin.GET("/menus/categories", menuHandler.GetAllMenuByCategory)
 	gin.GET("/menus/:id", menuHandler.GetMenuById)
+
+	gin.PUT("/admin/menus/:id", menuHandler.UpdateMenu)
 }
