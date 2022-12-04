@@ -77,8 +77,10 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
   };
 
   const handleDeleteMenuOptions = (index: number) => {
-    input.deleted_menu_options.push(menuOptionsArray[index].Id);
-    setValue("deleted_menu_options", input.deleted_menu_options);
+    if (menuOptionsArray[index].Id != 0) {
+      input.deleted_menu_options.push(menuOptionsArray[index].Id);
+      setValue("deleted_menu_options", input.deleted_menu_options);
+    }
 
     const newMenuOptionsArray = menuOptionsArray.filter(
       (option, optionIndex) => optionIndex !== index
@@ -94,6 +96,7 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
 
   const onSubmit: SubmitHandler<MenuCreateUpdateInput> = (data) => {
     data.menu_options = menuOptionsArray;
+    console.log(data);
 
     axios
       .put(`http://localhost:8080/admin/menus/:${data.id}`, data, {
