@@ -18,6 +18,7 @@ type MenuRepository interface {
 	GetMenuById(id int) (*model.Menu, error)
 	UpdateMenu(menu model.Menu) (*model.Menu, error)
 	DeleteMenuOptions(optionIds []int) (string, error)
+	DeleteMenu(menuId int) (int, error)
 }
 
 func NewMenuRepository(db *gorm.DB) MenuRepository {
@@ -147,4 +148,13 @@ func (mr *menuRepository) DeleteMenuOptions(optionIds []int) (string, error) {
 	}
 
 	return "success", deleteRes.Error
+}
+
+func (mr *menuRepository) DeleteMenu(menuId int) (int, error) {
+	deleteRes := mr.db.Delete(&model.Menu{}, menuId)
+	if deleteRes.Error != nil {
+		return -1, deleteRes.Error
+	}
+
+	return menuId, nil
 }

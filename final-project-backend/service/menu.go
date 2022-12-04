@@ -16,6 +16,7 @@ type MenuService interface {
 	GetAllMenuByCategory() ([]*model.Category, int, error)
 	GetMenuById(id int) (*model.Menu, int, error)
 	UpdateMenu(menu model.Menu, deletedMenuOptions []int) (*model.Menu, int, error)
+	DeleteMenu(menuId int) (int, int, error)
 }
 
 func NewMenuService(repository repository.MenuRepository) MenuService {
@@ -79,4 +80,18 @@ func (ms *menuService) DeleteMenuOptions(optionIds []int) (string, int, error) {
 	}
 
 	return deleteMessage, http.StatusOK, nil
+}
+
+func (ms *menuService) DeleteMenu(menuId int) (int, int, error) {
+	menu, menuStatus, menuError := ms.GetMenuById(menuId)
+	if menuError != nil {
+		return -1, menuStatus, menuError
+	}
+
+	deletedId, deleteError := ms.repository.DeleteMenu(menu.Id)
+	if deleteError != nil {
+		return -1, http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return deletedId, http.StatusOK, nil
 }

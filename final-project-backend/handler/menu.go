@@ -86,6 +86,24 @@ func (mh *MenuHandler) UpdateMenu(c *gin.Context) {
 	utils.SuccessResponse(c.Writer, updatedMenu, status)
 }
 
+func (mh *MenuHandler) DeleteMenu(c *gin.Context) {
+	var id int
+
+	if param, ParamError := strconv.Atoi(c.Param("id")); ParamError != nil {
+		utils.ErrorResponse(c.Writer, utils.ErrConvertRequesData.Error(), http.StatusBadRequest)
+	} else {
+		id = param
+	}
+
+	deletedMenuId, status, deleteError := mh.service.DeleteMenu(id)
+	if deleteError != nil {
+		utils.ErrorResponse(c.Writer, deleteError.Error(), status)
+		return
+	}
+
+	utils.SuccessResponse(c.Writer, deletedMenuId, status)
+}
+
 func newMenuPageableRequest(c *gin.Context) *model.PageableRequest {
 	p := &model.PageableRequest{}
 	p.Page = utils.PageFromQueryParam(c)
