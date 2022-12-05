@@ -98,21 +98,12 @@ func (cr *couponRepository) GetAllCoupon(pageable utils.Pageable) (*utils.Page, 
 	arguments = append(arguments, pageable.SortBy(), paginator.PerPageNums, paginator.Offset())
 
 	var coupons []model.Coupon
-	var findError error
 
-	if arguments[1] != nil && arguments[1] != "0" {
-		findError = cr.db.
+	findError := cr.db.
 			Order(arguments[0]).
 			Limit(arguments[1].(int)).
 			Offset(arguments[2].(int)).
 			Find(&coupons).Error
-	} else {
-		findError = cr.db.Preload(clause.Associations).
-			Order(arguments[0]).
-			Limit(arguments[1].(int)).
-			Offset(arguments[2].(int)).
-			Find(&coupons).Error
-	}
 
 	return paginator.Pageable(coupons), findError
 }
