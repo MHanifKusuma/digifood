@@ -19,6 +19,7 @@ var (
 	ErrEmailExists            = NewError("email already exists")
 	ErrPhoneExists            = NewError("phone number already exists")
 	ErrUsernameExists         = NewError("username already exists")
+	ErrMenuExists             = NewError("menu already exists")
 	ErrNotExpected            = NewError("unexpected error occured, please try again later")
 	ErrTokenInvalid           = NewError("token invalid")
 	ErrConvertRequesData      = NewError("invalid request data")

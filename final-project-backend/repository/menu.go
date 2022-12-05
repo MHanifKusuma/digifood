@@ -16,6 +16,7 @@ type MenuRepository interface {
 	GetAllMenu(pageable utils.Pageable) (*utils.Page, error)
 	GetAllMenuByCategory() ([]*model.Category, error)
 	GetMenuById(id int) (*model.Menu, error)
+	CreateMenu(menu model.Menu) (*model.Menu, error)
 	UpdateMenu(menu model.Menu) (*model.Menu, error)
 	DeleteMenuOptions(optionIds []int) (string, error)
 	DeleteMenu(menuId int) (int, error)
@@ -105,6 +106,33 @@ func (mr *menuRepository) GetMenuById(id int) (*model.Menu, error) {
 	return menu, nil
 }
 
+func (mr *menuRepository) CreateMenu(menu model.Menu) (*model.Menu, error) {
+	if len(menu.MenuOptions) != 0 {
+		for _, option := range menu.MenuOptions {
+			newMenuOption := model.MenuOption{
+				MenuId: menu.Id,
+				Name:   option.Name,
+				Price:  option.Price,
+				Type:   option.Type,
+			}
+
+			createOptionRes := mr.db.Create(&newMenuOption)
+			if createOptionRes.Error != nil {
+				return nil, createOptionRes.Error
+			}
+		}
+	}
+
+	updateMenuRes := mr.db.
+		Omit("AverageRating", "TotalFavorites", "TotalReview", "Promotion").
+		Create(&menu)
+	if updateMenuRes.Error != nil {
+		return nil, updateMenuRes.Error
+	}
+
+	return &menu, nil
+}
+
 func (mr *menuRepository) UpdateMenu(menu model.Menu) (*model.Menu, error) {
 	if len(menu.MenuOptions) != 0 {
 		for _, option := range menu.MenuOptions {
@@ -128,7 +156,7 @@ func (mr *menuRepository) UpdateMenu(menu model.Menu) (*model.Menu, error) {
 			}
 		}
 	}
-	
+
 	updateMenuRes := mr.db.
 		Clauses(clause.Returning{}).
 		Model(&menu).

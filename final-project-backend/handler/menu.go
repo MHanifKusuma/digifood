@@ -57,6 +57,38 @@ func (mh *MenuHandler) GetMenuById(c *gin.Context) {
 	utils.SuccessResponse(c.Writer, menu, status)
 }
 
+func (mh *MenuHandler) CreateMenu(c *gin.Context) {
+	var payload model.UpdateMenuField
+
+	if bindJsonError := c.ShouldBindJSON(&payload); bindJsonError != nil {
+		utils.ErrorResponse(c.Writer, utils.ErrConvertRequesData.Error(), http.StatusBadRequest)
+		return
+	}
+
+	if len(payload.DeletedMenuOptions) > 0 {
+		utils.ErrorResponse(c.Writer, utils.ErrConvertRequesData.Error(), http.StatusBadRequest)
+		return
+	}
+
+	updateMenu := model.Menu{
+		Id:          payload.Id,
+		CategoryId:  payload.CategoryId,
+		Name:        payload.Name,
+		Description: payload.Description,
+		Price:       payload.Price,
+		MenuPhoto:   payload.MenuPhoto,
+		MenuOptions: payload.MenuOptions,
+	}
+
+	createdMenu, status, createError := mh.service.CreateMenu(updateMenu)
+	if createError != nil {
+		utils.ErrorResponse(c.Writer, createError.Error(), status)
+		return
+	}
+
+	utils.SuccessResponse(c.Writer, createdMenu, status)
+}
+
 func (mh *MenuHandler) UpdateMenu(c *gin.Context) {
 	var payload model.UpdateMenuField
 
@@ -66,12 +98,12 @@ func (mh *MenuHandler) UpdateMenu(c *gin.Context) {
 	}
 
 	updateMenu := model.Menu{
-		Id: payload.Id,
-		CategoryId: payload.CategoryId,
-		Name: payload.Name,
+		Id:          payload.Id,
+		CategoryId:  payload.CategoryId,
+		Name:        payload.Name,
 		Description: payload.Description,
-		Price: payload.Price,
-		MenuPhoto: payload.MenuPhoto,
+		Price:       payload.Price,
+		MenuPhoto:   payload.MenuPhoto,
 		MenuOptions: payload.MenuOptions,
 	}
 

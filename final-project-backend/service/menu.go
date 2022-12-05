@@ -15,6 +15,7 @@ type MenuService interface {
 	GetAllMenu(pageable utils.Pageable) (*utils.Page, int, error)
 	GetAllMenuByCategory() ([]*model.Category, int, error)
 	GetMenuById(id int) (*model.Menu, int, error)
+	CreateMenu(menu model.Menu) (*model.Menu, int, error)
 	UpdateMenu(menu model.Menu, deletedMenuOptions []int) (*model.Menu, int, error)
 	DeleteMenu(menuId int) (int, int, error)
 }
@@ -50,6 +51,20 @@ func (ms *menuService) GetMenuById(id int) (*model.Menu, int, error) {
 	}
 
 	return menuById, http.StatusOK, nil
+}
+
+func (ms *menuService) CreateMenu(menu model.Menu) (*model.Menu, int, error) {
+	_, isFound, _ := ms.GetMenuById(menu.Id)
+	if isFound == 200 {
+		return nil, http.StatusConflict, utils.ErrMenuExists
+	}
+
+	createdMenu, createMenuError := ms.repository.CreateMenu(menu)
+	if createMenuError != nil {
+		return nil, http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return createdMenu, http.StatusOK, nil
 }
 
 func (ms *menuService) UpdateMenu(menu model.Menu, deletedMenuOptions []int) (*model.Menu, int, error) {
