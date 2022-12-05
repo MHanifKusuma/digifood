@@ -28,6 +28,7 @@ import AdminRoutes from "pages/admin";
 import AdminOrderDetail from "pages/admin/OrderDetail";
 import AdminMenu from "pages/admin/Menu";
 import AdminMenuDetail from "pages/admin/MenuDetail";
+import AdminNewMenu from "pages/admin/NewMenu";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
@@ -77,6 +78,7 @@ function App() {
             <Route path="/orders/:id" element={<AdminOrderDetail />} />
             <Route path="/menus" element={<AdminMenu />} />
             <Route path="/menus/:id/:name" element={<AdminMenuDetail />} />
+            <Route path="/menus/new" element={<AdminNewMenu />} />
           </Route>
 
           <Route path="*" element={<Error404 />} />

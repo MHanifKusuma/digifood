@@ -82,7 +82,7 @@ const MenuDisplayOption = ({
                 color: "#FFFFFF",
                 padding: "0.25rem 1rem",
               }}
-              btnFunction={() => navigate("/admin/new-menu")}
+              btnFunction={() => navigate("/menus/new")}
             >
               Add Menu
             </Button>

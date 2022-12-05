@@ -107,6 +107,13 @@ func (mr *menuRepository) GetMenuById(id int) (*model.Menu, error) {
 }
 
 func (mr *menuRepository) CreateMenu(menu model.Menu) (*model.Menu, error) {
+	createMenuRes := mr.db.
+		Omit("Promotion").
+		Create(&menu)
+	if createMenuRes.Error != nil {
+		return nil, createMenuRes.Error
+	}
+
 	if len(menu.MenuOptions) != 0 {
 		for _, option := range menu.MenuOptions {
 			newMenuOption := model.MenuOption{
@@ -121,13 +128,6 @@ func (mr *menuRepository) CreateMenu(menu model.Menu) (*model.Menu, error) {
 				return nil, createOptionRes.Error
 			}
 		}
-	}
-
-	updateMenuRes := mr.db.
-		Omit("AverageRating", "TotalFavorites", "TotalReview", "Promotion").
-		Create(&menu)
-	if updateMenuRes.Error != nil {
-		return nil, updateMenuRes.Error
 	}
 
 	return &menu, nil

@@ -3,6 +3,7 @@ import axios from "axios";
 import AddMenuOptionsModal from "components/shared-components/AddMenuOptionsModal";
 import Button from "components/shared-components/Button";
 import { ErrorMessage } from "components/shared-style";
+import { ICategory } from "interfaces/Category";
 import {
   MenuCreateUpdateInput,
   ProfileUpdateInput,
@@ -11,18 +12,27 @@ import { IMenu, IMenuOptions } from "interfaces/Menu";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { formatCurrency } from "utils/index";
 import AdminMenuInfoWrapper, {
   AdminMenuInfoForm,
   MenuOptionsWrapper,
 } from "./style";
 
-interface AdminMenuInfoProp {
-  menu: IMenu;
+export enum MenuInfoComponentType {
+  UPDATE = "update",
+  CREATE = "create",
 }
 
-const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
+interface AdminMenuInfoProp {
+  menu: IMenu;
+  categories: ICategory[];
+  type: MenuInfoComponentType;
+}
+
+const AdminMenuInfo = ({ menu, type, categories }: AdminMenuInfoProp) => {
   const [cookies] = useCookies(["login"]);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -55,7 +65,9 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
     deleted_menu_options: [],
   });
 
-  const [enableInput, setEnableInput] = useState(false);
+  const [enableInput, setEnableInput] = useState(
+    type === MenuInfoComponentType.UPDATE ? false : true
+  );
   const [error, setError] = useState("");
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
@@ -94,18 +106,50 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
     }
   };
 
-  const onSubmit: SubmitHandler<MenuCreateUpdateInput> = (data) => {
-    data.menu_options = menuOptionsArray;
-    console.log(data);
-
+  const handleClickDelete = () => {
     axios
-      .put(`http://localhost:8080/admin/menus/:${data.id}`, data, {
+      .delete(`http://localhost:8080/admin/menus/${menu.Id}`, {
         headers: {
           Authorization: `Bearer ${cookies.login}`,
         },
       })
-      .then((data) => window.location.reload())
+      .then((data) => navigate("/menus"))
       .catch((error) => setError(error.message));
+  };
+
+  const onSubmit: SubmitHandler<MenuCreateUpdateInput> = (data) => {
+    data.menu_options = menuOptionsArray;
+
+    switch (type) {
+      case MenuInfoComponentType.UPDATE:
+        axios
+          .put(`http://localhost:8080/admin/menus/:${data.id}`, data, {
+            headers: {
+              Authorization: `Bearer ${cookies.login}`,
+            },
+          })
+          .then((data) => window.location.reload())
+          .catch((error) => setError(error.message));
+
+        return;
+
+      case MenuInfoComponentType.CREATE:
+        axios
+          .post(`http://localhost:8080/admin/menus`, data, {
+            headers: {
+              Authorization: `Bearer ${cookies.login}`,
+            },
+          })
+          .then((data) =>
+            navigate(`/menus/${data.data.data.Id}/${data.data.data.Name}`)
+          )
+          .catch((error) => setError(error.message));
+
+        return;
+
+      default:
+        return;
+    }
   };
 
   useEffect(() => {
@@ -175,6 +219,33 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
             {errors.name?.type === "required" && (
               <div className="col-12 col-lg-3">
                 <ErrorMessage>Menu name is required</ErrorMessage>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="col-12 mx-auto input-group mb-2 justify-content-betweena">
+          <div className="col-12 col-lg-3 d-flex align-items-center justify-content-lg-end">
+            <p className="text-lg-end">Menu Category: </p>
+          </div>
+          <div className="col-12 col-lg-9 d-flex flex-wrap flex-lg-nowrap align-items-center">
+            <select
+              className="form-select"
+              id="categorySelect"
+              {...register("category_id", {
+                required: true,
+                valueAsNumber: true,
+              })}
+              disabled={!enableInput}
+            >
+              {categories.map((category) => (
+                <option key={category.Id} value={category.Id}>
+                  {category.Name}
+                </option>
+              ))}
+            </select>
+            {errors.name?.type === "required" && (
+              <div className="col-12 col-lg-3">
+                <ErrorMessage>Menu Category is required</ErrorMessage>
               </div>
             )}
           </div>
@@ -259,23 +330,65 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
           </div>
         </div>
 
-        <div className="col-12 mx-auto input-group my-5 justify-content-start">
-          <div className="col-12 col-lg-2 d-flex align-items-center">
-            {!enableInput && (
-              <Button
-                btnStyle={{
-                  width: "100%",
-                  backgroundColor: "#579EFF",
-                  color: "#FFFFFF",
-                }}
-                btnFunction={handleClickUpdate}
-                type={"button"}
-              >
-                Update
-              </Button>
-            )}
+        {type === MenuInfoComponentType.UPDATE && (
+          <div className="col-12 mx-auto input-group my-5 justify-content-start">
+            <div className="col-12 col-lg-2 d-flex align-items-center">
+              {!enableInput && (
+                <>
+                  <Button
+                    btnStyle={{
+                      width: "100%",
+                      backgroundColor: "#579EFF",
+                      color: "#FFFFFF",
+                    }}
+                    btnFunction={handleClickUpdate}
+                    type={"button"}
+                    btnClass={`mx-2`}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    btnStyle={{
+                      width: "100%",
+                      backgroundColor: "#E98E7D",
+                      color: "#FFFFFF",
+                    }}
+                    btnFunction={handleClickDelete}
+                    type={"button"}
+                    btnClass={`mx-2`}
+                  >
+                    Delete
+                  </Button>
+                </>
+              )}
 
-            {enableInput && (
+              {enableInput && (
+                <Button
+                  btnStyle={{
+                    width: "100%",
+                    backgroundColor: "#579EFF",
+                    color: "#FFFFFF",
+                  }}
+                  type={"submit"}
+                  btnClass={`mx-2`}
+                >
+                  Submit
+                </Button>
+              )}
+            </div>
+            {error && (
+              <div className="col-12 col-lg-8 d-flex align-items-center ms-0 ms-lg-3 mt-2 mt-lg-0">
+                <div className="col-12">
+                  <ErrorMessage>{error}</ErrorMessage>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {type === MenuInfoComponentType.CREATE && (
+          <div className="col-12 mx-auto input-group my-5 justify-content-start">
+            <div className="col-12 col-lg-3 d-flex align-items-center">
               <Button
                 btnStyle={{
                   width: "100%",
@@ -284,18 +397,18 @@ const AdminMenuInfo = ({ menu }: AdminMenuInfoProp) => {
                 }}
                 type={"submit"}
               >
-                Submit
+                Add Menu
               </Button>
+            </div>
+            {error && (
+              <div className="col-12 col-lg-9 d-flex align-items-center ms-0 ms-lg-3 mt-2 mt-lg-0">
+                <div className="col-12">
+                  <ErrorMessage>{error}</ErrorMessage>
+                </div>
+              </div>
             )}
           </div>
-          {error && (
-            <div className="col-12 col-lg-8 d-flex align-items-center ms-0 ms-lg-3 mt-2 mt-lg-0">
-              <div className="col-12 col-lg-3">
-                <ErrorMessage>{error}</ErrorMessage>
-              </div>
-            </div>
-          )}
-        </div>
+        )}
       </AdminMenuInfoForm>
 
       <AddMenuOptionsModal
