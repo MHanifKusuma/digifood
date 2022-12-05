@@ -50,7 +50,7 @@ func (oh *OrderHandler) GetUserOrderById(c *gin.Context) {
 	
 	getUserRole, roleExists := c.Get("user_role")
 	if !roleExists {
-		utils.ErrorResponse(c.Writer, "error baru", http.StatusUnauthorized)
+		utils.ErrorResponse(c.Writer, utils.ErrPageRestricted.Error(), http.StatusUnauthorized)
 		return
 	}
 
