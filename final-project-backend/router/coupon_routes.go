@@ -12,6 +12,7 @@ func couponRoutes(gin *gin.Engine, db *gorm.DB, couponHandler *handler.CouponHan
 	gin.GET("/coupons/:id", couponHandler.GetCouponById)
 
 	gin.GET("/admin/coupons", couponHandler.GetAllCoupon)
-	gin.PUT("/admin/coupons", couponHandler.UpdateCoupon)
+	gin.POST("/admin/coupons", couponHandler.CreateCoupon)
+	gin.PUT("/admin/coupons/:id", couponHandler.UpdateCoupon)
 	gin.DELETE("/admin/coupons/:id", couponHandler.DeleteCoupon)
 }

@@ -58,7 +58,7 @@ func (ch *CouponHandler) GetAllCoupon(c *gin.Context) {
 	utils.SuccessResponse(c.Writer, getAllCoupon, status)
 }
 
-func(ch *CouponHandler) GetCouponById(c *gin.Context) {
+func (ch *CouponHandler) GetCouponById(c *gin.Context) {
 	var id int
 
 	if param, ParamError := strconv.Atoi(c.Param("id")); ParamError != nil {
@@ -76,7 +76,7 @@ func(ch *CouponHandler) GetCouponById(c *gin.Context) {
 	utils.SuccessResponse(c.Writer, coupon, status)
 }
 
-func(ch *CouponHandler) UpdateCoupon(c *gin.Context) {
+func (ch *CouponHandler) UpdateCoupon(c *gin.Context) {
 	getUserRole, userExists := c.Get("user_role")
 	if !userExists {
 		utils.ErrorResponse(c.Writer, utils.ErrUserNotFound.Error(), http.StatusUnauthorized)
@@ -86,22 +86,61 @@ func(ch *CouponHandler) UpdateCoupon(c *gin.Context) {
 	role := getUserRole.(string)
 	userRole, _ := strconv.Atoi(role)
 
-	var payload model.Coupon
+	var payload model.UpdateCouponField
 	if bindJsonError := c.ShouldBindJSON(&payload); bindJsonError != nil {
 		utils.ErrorResponse(c.Writer, utils.ErrConvertRequesData.Error(), http.StatusBadRequest)
 		return
 	}
 
-	coupon, status, couponError := ch.service.UpdateCoupon(payload, userRole)
-	if couponError != nil {
-		utils.ErrorResponse(c.Writer, couponError.Error(), status)
+	coupon := model.Coupon{
+		Id:             payload.Id,
+		Code:           payload.Code,
+		DiscountAmount: payload.DiscountAmount,
+		Available:      payload.Available,
+	}
+
+	updatedCoupon, status, updateCouponError := ch.service.UpdateCoupon(coupon, userRole)
+	if updateCouponError != nil {
+		utils.ErrorResponse(c.Writer, updateCouponError.Error(), status)
 		return
 	}
 
-	utils.SuccessResponse(c.Writer, coupon, status)
+	utils.SuccessResponse(c.Writer, updatedCoupon, status)
 }
 
-func(ch *CouponHandler) DeleteCoupon(c *gin.Context) {
+func (ch *CouponHandler) CreateCoupon(c *gin.Context) {
+	getUserRole, userExists := c.Get("user_role")
+	if !userExists {
+		utils.ErrorResponse(c.Writer, utils.ErrUserNotFound.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	role := getUserRole.(string)
+	userRole, _ := strconv.Atoi(role)
+
+	var payload model.UpdateCouponField
+	if bindJsonError := c.ShouldBindJSON(&payload); bindJsonError != nil {
+		utils.ErrorResponse(c.Writer, utils.ErrConvertRequesData.Error(), http.StatusBadRequest)
+		return
+	}
+
+	coupon := model.Coupon{
+		Id:             payload.Id,
+		Code:           payload.Code,
+		DiscountAmount: payload.DiscountAmount,
+		Available:      payload.Available,
+	}
+
+	updatedCoupon, status, updateCouponError := ch.service.CreateCoupon(coupon, userRole)
+	if updateCouponError != nil {
+		utils.ErrorResponse(c.Writer, updateCouponError.Error(), status)
+		return
+	}
+
+	utils.SuccessResponse(c.Writer, updatedCoupon, status)
+}
+
+func (ch *CouponHandler) DeleteCoupon(c *gin.Context) {
 	getUserRole, userExists := c.Get("user_role")
 	if !userExists {
 		utils.ErrorResponse(c.Writer, utils.ErrUserNotFound.Error(), http.StatusUnauthorized)
@@ -157,7 +196,7 @@ func newAdminCouponPageableRequest(c *gin.Context) *model.PageableRequest {
 	p.Type = "coupon"
 
 	if p.Sort_by == "" {
-		p.Sort_by = utils.SORT_BY_DATE
+		p.Sort_by = utils.SORT_BY_UPDATED_DATE
 	}
 
 	p.Order = utils.OrderFromQueryParam(c)

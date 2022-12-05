@@ -15,6 +15,7 @@ const (
 	SORT_BY_MENU_RATING    = "avg_rating"
 	SORT_BY_PRICE          = "price"
 	SORT_BY_DATE           = "created_at"
+	SORT_BY_UPDATED_DATE   = "updated_at"
 )
 
 type Pageable interface {

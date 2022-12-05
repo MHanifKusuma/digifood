@@ -27,3 +27,10 @@ type UserCoupon struct {
 	UpdatedAt  time.Time      `gorm:"column:updated_at"`
 	DeletedAt  gorm.DeletedAt `gorm:"column:deleted_at"`
 }
+
+type UpdateCouponField struct {
+	Id             int    `json:"id"`
+	Code           string `json:"code"`
+	DiscountAmount int    `json:"discount_amount"`
+	Available      bool   `json:"available"`
+}

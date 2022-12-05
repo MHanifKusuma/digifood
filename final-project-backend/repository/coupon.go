@@ -109,11 +109,11 @@ func (cr *couponRepository) GetAllCoupon(pageable utils.Pageable) (*utils.Page, 
 }
 
 func (cr *couponRepository) CreateCoupon(coupon model.Coupon) (*model.Coupon, error) {
-	createRes := cr.db.Create(coupon)
+	createRes := cr.db.Create(&coupon)
 	if createRes.Error != nil {
 		return nil, createRes.Error
 	}
-
+	
 	return &coupon, nil
 }
 
@@ -132,7 +132,7 @@ func (cr *couponRepository) UpdateCoupon(coupon model.Coupon) (*model.Coupon, er
 	updateMenuRes := cr.db.
 		Clauses(clause.Returning{}).
 		Model(&coupon).
-		Updates(coupon)
+		Updates(map[string]interface{}{"code": coupon.Code, "discount_amount": coupon.DiscountAmount, "available": coupon.Available})
 	if updateMenuRes.Error != nil {
 		return nil, updateMenuRes.Error
 	}
