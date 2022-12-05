@@ -1,23 +1,29 @@
 import Button from "components/shared-components/Button";
 import { ICategory } from "interfaces/Category";
+import { ICoupon } from "interfaces/Coupon";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "redux/reducers";
+import { AdminCouponModalType } from "../CouponDetailModal";
 import AdminCouponListHeaderWrapper from "./style";
 
 interface AdminCouponListHeaderProp {
   handleSortChange: (e: React.FormEvent<HTMLSelectElement>) => void;
   handleOrderChange: (e: React.FormEvent<HTMLSelectElement>) => void;
   setShowDetailCouponModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenModalType: React.Dispatch<React.SetStateAction<AdminCouponModalType>>;
+  setSelectedCoupon: React.Dispatch<React.SetStateAction<ICoupon>>;
 }
 
 const AdminCouponListHeader = ({
   handleOrderChange,
   handleSortChange,
   setShowDetailCouponModal,
+  setOpenModalType,
+  setSelectedCoupon,
 }: AdminCouponListHeaderProp) => {
-  const sortOption = [{ label: "Created date", value: "created_at" }];
+  const sortOption = [{ label: "Last updated", value: "updated_at" }];
 
   const orderOption = [
     { label: "Newest", value: "desc" },
@@ -60,7 +66,16 @@ const AdminCouponListHeader = ({
                 color: "#FFFFFF",
                 padding: "0.25rem 1rem",
               }}
-              btnFunction={() => setShowDetailCouponModal(true)}
+              btnFunction={() => {
+                setSelectedCoupon({
+                  Id: 0,
+                  Code: "",
+                  DiscountAmount: 0,
+                  Available: false,
+                });
+                setOpenModalType(AdminCouponModalType.CREATE);
+                setShowDetailCouponModal(true);
+              }}
             >
               Add Coupon
             </Button>

@@ -18,6 +18,7 @@ export const CouponWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  transition: all 0.15s ease-in-out;
 
   .status {
     border-radius: 20px;
@@ -31,6 +32,10 @@ export const CouponWrapper = styled.div`
     &.available {
       background-color: #aad4b3;
     }
+  }
+
+  &:hover {
+    box-shadow: 0 4px 10px 5px #d9d9d9;
   }
 `;
 

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CSSProperties } from "react";
 
 export const CustomForm = styled.form`
   width: 100%;
@@ -51,4 +52,13 @@ export const DiscountedPrice = styled.p`
     font-size: 0.75rem;
     font-weight: 400 !important;
   }
+`;
+
+export interface ModalStyle {
+  ModalStyle?: CSSProperties;
+}
+
+export const GlobalModalStyle = styled.form<ModalStyle>`
+  background-color: rgba(0, 0, 0, 0.5);
+  ${(props) => (props.ModalStyle ? { ...props.ModalStyle } : "")};
 `;

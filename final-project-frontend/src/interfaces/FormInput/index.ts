@@ -36,3 +36,10 @@ export type MenuCreateUpdateInput = {
   menu_options: IMenuOptions[];
   deleted_menu_options: number[];
 };
+
+export type CouponCreateUpdateInput = {
+  id: number;
+  code: string;
+  discount_amount: number;
+  available: boolean;
+};

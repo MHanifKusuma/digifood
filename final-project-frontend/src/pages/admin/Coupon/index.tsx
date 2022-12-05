@@ -1,4 +1,7 @@
 import axios from "axios";
+import AdminCouponDetailModal, {
+  AdminCouponModalType,
+} from "components/page-components/AdminCouponComponent/CouponDetailModal";
 import AdminCouponList from "components/page-components/AdminCouponComponent/CouponList";
 import AdminCouponListHeader from "components/page-components/AdminCouponComponent/CouponListHeader";
 import AdminNavbar from "components/shared-components/AdminNavbar";
@@ -35,7 +38,6 @@ const AdminCoupon = () => {
       .catch((error) => console.log(error));
   };
 
-  const [showDetailCouponModal, setShowDetailCouponModal] = useState(false);
   const handleOrderChange = (e: React.FormEvent<HTMLSelectElement>) => {
     setFilterOption({
       ...filterOption,
@@ -49,6 +51,18 @@ const AdminCoupon = () => {
       sortBy: e.currentTarget.value,
     });
   };
+
+  const [showDetailCouponModal, setShowDetailCouponModal] = useState(false);
+  const [openModalType, setOpenModalType] = useState<AdminCouponModalType>(
+    AdminCouponModalType.CREATE
+  );
+
+  const [selectedCoupon, setSelectedCoupon] = useState<ICoupon>({
+    Id: 0,
+    Code: "",
+    DiscountAmount: 0,
+    Available: false,
+  });
 
   useEffect(() => {
     fetchAllCoupons();
@@ -65,12 +79,23 @@ const AdminCoupon = () => {
           setShowDetailCouponModal={setShowDetailCouponModal}
           handleOrderChange={handleOrderChange}
           handleSortChange={handleSortChange}
+          setOpenModalType={setOpenModalType}
+          setSelectedCoupon={setSelectedCoupon}
         />
         <AdminCouponList
           coupons={coupons}
           filterOption={filterOption}
           setFilterOption={setFilterOption}
           isLastPage={isLastPage}
+          setOpenModalType={setOpenModalType}
+          setSelectedCoupon={setSelectedCoupon}
+          setShowModal={setShowDetailCouponModal}
+        />
+        <AdminCouponDetailModal
+          coupon={selectedCoupon}
+          show={showDetailCouponModal}
+          handleClose={() => setShowDetailCouponModal(false)}
+          type={openModalType}
         />
       </div>
     </AdminCouponWrapper>

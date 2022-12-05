@@ -4,6 +4,7 @@ import { IFilterOption } from "interfaces/FilterOption";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { formatCurrency } from "utils/index";
+import { AdminCouponModalType } from "../CouponDetailModal";
 import AdminCouponListWrapper, { CouponWrapper } from "./style";
 
 interface AdminCouponListProp {
@@ -11,6 +12,9 @@ interface AdminCouponListProp {
   setFilterOption: React.Dispatch<React.SetStateAction<IFilterOption>>;
   filterOption: IFilterOption;
   isLastPage: boolean;
+  setOpenModalType: React.Dispatch<React.SetStateAction<AdminCouponModalType>>;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedCoupon: React.Dispatch<React.SetStateAction<ICoupon>>;
 }
 
 const AdminCouponList = ({
@@ -18,6 +22,9 @@ const AdminCouponList = ({
   filterOption,
   setFilterOption,
   isLastPage,
+  setOpenModalType,
+  setShowModal,
+  setSelectedCoupon,
 }: AdminCouponListProp) => {
   const [pagination, setPagination] = useState<string[]>([]);
 
@@ -107,7 +114,16 @@ const AdminCouponList = ({
     <AdminCouponListWrapper>
       <div className="coupon-list">
         {coupons.data.map((coupon) => (
-          <CouponWrapper className="col p-3 text-center" key={coupon.Id}>
+          <CouponWrapper
+            className="col p-3 text-center"
+            key={coupon.Id}
+            onClick={() => {
+              setSelectedCoupon(coupon);
+              setOpenModalType(AdminCouponModalType.UPDATE);
+              setShowModal(true);
+            }}
+            role={"button"}
+          >
             <p className="fw-bolder">{coupon.Code}</p>
             <div className="col-6 col-lg-3 mx-auto">
               <p

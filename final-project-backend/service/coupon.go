@@ -19,6 +19,7 @@ type CouponService interface {
 	GetCouponById(id int) (*model.Coupon, int, error)
 	UpdateCoupon(coupon model.Coupon, userRole int) (*model.Coupon, int, error)
 	DeleteCoupon(id int, userRole int) (int, int, error)
+	CreateCoupon(coupon model.Coupon, userRole int) (*model.Coupon, int, error)
 }
 
 func NewCouponService(repository repository.CouponRepository) CouponService {
@@ -105,11 +106,24 @@ func (cs *couponService) UpdateCoupon(coupon model.Coupon, userRole int) (*model
 	return updateCoupon, http.StatusOK, nil
 }
 
+func(cs *couponService) CreateCoupon(coupon model.Coupon, userRole int) (*model.Coupon, int, error) {
+	if userRole != 0 {
+		return nil, http.StatusUnauthorized, utils.ErrPageRestricted
+	}
+
+	createdCoupon, updateError := cs.repository.CreateCoupon(coupon)
+	if updateError != nil {
+		return nil, http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return createdCoupon, http.StatusOK, nil
+}
+
 func (cs *couponService) DeleteCoupon(id int, userRole int) (int, int, error) {
 	if userRole != 0 {
 		return -1, http.StatusUnauthorized, utils.ErrPageRestricted
 	}
-	
+
 	_, status, getCouponError := cs.GetCouponById(id)
 	if status != 200 {
 		return -1, status, getCouponError
