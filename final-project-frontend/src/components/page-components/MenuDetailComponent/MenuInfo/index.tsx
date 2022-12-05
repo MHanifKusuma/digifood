@@ -70,8 +70,6 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
         AddOns: mergedOption,
       };
 
-      console.log(newCartItem);
-
       cartDispatch(addCartsitem(newCartItem));
       cartDispatch(setCartsTotalPrice(totalPrice));
 

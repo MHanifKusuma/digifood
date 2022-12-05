@@ -57,11 +57,11 @@ func (or *orderRepository) GetAllUserOrder(userId int, pageable utils.Pageable) 
 	}
 
 	if countError != nil {
-		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable(model.Order{}), nil
+		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable([]model.Order{}), nil
 	}
 
 	if count == 0 {
-		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable(model.Order{}), nil
+		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable([]model.Order{}), nil
 	}
 
 	paginator := utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), int(count))
