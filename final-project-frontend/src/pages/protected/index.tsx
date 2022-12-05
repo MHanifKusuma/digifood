@@ -2,9 +2,11 @@ import Button from "components/shared-components/Button";
 import ErrorModal from "components/shared-components/ErrorModal";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { fetchUser } from "redux/actions/UserAction";
+import { UserDispatch } from "redux/actions/UserAction/type";
 import { RootState } from "redux/reducers";
 
 const ProtectedRoutes = () => {
@@ -23,6 +25,16 @@ const ProtectedRoutes = () => {
 
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+
+  const userDispatch: UserDispatch = useDispatch();
+  const setUserProfile = () => {
+    userDispatch(fetchUser(cookies.login));
+  };
+
+  const { user } = useSelector((state: RootState) => state.UsersReducer);
+  useEffect(() => {
+    setUserProfile();
+  }, []);
 
   useEffect(() => {
     if (userError) {
