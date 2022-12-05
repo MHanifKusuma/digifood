@@ -79,7 +79,7 @@ const UserProfile = ({ user }: UserProfileProp) => {
     }
 
     await axios
-      .post(`http://localhost:8080/profile`, submitData, {
+      .put(`http://localhost:8080/profile`, submitData, {
         headers: {
           Authorization: `Bearer ${cookies.login}`,
         },

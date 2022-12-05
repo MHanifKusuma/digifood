@@ -9,6 +9,6 @@ import (
 
 func userRoutes(gin *gin.Engine, db *gorm.DB, userHandler *handler.UserHandler) {
 	gin.GET("/profile", userHandler.GetUserProfile)
-	gin.POST("/profile", userHandler.UpdateUserProfile)
+	gin.PUT("/profile", userHandler.UpdateUserProfile)
 	gin.POST("/favorites", userHandler.AddFavorite)
 }

@@ -51,11 +51,11 @@ func (mr *menuRepository) GetAllMenu(pageable utils.Pageable) (*utils.Page, erro
 	}
 
 	if countError != nil {
-		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable(model.Menu{}), nil
+		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable([]model.Menu{}), nil
 	}
 
 	if count == 0 {
-		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable(model.Menu{}), nil
+		return utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), 0).Pageable([]model.Menu{}), nil
 	}
 
 	paginator := utils.NewPaginator(pageable.GetPage(), pageable.GetLimit(), int(count))
