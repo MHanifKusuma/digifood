@@ -38,14 +38,11 @@ func HandleRequests(db *gorm.DB) {
 	orderHandler := handler.NewOrderHandler(orderService)
 	userHandler := handler.NewUserHandler(userService)
 
-	// config := cors.DefaultConfig()
-	// config.AllowOrigins = []string{"*"}
-
 	gin := gin.Default()
-	// gin.Use(cors.New(config))
+
+	gin.Static("/docs", "dist")
 	gin.Use(middleware.CorsMiddleware)
 
-	gin.Static("docs", "./dist")
 
 	authorizationRoutes(gin, db, authHandler)
 	categoryRoutes(gin, db, categoryHandler)

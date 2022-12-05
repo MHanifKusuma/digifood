@@ -1,0 +1,3470 @@
+openapi: 3.0.0
+info:
+  title: Fix
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Admin
+  - name: Admin > orders
+  - name: Admin > menus
+  - name: Admin > coupons
+paths:
+  /admin/orders:
+    get:
+      tags:
+        - Admin > orders
+      summary: orders
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:22:59 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: orders
+                  value:
+                    message: success
+                    data:
+                      data:
+                        - Id: 4
+                          UserId: 2
+                          User:
+                            Id: 2
+                            FullName: user one update
+                            Phone: ""
+                            Email: user.one@email.com
+                            Username: userone
+                            Password: ""
+                            Role: 0
+                            ProfilePicture: ""
+                            UserFavorite: null
+                            UserCoupon: null
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          CouponId: 0
+                          Coupon:
+                            Id: 0
+                            UserId: 0
+                            CouponId: 0
+                            Coupon:
+                              Id: 0
+                              Code: ""
+                              DiscountAmount: 0
+                              Available: false
+                              CreatedAt: "0001-01-01T00:00:00Z"
+                              UpdatedAt: "0001-01-01T00:00:00Z"
+                              DeletedAt: null
+                            Expired_at: "0001-01-01T00:00:00Z"
+                            Amount: 0
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          PaymentOptionId: 1
+                          PaymentOption:
+                            Id: 1
+                            Name: Bank Transfer
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          DeliveryStatusId: 2
+                          DeliveryStatus:
+                            Id: 2
+                            Status: Cooking Order
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          TotalPrice: 50000
+                          OrderDetail:
+                            - Id: 8
+                              OrderId: 4
+                              MenuId: 12
+                              Menu:
+                                Id: 12
+                                CategoryId: 3
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Fettucine Carbonara
+                                Description: >-
+                                  Fettuccine carbonara dish with bacon,
+                                  shallots, onion, and garlic, and a creamy
+                                  sauce.
+                                AverageRating: 4.8
+                                TotalFavorites: 16
+                                TotalReview: 35
+                                Price: 50000
+                                MenuPhoto: >-
+                                  https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 0
+                                  MenuId: 0
+                                  Name: ""
+                                  Discount: 0
+                                  Available: false
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 50000
+                              Quantity: 1
+                              AddOns: ""
+                              CreatedAt: "2022-12-05T22:18:22.831721Z"
+                              UpdatedAt: "2022-12-05T22:18:22.831721Z"
+                              DeletedAt: null
+                          CreatedAt: "2022-12-05T22:18:22.818685Z"
+                          UpdatedAt: "2022-12-05T22:20:05.15268Z"
+                          DeletedAt: null
+                        - Id: 1
+                          UserId: 2
+                          User:
+                            Id: 2
+                            FullName: user one update
+                            Phone: ""
+                            Email: user.one@email.com
+                            Username: userone
+                            Password: ""
+                            Role: 0
+                            ProfilePicture: ""
+                            UserFavorite: null
+                            UserCoupon: null
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          CouponId: 1
+                          Coupon:
+                            Id: 1
+                            UserId: 2
+                            CouponId: 3
+                            Coupon:
+                              Id: 3
+                              Code: MONTHLYCOUPON3500
+                              DiscountAmount: 3500
+                              Available: true
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            Expired_at: "2022-12-31T23:59:59Z"
+                            Amount: 1
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          PaymentOptionId: 5
+                          PaymentOption:
+                            Id: 5
+                            Name: Cash
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          DeliveryStatusId: 1
+                          DeliveryStatus:
+                            Id: 1
+                            Status: Waiting Payment
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          TotalPrice: 57000
+                          OrderDetail:
+                            - Id: 1
+                              OrderId: 1
+                              MenuId: 13
+                              Menu:
+                                Id: 13
+                                CategoryId: 3
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Hamburger
+                                Description: >-
+                                  Burger with smoked beef, cheese slices, and
+                                  vegetables
+                                AverageRating: 4.3
+                                TotalFavorites: 19
+                                TotalReview: 23
+                                Price: 25000
+                                MenuPhoto: >-
+                                  https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 1
+                                  MenuId: 13
+                                  Name: December Burger Deal
+                                  Discount: 5000
+                                  Available: true
+                                  CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                  UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 20000
+                              Quantity: 2
+                              AddOns: ""
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            - Id: 2
+                              OrderId: 1
+                              MenuId: 15
+                              Menu:
+                                Id: 15
+                                CategoryId: 4
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Banana Split
+                                Description: >-
+                                  3 scopes of mixed chocolate, vanilla, and
+                                  strawberry ice cream on top of a banana
+                                AverageRating: 4.3
+                                TotalFavorites: 3
+                                TotalReview: 8
+                                Price: 15000
+                                MenuPhoto: >-
+                                  https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 2
+                                  MenuId: 15
+                                  Name: Christmas Banana Party
+                                  Discount: 3000
+                                  Available: true
+                                  CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                  UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 12000
+                              Quantity: 1
+                              AddOns: Mixed Ice Cream, Oreo Topping
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                          CreatedAt: "2022-12-05T20:48:18.458353Z"
+                          UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                          DeletedAt: null
+                        - Id: 2
+                          UserId: 2
+                          User:
+                            Id: 2
+                            FullName: user one update
+                            Phone: ""
+                            Email: user.one@email.com
+                            Username: userone
+                            Password: ""
+                            Role: 0
+                            ProfilePicture: ""
+                            UserFavorite: null
+                            UserCoupon: null
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          CouponId: 0
+                          Coupon:
+                            Id: 0
+                            UserId: 0
+                            CouponId: 0
+                            Coupon:
+                              Id: 0
+                              Code: ""
+                              DiscountAmount: 0
+                              Available: false
+                              CreatedAt: "0001-01-01T00:00:00Z"
+                              UpdatedAt: "0001-01-01T00:00:00Z"
+                              DeletedAt: null
+                            Expired_at: "0001-01-01T00:00:00Z"
+                            Amount: 0
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          PaymentOptionId: 1
+                          PaymentOption:
+                            Id: 1
+                            Name: Bank Transfer
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          DeliveryStatusId: 2
+                          DeliveryStatus:
+                            Id: 2
+                            Status: Cooking Order
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          TotalPrice: 68000
+                          OrderDetail:
+                            - Id: 3
+                              OrderId: 2
+                              MenuId: 12
+                              Menu:
+                                Id: 12
+                                CategoryId: 3
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Fettucine Carbonara
+                                Description: >-
+                                  Fettuccine carbonara dish with bacon,
+                                  shallots, onion, and garlic, and a creamy
+                                  sauce.
+                                AverageRating: 4.8
+                                TotalFavorites: 16
+                                TotalReview: 35
+                                Price: 50000
+                                MenuPhoto: >-
+                                  https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 0
+                                  MenuId: 0
+                                  Name: ""
+                                  Discount: 0
+                                  Available: false
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 50000
+                              Quantity: 1
+                              AddOns: ""
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            - Id: 4
+                              OrderId: 2
+                              MenuId: 14
+                              Menu:
+                                Id: 14
+                                CategoryId: 4
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Sundae
+                                Description: >-
+                                  Vanilla sundae ice cream with sauce of choices
+                                  topping
+                                AverageRating: 4.8
+                                TotalFavorites: 7
+                                TotalReview: 15
+                                Price: 10000
+                                MenuPhoto: >-
+                                  https://res.cloudinary.com/dhlgjnupw/image/upload/v1670248939/ycyafdm0e98ds86yxm7x.jpg
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 0
+                                  MenuId: 0
+                                  Name: ""
+                                  Discount: 0
+                                  Available: false
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T21:02:20.131411Z"
+                                DeletedAt: null
+                              Price: 10000
+                              Quantity: 2
+                              AddOns: Strawberry Sauce
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            - Id: 5
+                              OrderId: 2
+                              MenuId: 3
+                              Menu:
+                                Id: 3
+                                CategoryId: 1
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Coffee
+                                Description: Regular black coffee
+                                AverageRating: 5
+                                TotalFavorites: 10
+                                TotalReview: 20
+                                Price: 8000
+                                MenuPhoto: >-
+                                  https://res.cloudinary.com/dhlgjnupw/image/upload/v1670246340/black-coffee_ujtxzh.jpg
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 0
+                                  MenuId: 0
+                                  Name: ""
+                                  Discount: 0
+                                  Available: false
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 8000
+                              Quantity: 1
+                              AddOns: ""
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                          CreatedAt: "2022-12-05T20:48:18.458353Z"
+                          UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                          DeletedAt: null
+                        - Id: 3
+                          UserId: 3
+                          User:
+                            Id: 3
+                            FullName: user two
+                            Phone: ""
+                            Email: user.two@email.com
+                            Username: usertwo
+                            Password: ""
+                            Role: 0
+                            ProfilePicture: ""
+                            UserFavorite: null
+                            UserCoupon: null
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          CouponId: 0
+                          Coupon:
+                            Id: 0
+                            UserId: 0
+                            CouponId: 0
+                            Coupon:
+                              Id: 0
+                              Code: ""
+                              DiscountAmount: 0
+                              Available: false
+                              CreatedAt: "0001-01-01T00:00:00Z"
+                              UpdatedAt: "0001-01-01T00:00:00Z"
+                              DeletedAt: null
+                            Expired_at: "0001-01-01T00:00:00Z"
+                            Amount: 0
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          PaymentOptionId: 2
+                          PaymentOption:
+                            Id: 2
+                            Name: Debit Card
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          DeliveryStatusId: 3
+                          DeliveryStatus:
+                            Id: 3
+                            Status: Delivering Order
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          TotalPrice: 50000
+                          OrderDetail:
+                            - Id: 6
+                              OrderId: 3
+                              MenuId: 14
+                              Menu:
+                                Id: 14
+                                CategoryId: 4
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Sundae
+                                Description: >-
+                                  Vanilla sundae ice cream with sauce of choices
+                                  topping
+                                AverageRating: 4.8
+                                TotalFavorites: 7
+                                TotalReview: 15
+                                Price: 10000
+                                MenuPhoto: >-
+                                  https://res.cloudinary.com/dhlgjnupw/image/upload/v1670248939/ycyafdm0e98ds86yxm7x.jpg
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 0
+                                  MenuId: 0
+                                  Name: ""
+                                  Discount: 0
+                                  Available: false
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T21:02:20.131411Z"
+                                DeletedAt: null
+                              Price: 10000
+                              Quantity: 3
+                              AddOns: Blueberry Sauce
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            - Id: 7
+                              OrderId: 3
+                              MenuId: 14
+                              Menu:
+                                Id: 14
+                                CategoryId: 4
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Sundae
+                                Description: >-
+                                  Vanilla sundae ice cream with sauce of choices
+                                  topping
+                                AverageRating: 4.8
+                                TotalFavorites: 7
+                                TotalReview: 15
+                                Price: 10000
+                                MenuPhoto: >-
+                                  https://res.cloudinary.com/dhlgjnupw/image/upload/v1670248939/ycyafdm0e98ds86yxm7x.jpg
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 0
+                                  MenuId: 0
+                                  Name: ""
+                                  Discount: 0
+                                  Available: false
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T21:02:20.131411Z"
+                                DeletedAt: null
+                              Price: 10000
+                              Quantity: 2
+                              AddOns: Chocolate Sauce
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                          CreatedAt: "2022-12-05T20:48:18.458353Z"
+                          UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                          DeletedAt: null
+                      current_page: 1
+                      total: 4
+                      total_page: 1
+                example-1:
+                  summary: orders - with param
+                  value:
+                    message: success
+                    data:
+                      data:
+                        Id: 0
+                        UserId: 0
+                        User:
+                          Id: 0
+                          FullName: ""
+                          Phone: ""
+                          Email: ""
+                          Username: ""
+                          Password: ""
+                          Role: 0
+                          ProfilePicture: ""
+                          UserFavorite: null
+                          UserCoupon: null
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        CouponId: 0
+                        Coupon:
+                          Id: 0
+                          UserId: 0
+                          CouponId: 0
+                          Coupon:
+                            Id: 0
+                            Code: ""
+                            DiscountAmount: 0
+                            Available: false
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          Expired_at: "0001-01-01T00:00:00Z"
+                          Amount: 0
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        PaymentOptionId: 0
+                        PaymentOption:
+                          Id: 0
+                          Name: ""
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        DeliveryStatusId: 0
+                        DeliveryStatus:
+                          Id: 0
+                          Status: ""
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        TotalPrice: 0
+                        OrderDetail: null
+                        CreatedAt: "0001-01-01T00:00:00Z"
+                        UpdatedAt: "0001-01-01T00:00:00Z"
+                        DeletedAt: null
+                      current_page: 0
+                      total: 0
+                      total_page: 0
+        "401":
+          description: Unauthorized
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:25:54 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "30"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: page restricted
+  /admin/menus:
+    post:
+      tags:
+        - Admin > menus
+      summary: menus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 0
+                name: new menu
+                category_id: 4
+                description: new menu desc
+                price: 15000
+                menu_photo: ""
+                menu_options:
+                  - Id: 0
+                    Name: option1
+                    Price: 0
+                    MenuId: 0
+                    Type: radio
+                deleted_menu_options: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:33:57 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "787"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  Id: 17
+                  CategoryId: 4
+                  Category:
+                    Id: 0
+                    Name: ""
+                    Menu: null
+                    CreatedAt: "0001-01-01T00:00:00Z"
+                    UpdatedAt: "0001-01-01T00:00:00Z"
+                    DeletedAt: null
+                  Name: new menu
+                  Description: new menu desc
+                  AverageRating: 0
+                  TotalFavorites: 0
+                  TotalReview: 0
+                  Price: 15000
+                  MenuPhoto: ""
+                  MenuOptions:
+                    - Id: 14
+                      Name: option1
+                      MenuId: 17
+                      Price: 0
+                      Type: radio
+                      CreatedAt: "2022-12-05T22:33:57.469995437+07:00"
+                      UpdatedAt: "2022-12-05T22:33:57.469995437+07:00"
+                      DeletedAt: null
+                  Promotion:
+                    Id: 0
+                    MenuId: 0
+                    Name: ""
+                    Discount: 0
+                    Available: false
+                    CreatedAt: "0001-01-01T00:00:00Z"
+                    UpdatedAt: "0001-01-01T00:00:00Z"
+                    DeletedAt: null
+                  CreatedAt: "2022-12-05T22:33:57.468673605+07:00"
+                  UpdatedAt: "2022-12-05T22:33:57.468673605+07:00"
+                  DeletedAt: null
+  /admin/menus/17:
+    put:
+      tags:
+        - Admin > menus
+      summary: menus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 17
+                name: new menu update
+                category_id: 4
+                description: new menu desc
+                price: 15000
+                menu_photo: ""
+                menu_options:
+                  - Id: 14
+                    Name: option1
+                    Price: 0
+                    MenuId: 17
+                    Type: radio
+                deleted_menu_options: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:36:42 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "748"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  Id: 17
+                  CategoryId: 4
+                  Category:
+                    Id: 0
+                    Name: ""
+                    Menu: null
+                    CreatedAt: "0001-01-01T00:00:00Z"
+                    UpdatedAt: "0001-01-01T00:00:00Z"
+                    DeletedAt: null
+                  Name: new menu update
+                  Description: new menu desc
+                  AverageRating: 0
+                  TotalFavorites: 0
+                  TotalReview: 0
+                  Price: 15000
+                  MenuPhoto: ""
+                  MenuOptions:
+                    - Id: 14
+                      Name: option1
+                      MenuId: 17
+                      Price: 0
+                      Type: radio
+                      CreatedAt: "0001-01-01T00:00:00Z"
+                      UpdatedAt: "0001-01-01T00:00:00Z"
+                      DeletedAt: null
+                  Promotion:
+                    Id: 0
+                    MenuId: 0
+                    Name: ""
+                    Discount: 0
+                    Available: false
+                    CreatedAt: "0001-01-01T00:00:00Z"
+                    UpdatedAt: "0001-01-01T00:00:00Z"
+                    DeletedAt: null
+                  CreatedAt: "2022-12-05T22:33:57.468673Z"
+                  UpdatedAt: "2022-12-05T22:36:42.597194Z"
+                  DeletedAt: null
+    delete:
+      tags:
+        - Admin > menus
+      summary: menus
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:37:37 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "32"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data: 17
+  /admin/coupons:
+    get:
+      tags:
+        - Admin > coupons
+      summary: coupons
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:40:09 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "789"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  data:
+                    - Id: 1
+                      Code: NOVEMBERDEALS15000
+                      DiscountAmount: 15000
+                      Available: false
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                    - Id: 2
+                      Code: DECEMBERDEAL10000
+                      DiscountAmount: 1000
+                      Available: true
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                    - Id: 3
+                      Code: MONTHLYCOUPON3500
+                      DiscountAmount: 3500
+                      Available: true
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                    - Id: 4
+                      Code: MONTHLYCOUPON1000
+                      DiscountAmount: 1000
+                      Available: true
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                  current_page: 1
+                  total: 4
+                  total_page: 1
+    post:
+      tags:
+        - Admin > coupons
+      summary: coupons
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id: 0
+                code: NEWCOUPON
+                discount_amount: 10000
+                available: true
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:42:17 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "214"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  Id: 5
+                  Code: NEWCOUPON
+                  DiscountAmount: 10000
+                  Available: true
+                  CreatedAt: "2022-12-05T22:42:17.086615062+07:00"
+                  UpdatedAt: "2022-12-05T22:42:17.086615062+07:00"
+                  DeletedAt: null
+  /admin/coupons/5:
+    put:
+      tags:
+        - Admin > coupons
+      summary: coupons
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                Id: 5
+                Code: NEWCOUPON
+                DiscountAmount: 10000
+                Available: false
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:43:18 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "195"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  Id: 5
+                  Code: NEWCOUPON
+                  DiscountAmount: 0
+                  Available: false
+                  CreatedAt: "2022-12-05T22:42:17.086615Z"
+                  UpdatedAt: "2022-12-05T22:43:18.247188Z"
+                  DeletedAt: null
+    delete:
+      tags:
+        - Admin > coupons
+      summary: coupons
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:43:56 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "31"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data: 5
+  /login:
+    post:
+      tags:
+        - User
+      summary: login
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: >-
+                "{\n  \"login\": \"userone\",\n  \"password\":
+                \"userone123!\"\n}"
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:09:35 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "238"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  Token: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3JvbGUiOiIxIiwidXNlcl9pZCI6IjIiLCJpc3MiOiJpc3N1ZXJmb3Jqd3QiLCJleHAiOjE2NzAzMzU3NzUsImlhdCI6MTY3MDI0OTM3NX0.ub1DWdRlBrFpUwr6cL3JmhhAWTKd-OHf-xGU4JHKRR0
+        "403":
+          description: Forbidden
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:10:59 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "32"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: wrong credentials
+        "404":
+          description: Not Found
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:10:24 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "29"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: user not found
+  /register:
+    post:
+      tags:
+        - User
+      summary: register
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: >-
+                "{\n    \"fullName\": \"John Doe\",\n    \"email\":
+                \"john.doe@email.com\",\n    \"phone\": \"087878498238\",\n   
+                \"username\": \"johndoe\",\n    \"password\":
+                \"johndoe123!\"\n}"
+      responses:
+        "201":
+          description: Created
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:20:16 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "48"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data: register success
+        "409":
+          description: Conflict
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:20:37 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "35"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: email already exists
+  /profile:
+    get:
+      tags:
+        - User
+      summary: profile
+      security:
+        - noauthAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:37:50 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  Id: 2
+                  FullName: user one update
+                  Phone: "08787647362"
+                  Email: user.one@email.com
+                  Username: userone
+                  Role: 1
+                  ProfilePicture: ""
+                  UserFavorite:
+                    - Id: 1
+                      UserId: 2
+                      MenuId: 1
+                      Menu:
+                        Id: 1
+                        CategoryId: 1
+                        Category:
+                          Id: 0
+                          Name: ""
+                          Menu: null
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        Name: Sweet Tea
+                        Description: Regular sweet tea
+                        AverageRating: 3.5
+                        TotalFavorites: 3
+                        TotalReview: 5
+                        Price: 5000
+                        MenuPhoto: >-
+                          https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                        MenuOptions: null
+                        Promotion:
+                          Id: 0
+                          MenuId: 0
+                          Name: ""
+                          Discount: 0
+                          Available: false
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                    - Id: 2
+                      UserId: 2
+                      MenuId: 5
+                      Menu:
+                        Id: 5
+                        CategoryId: 2
+                        Category:
+                          Id: 0
+                          Name: ""
+                          Menu: null
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        Name: Grilled Gyoza
+                        Description: Grilled Chicken gyoza (5pcs)
+                        AverageRating: 4.5
+                        TotalFavorites: 15
+                        TotalReview: 50
+                        Price: 30000
+                        MenuPhoto: >-
+                          https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                        MenuOptions: null
+                        Promotion:
+                          Id: 0
+                          MenuId: 0
+                          Name: ""
+                          Discount: 0
+                          Available: false
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                    - Id: 3
+                      UserId: 2
+                      MenuId: 7
+                      Menu:
+                        Id: 7
+                        CategoryId: 2
+                        Category:
+                          Id: 0
+                          Name: ""
+                          Menu: null
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        Name: Mendoan
+                        Description: Grilled Chicken gyoza (5pcs)
+                        AverageRating: 4
+                        TotalFavorites: 9
+                        TotalReview: 20
+                        Price: 15000
+                        MenuPhoto: >-
+                          https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                        MenuOptions: null
+                        Promotion:
+                          Id: 0
+                          MenuId: 0
+                          Name: ""
+                          Discount: 0
+                          Available: false
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                    - Id: 4
+                      UserId: 2
+                      MenuId: 12
+                      Menu:
+                        Id: 12
+                        CategoryId: 3
+                        Category:
+                          Id: 0
+                          Name: ""
+                          Menu: null
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        Name: Fettucine Carbonara
+                        Description: >-
+                          Fettuccine carbonara dish with bacon, shallots, onion,
+                          and garlic, and a creamy sauce.
+                        AverageRating: 4.8
+                        TotalFavorites: 16
+                        TotalReview: 35
+                        Price: 50000
+                        MenuPhoto: >-
+                          https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                        MenuOptions: null
+                        Promotion:
+                          Id: 0
+                          MenuId: 0
+                          Name: ""
+                          Discount: 0
+                          Available: false
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                    - Id: 5
+                      UserId: 2
+                      MenuId: 16
+                      Menu:
+                        Id: 16
+                        CategoryId: 4
+                        Category:
+                          Id: 0
+                          Name: ""
+                          Menu: null
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        Name: Mochi
+                        Description: mochi ice cream with various flavor
+                        AverageRating: 5
+                        TotalFavorites: 3
+                        TotalReview: 5
+                        Price: 10000
+                        MenuPhoto: >-
+                          https://res.cloudinary.com/dhlgjnupw/image/upload/v1670246449/mochi_xwkkqq.jpg
+                        MenuOptions: null
+                        Promotion:
+                          Id: 0
+                          MenuId: 0
+                          Name: ""
+                          Discount: 0
+                          Available: false
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                    - Id: 11
+                      UserId: 2
+                      MenuId: 3
+                      Menu:
+                        Id: 3
+                        CategoryId: 1
+                        Category:
+                          Id: 0
+                          Name: ""
+                          Menu: null
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        Name: Coffee
+                        Description: Regular black coffee
+                        AverageRating: 5
+                        TotalFavorites: 10
+                        TotalReview: 20
+                        Price: 8000
+                        MenuPhoto: >-
+                          https://res.cloudinary.com/dhlgjnupw/image/upload/v1670246340/black-coffee_ujtxzh.jpg
+                        MenuOptions: null
+                        Promotion:
+                          Id: 0
+                          MenuId: 0
+                          Name: ""
+                          Discount: 0
+                          Available: false
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                  UserCoupon:
+                    - Id: 1
+                      UserId: 2
+                      CouponId: 3
+                      Coupon:
+                        Id: 3
+                        Code: MONTHLYCOUPON3500
+                        DiscountAmount: 3500
+                        Available: true
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      Expired_at: "2022-12-31T23:59:59Z"
+                      Amount: 1
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                    - Id: 2
+                      UserId: 2
+                      CouponId: 4
+                      Coupon:
+                        Id: 4
+                        Code: MONTHLYCOUPON1000
+                        DiscountAmount: 1000
+                        Available: true
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      Expired_at: "2022-12-31T23:59:59Z"
+                      Amount: 5
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                    - Id: 3
+                      UserId: 2
+                      CouponId: 4
+                      Coupon:
+                        Id: 4
+                        Code: MONTHLYCOUPON1000
+                        DiscountAmount: 1000
+                        Available: true
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      Expired_at: "2022-12-31T23:59:59Z"
+                      Amount: 5
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                  CreatedAt: "2022-12-05T20:48:03.88428Z"
+                  UpdatedAt: "2022-12-05T21:32:37.471123Z"
+        "403":
+          description: Forbidden
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:38:14 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "47"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: no authorization header provided
+    put:
+      tags:
+        - User
+      summary: profile
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: >-
+                "{\n    \"profilePicture\": \"\",\n    \"fullName\": \"user one
+                update\",\n    \"email\": \"user.one@email.com\",\n   
+                \"phone\": \"08787647362\",\n    \"username\": \"userone\"\n}"
+      security:
+        - noauthAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:30:06 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "39"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data: success
+        "403":
+          description: Forbidden
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:35:55 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "47"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: no authorization header provided
+  /favorites:
+    post:
+      tags:
+        - User
+      summary: favorite
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: '"{\n    \"UserId\": 2,\n    \"MenuId\": 3\n}"'
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:39:00 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "57"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data: add user favorite success
+  /coupons:
+    get:
+      tags:
+        - User
+      summary: coupons
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 14:51:46 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "1180"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  data:
+                    - Id: 1
+                      UserId: 2
+                      CouponId: 3
+                      Coupon:
+                        Id: 3
+                        Code: MONTHLYCOUPON3500
+                        DiscountAmount: 3500
+                        Available: true
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      Expired_at: "2022-12-31T23:59:59Z"
+                      Amount: 1
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                    - Id: 2
+                      UserId: 2
+                      CouponId: 4
+                      Coupon:
+                        Id: 4
+                        Code: MONTHLYCOUPON1000
+                        DiscountAmount: 1000
+                        Available: true
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      Expired_at: "2022-12-31T23:59:59Z"
+                      Amount: 5
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                    - Id: 3
+                      UserId: 2
+                      CouponId: 4
+                      Coupon:
+                        Id: 4
+                        Code: MONTHLYCOUPON1000
+                        DiscountAmount: 1000
+                        Available: true
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      Expired_at: "2022-12-31T23:59:59Z"
+                      Amount: 5
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                  current_page: 1
+                  total: 3
+                  total_page: 1
+  /payment-options:
+    get:
+      tags:
+        - Orders
+      summary: payment options
+      security:
+        - noauthAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:00:02 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "677"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  - Id: 1
+                    Name: Bank Transfer
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 2
+                    Name: Debit Card
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 3
+                    Name: Credit Card
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 4
+                    Name: E-Wallet
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 5
+                    Name: Cash
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+        "403":
+          description: Forbidden
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:00:20 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "47"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: no authorization header provided
+  /delivery-statuses:
+    get:
+      tags:
+        - Orders
+      summary: delivery statuses
+      security:
+        - noauthAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:00:50 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "578"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  - Id: 1
+                    Status: Waiting Payment
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 2
+                    Status: Cooking Order
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 3
+                    Status: Delivering Order
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 4
+                    Status: Order Completed
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+        "403":
+          description: Forbidden
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:01:05 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "47"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: no authorization header provided
+  /orders:
+    get:
+      tags:
+        - Orders
+      summary: orders
+      security:
+        - noauthAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:06:08 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: orders
+                  value:
+                    message: success
+                    data:
+                      data:
+                        - Id: 1
+                          UserId: 2
+                          User:
+                            Id: 0
+                            FullName: ""
+                            Phone: ""
+                            Email: ""
+                            Username: ""
+                            Password: ""
+                            Role: 0
+                            ProfilePicture: ""
+                            UserFavorite: null
+                            UserCoupon: null
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          CouponId: 1
+                          Coupon:
+                            Id: 1
+                            UserId: 2
+                            CouponId: 3
+                            Coupon:
+                              Id: 3
+                              Code: MONTHLYCOUPON3500
+                              DiscountAmount: 3500
+                              Available: true
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            Expired_at: "2022-12-31T23:59:59Z"
+                            Amount: 1
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          PaymentOptionId: 5
+                          PaymentOption:
+                            Id: 5
+                            Name: Cash
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          DeliveryStatusId: 1
+                          DeliveryStatus:
+                            Id: 1
+                            Status: Waiting Payment
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          TotalPrice: 57000
+                          OrderDetail:
+                            - Id: 1
+                              OrderId: 1
+                              MenuId: 13
+                              Menu:
+                                Id: 13
+                                CategoryId: 3
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Hamburger
+                                Description: >-
+                                  Burger with smoked beef, cheese slices, and
+                                  vegetables
+                                AverageRating: 4.3
+                                TotalFavorites: 19
+                                TotalReview: 23
+                                Price: 25000
+                                MenuPhoto: >-
+                                  https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 1
+                                  MenuId: 13
+                                  Name: December Burger Deal
+                                  Discount: 5000
+                                  Available: true
+                                  CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                  UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 20000
+                              Quantity: 2
+                              AddOns: ""
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            - Id: 2
+                              OrderId: 1
+                              MenuId: 15
+                              Menu:
+                                Id: 15
+                                CategoryId: 4
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Banana Split
+                                Description: >-
+                                  3 scopes of mixed chocolate, vanilla, and
+                                  strawberry ice cream on top of a banana
+                                AverageRating: 4.3
+                                TotalFavorites: 3
+                                TotalReview: 8
+                                Price: 15000
+                                MenuPhoto: >-
+                                  https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 2
+                                  MenuId: 15
+                                  Name: Christmas Banana Party
+                                  Discount: 3000
+                                  Available: true
+                                  CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                  UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 12000
+                              Quantity: 1
+                              AddOns: Mixed Ice Cream, Oreo Topping
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                          CreatedAt: "2022-12-05T20:48:18.458353Z"
+                          UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                          DeletedAt: null
+                        - Id: 2
+                          UserId: 2
+                          User:
+                            Id: 0
+                            FullName: ""
+                            Phone: ""
+                            Email: ""
+                            Username: ""
+                            Password: ""
+                            Role: 0
+                            ProfilePicture: ""
+                            UserFavorite: null
+                            UserCoupon: null
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          CouponId: 0
+                          Coupon:
+                            Id: 0
+                            UserId: 0
+                            CouponId: 0
+                            Coupon:
+                              Id: 0
+                              Code: ""
+                              DiscountAmount: 0
+                              Available: false
+                              CreatedAt: "0001-01-01T00:00:00Z"
+                              UpdatedAt: "0001-01-01T00:00:00Z"
+                              DeletedAt: null
+                            Expired_at: "0001-01-01T00:00:00Z"
+                            Amount: 0
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          PaymentOptionId: 1
+                          PaymentOption:
+                            Id: 1
+                            Name: Bank Transfer
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          DeliveryStatusId: 2
+                          DeliveryStatus:
+                            Id: 2
+                            Status: Cooking Order
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          TotalPrice: 68000
+                          OrderDetail:
+                            - Id: 3
+                              OrderId: 2
+                              MenuId: 12
+                              Menu:
+                                Id: 12
+                                CategoryId: 3
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Fettucine Carbonara
+                                Description: >-
+                                  Fettuccine carbonara dish with bacon,
+                                  shallots, onion, and garlic, and a creamy
+                                  sauce.
+                                AverageRating: 4.8
+                                TotalFavorites: 16
+                                TotalReview: 35
+                                Price: 50000
+                                MenuPhoto: >-
+                                  https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 0
+                                  MenuId: 0
+                                  Name: ""
+                                  Discount: 0
+                                  Available: false
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 50000
+                              Quantity: 1
+                              AddOns: ""
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            - Id: 4
+                              OrderId: 2
+                              MenuId: 14
+                              Menu:
+                                Id: 14
+                                CategoryId: 4
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Sundae
+                                Description: >-
+                                  Vanilla sundae ice cream with sauce of choices
+                                  topping
+                                AverageRating: 4.8
+                                TotalFavorites: 7
+                                TotalReview: 15
+                                Price: 10000
+                                MenuPhoto: >-
+                                  https://res.cloudinary.com/dhlgjnupw/image/upload/v1670248939/ycyafdm0e98ds86yxm7x.jpg
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 0
+                                  MenuId: 0
+                                  Name: ""
+                                  Discount: 0
+                                  Available: false
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T21:02:20.131411Z"
+                                DeletedAt: null
+                              Price: 10000
+                              Quantity: 2
+                              AddOns: Strawberry Sauce
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            - Id: 5
+                              OrderId: 2
+                              MenuId: 3
+                              Menu:
+                                Id: 3
+                                CategoryId: 1
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Coffee
+                                Description: Regular black coffee
+                                AverageRating: 5
+                                TotalFavorites: 10
+                                TotalReview: 20
+                                Price: 8000
+                                MenuPhoto: >-
+                                  https://res.cloudinary.com/dhlgjnupw/image/upload/v1670246340/black-coffee_ujtxzh.jpg
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 0
+                                  MenuId: 0
+                                  Name: ""
+                                  Discount: 0
+                                  Available: false
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 8000
+                              Quantity: 1
+                              AddOns: ""
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                          CreatedAt: "2022-12-05T20:48:18.458353Z"
+                          UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                          DeletedAt: null
+                      current_page: 1
+                      total: 2
+                      total_page: 1
+                example-1:
+                  summary: orders - with param
+                  value:
+                    message: success
+                    data:
+                      data:
+                        - Id: 1
+                          UserId: 2
+                          User:
+                            Id: 0
+                            FullName: ""
+                            Phone: ""
+                            Email: ""
+                            Username: ""
+                            Password: ""
+                            Role: 0
+                            ProfilePicture: ""
+                            UserFavorite: null
+                            UserCoupon: null
+                            CreatedAt: "0001-01-01T00:00:00Z"
+                            UpdatedAt: "0001-01-01T00:00:00Z"
+                            DeletedAt: null
+                          CouponId: 1
+                          Coupon:
+                            Id: 1
+                            UserId: 2
+                            CouponId: 3
+                            Coupon:
+                              Id: 3
+                              Code: MONTHLYCOUPON3500
+                              DiscountAmount: 3500
+                              Available: true
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            Expired_at: "2022-12-31T23:59:59Z"
+                            Amount: 1
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          PaymentOptionId: 5
+                          PaymentOption:
+                            Id: 5
+                            Name: Cash
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          DeliveryStatusId: 1
+                          DeliveryStatus:
+                            Id: 1
+                            Status: Waiting Payment
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          TotalPrice: 57000
+                          OrderDetail:
+                            - Id: 1
+                              OrderId: 1
+                              MenuId: 13
+                              Menu:
+                                Id: 13
+                                CategoryId: 3
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Hamburger
+                                Description: >-
+                                  Burger with smoked beef, cheese slices, and
+                                  vegetables
+                                AverageRating: 4.3
+                                TotalFavorites: 19
+                                TotalReview: 23
+                                Price: 25000
+                                MenuPhoto: >-
+                                  https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 1
+                                  MenuId: 13
+                                  Name: December Burger Deal
+                                  Discount: 5000
+                                  Available: true
+                                  CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                  UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 20000
+                              Quantity: 2
+                              AddOns: ""
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            - Id: 2
+                              OrderId: 1
+                              MenuId: 15
+                              Menu:
+                                Id: 15
+                                CategoryId: 4
+                                Category:
+                                  Id: 0
+                                  Name: ""
+                                  Menu: null
+                                  CreatedAt: "0001-01-01T00:00:00Z"
+                                  UpdatedAt: "0001-01-01T00:00:00Z"
+                                  DeletedAt: null
+                                Name: Banana Split
+                                Description: >-
+                                  3 scopes of mixed chocolate, vanilla, and
+                                  strawberry ice cream on top of a banana
+                                AverageRating: 4.3
+                                TotalFavorites: 3
+                                TotalReview: 8
+                                Price: 15000
+                                MenuPhoto: >-
+                                  https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                                MenuOptions: null
+                                Promotion:
+                                  Id: 2
+                                  MenuId: 15
+                                  Name: Christmas Banana Party
+                                  Discount: 3000
+                                  Available: true
+                                  CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                  UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                  DeletedAt: null
+                                CreatedAt: "2022-12-05T20:48:18.458353Z"
+                                UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                                DeletedAt: null
+                              Price: 12000
+                              Quantity: 1
+                              AddOns: Mixed Ice Cream, Oreo Topping
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                          CreatedAt: "2022-12-05T20:48:18.458353Z"
+                          UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                          DeletedAt: null
+                      current_page: 1
+                      total: 1
+                      total_page: 1
+        "403":
+          description: Forbidden
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:09:09 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "47"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: no authorization header provided
+    post:
+      tags:
+        - Orders
+      summary: orders
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: >-
+                "{\n    \"coupon_id\": 0,\n    \"payment_option_id\": 1,\n   
+                \"total_price\": 50000,\n    \"order_detail\": [\n       
+                {\n            \"MenuId\": 12,\n            \"Quantity\":
+                1,\n            \"AddOns\": \"\",\n            \"Price\":
+                50000\n        }\n    ]\n}"
+      responses:
+        "201":
+          description: Created
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:18:22 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "43"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  OrderId: 4
+  /orders/1:
+    get:
+      tags:
+        - Orders
+      summary: ordey by id
+      security:
+        - noauthAuth: []
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:09:40 GMT
+            Transfer-Encoding:
+              schema:
+                type: string
+                example: chunked
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: ordey by id
+                  value:
+                    message: success
+                    data:
+                      Id: 1
+                      UserId: 2
+                      User:
+                        Id: 2
+                        FullName: user one update
+                        Phone: ""
+                        Email: user.one@email.com
+                        Username: userone
+                        Password: ""
+                        Role: 0
+                        ProfilePicture: ""
+                        UserFavorite: null
+                        UserCoupon: null
+                        CreatedAt: "0001-01-01T00:00:00Z"
+                        UpdatedAt: "0001-01-01T00:00:00Z"
+                        DeletedAt: null
+                      CouponId: 1
+                      Coupon:
+                        Id: 1
+                        UserId: 2
+                        CouponId: 3
+                        Coupon:
+                          Id: 3
+                          Code: MONTHLYCOUPON3500
+                          DiscountAmount: 3500
+                          Available: true
+                          CreatedAt: "2022-12-05T20:48:18.458353Z"
+                          UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                          DeletedAt: null
+                        Expired_at: "2022-12-31T23:59:59Z"
+                        Amount: 1
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      PaymentOptionId: 5
+                      PaymentOption:
+                        Id: 5
+                        Name: Cash
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      DeliveryStatusId: 1
+                      DeliveryStatus:
+                        Id: 1
+                        Status: Waiting Payment
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      TotalPrice: 57000
+                      OrderDetail:
+                        - Id: 1
+                          OrderId: 1
+                          MenuId: 13
+                          Menu:
+                            Id: 13
+                            CategoryId: 3
+                            Category:
+                              Id: 0
+                              Name: ""
+                              Menu: null
+                              CreatedAt: "0001-01-01T00:00:00Z"
+                              UpdatedAt: "0001-01-01T00:00:00Z"
+                              DeletedAt: null
+                            Name: Hamburger
+                            Description: >-
+                              Burger with smoked beef, cheese slices, and
+                              vegetables
+                            AverageRating: 4.3
+                            TotalFavorites: 19
+                            TotalReview: 23
+                            Price: 25000
+                            MenuPhoto: >-
+                              https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                            MenuOptions: null
+                            Promotion:
+                              Id: 1
+                              MenuId: 13
+                              Name: December Burger Deal
+                              Discount: 5000
+                              Available: true
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          Price: 20000
+                          Quantity: 2
+                          AddOns: ""
+                          CreatedAt: "2022-12-05T20:48:18.458353Z"
+                          UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                          DeletedAt: null
+                        - Id: 2
+                          OrderId: 1
+                          MenuId: 15
+                          Menu:
+                            Id: 15
+                            CategoryId: 4
+                            Category:
+                              Id: 0
+                              Name: ""
+                              Menu: null
+                              CreatedAt: "0001-01-01T00:00:00Z"
+                              UpdatedAt: "0001-01-01T00:00:00Z"
+                              DeletedAt: null
+                            Name: Banana Split
+                            Description: >-
+                              3 scopes of mixed chocolate, vanilla, and
+                              strawberry ice cream on top of a banana
+                            AverageRating: 4.3
+                            TotalFavorites: 3
+                            TotalReview: 8
+                            Price: 15000
+                            MenuPhoto: >-
+                              https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                            MenuOptions: null
+                            Promotion:
+                              Id: 2
+                              MenuId: 15
+                              Name: Christmas Banana Party
+                              Discount: 3000
+                              Available: true
+                              CreatedAt: "2022-12-05T20:48:18.458353Z"
+                              UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                              DeletedAt: null
+                            CreatedAt: "2022-12-05T20:48:18.458353Z"
+                            UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                            DeletedAt: null
+                          Price: 12000
+                          Quantity: 1
+                          AddOns: Mixed Ice Cream, Oreo Topping
+                          CreatedAt: "2022-12-05T20:48:18.458353Z"
+                          UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                          DeletedAt: null
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                example-1:
+                  summary: ordey by id - not found
+                  value:
+                    message: success
+                    data:
+                      Id: 0
+                      UserId: 0
+                      User:
+                        Id: 0
+                        FullName: ""
+                        Phone: ""
+                        Email: ""
+                        Username: ""
+                        Password: ""
+                        Role: 0
+                        ProfilePicture: ""
+                        UserFavorite: null
+                        UserCoupon: null
+                        CreatedAt: "0001-01-01T00:00:00Z"
+                        UpdatedAt: "0001-01-01T00:00:00Z"
+                        DeletedAt: null
+                      CouponId: 0
+                      Coupon:
+                        Id: 0
+                        UserId: 0
+                        CouponId: 0
+                        Coupon:
+                          Id: 0
+                          Code: ""
+                          DiscountAmount: 0
+                          Available: false
+                          CreatedAt: "0001-01-01T00:00:00Z"
+                          UpdatedAt: "0001-01-01T00:00:00Z"
+                          DeletedAt: null
+                        Expired_at: "0001-01-01T00:00:00Z"
+                        Amount: 0
+                        CreatedAt: "0001-01-01T00:00:00Z"
+                        UpdatedAt: "0001-01-01T00:00:00Z"
+                        DeletedAt: null
+                      PaymentOptionId: 0
+                      PaymentOption:
+                        Id: 0
+                        Name: ""
+                        CreatedAt: "0001-01-01T00:00:00Z"
+                        UpdatedAt: "0001-01-01T00:00:00Z"
+                        DeletedAt: null
+                      DeliveryStatusId: 0
+                      DeliveryStatus:
+                        Id: 0
+                        Status: ""
+                        CreatedAt: "0001-01-01T00:00:00Z"
+                        UpdatedAt: "0001-01-01T00:00:00Z"
+                        DeletedAt: null
+                      TotalPrice: 0
+                      OrderDetail: null
+                      CreatedAt: "0001-01-01T00:00:00Z"
+                      UpdatedAt: "0001-01-01T00:00:00Z"
+                      DeletedAt: null
+        "403":
+          description: Forbidden
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:10:22 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "47"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: no authorization header provided
+  /orders-delivery-status:
+    post:
+      tags:
+        - Orders
+      summary: orders delivery status
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: '"{\n    \"OrderId\": 4,\n    \"DeliveryId\": 2\n}"'
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 15:20:05 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "46"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data: update success
+
+    /menus:
+    get:
+      tags:
+        - Public
+      summary: menus
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: "1"
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: "1"
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: burger
+        - name: category
+          in: query
+          schema:
+            type: integer
+          example: "3"
+        - name: sortBy
+          in: query
+          schema:
+            type: string
+          example: rating
+        - name: order
+          in: query
+          schema:
+            type: string
+          example: desc
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 16:20:50 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "941"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  data:
+                    - Id: 13
+                      CategoryId: 3
+                      Category:
+                        Id: 3
+                        Name: Main Course
+                        Menu: null
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      Name: Hamburger
+                      Description: Burger with smoked beef, cheese slices, and vegetables
+                      AverageRating: 4.3
+                      TotalFavorites: 19
+                      TotalReview: 23
+                      Price: 25000
+                      MenuPhoto: >-
+                        https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                      MenuOptions: []
+                      Promotion:
+                        Id: 1
+                        MenuId: 13
+                        Name: December Burger Deal
+                        Discount: 5000
+                        Available: true
+                        CreatedAt: "2022-12-05T20:48:18.458353Z"
+                        UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                        DeletedAt: null
+                      CreatedAt: "2022-12-05T20:48:18.458353Z"
+                      UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                      DeletedAt: null
+                  current_page: 1
+                  total: 1
+                  total_page: 1
+  /menus/13:
+    get:
+      tags:
+        - Public
+      summary: menus by id
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 16:21:20 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "888"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  Id: 13
+                  CategoryId: 3
+                  Category:
+                    Id: 3
+                    Name: Main Course
+                    Menu: null
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  Name: Hamburger
+                  Description: Burger with smoked beef, cheese slices, and vegetables
+                  AverageRating: 4.3
+                  TotalFavorites: 19
+                  TotalReview: 23
+                  Price: 25000
+                  MenuPhoto: >-
+                    https://plus.unsplash.com/premium_photo-1667682209935-b6c87cced668?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80
+                  MenuOptions: []
+                  Promotion:
+                    Id: 1
+                    MenuId: 13
+                    Name: December Burger Deal
+                    Discount: 5000
+                    Available: true
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  CreatedAt: "2022-12-05T20:48:18.458353Z"
+                  UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                  DeletedAt: null
+  /categories:
+    get:
+      tags:
+        - Public
+      summary: categories
+      responses:
+        "200":
+          description: OK
+          headers:
+            Access-Control-Allow-Credentials:
+              schema:
+                type: boolean
+                example: "true"
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+                example: >-
+                  Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token,
+                  Authorization, accept, origin, Cache-Control, X-Requested-With
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+                example: POST, OPTIONS, GET, DELETE, PATCH, PUT
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+                example: "*"
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Date:
+              schema:
+                type: string
+                example: Mon, 05 Dec 2022 16:22:00 GMT
+            Content-Length:
+              schema:
+                type: integer
+                example: "595"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: success
+                data:
+                  - Id: 1
+                    Name: Beverages
+                    Menu: null
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 2
+                    Name: Appetizer
+                    Menu: null
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 3
+                    Name: Main Course
+                    Menu: null
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
+                  - Id: 4
+                    Name: Dessert
+                    Menu: null
+                    CreatedAt: "2022-12-05T20:48:18.458353Z"
+                    UpdatedAt: "2022-12-05T20:48:18.458353Z"
+                    DeletedAt: null
