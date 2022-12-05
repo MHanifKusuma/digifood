@@ -46,16 +46,6 @@ const AdminNavbar = () => {
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link
-                to={"/orders"}
-                className={`nav-link ${
-                  currPath.pathname === "/orders" ? "active" : ""
-                }`}
-              >
-                Orders
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
                 to={"/menus"}
                 className={`nav-link ${
                   currPath.pathname === "/menus" ? "active" : ""
@@ -72,16 +62,6 @@ const AdminNavbar = () => {
                 }`}
               >
                 Coupons
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to={"/reviews"}
-                className={`nav-link ${
-                  currPath.pathname === "/reviews" ? "active" : ""
-                }`}
-              >
-                Reviews
               </Link>
             </li>
             {cookies.login ? (
