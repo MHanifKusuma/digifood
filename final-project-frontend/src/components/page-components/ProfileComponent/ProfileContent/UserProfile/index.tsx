@@ -7,6 +7,9 @@ import { IUser } from "interfaces/User";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { fetchUser, SetUser } from "redux/actions/UserAction";
+import { UserDispatch } from "redux/actions/UserAction/type";
 import UserProfileWrapper, { UpdateProfileForm } from "./style";
 
 interface UserProfileProp {
@@ -15,10 +18,13 @@ interface UserProfileProp {
 
 const UserProfile = ({ user }: UserProfileProp) => {
   const [cookies] = useCookies(["login"]);
+  const userDispatch: UserDispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<ProfileUpdateInput>({
     defaultValues: {
@@ -39,6 +45,8 @@ const UserProfile = ({ user }: UserProfileProp) => {
   });
   const [enableInput, setEnableInput] = useState(false);
   const [error, setError] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File>();
+  const [previewImage, setPreviewImage] = useState<string | undefined>();
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
     setInput({
@@ -48,14 +56,44 @@ const UserProfile = ({ user }: UserProfileProp) => {
   };
 
   const onSubmit: SubmitHandler<ProfileUpdateInput> = async (data) => {
+    let submitData: ProfileUpdateInput = {
+      ...data,
+    };
+
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("upload_preset", "digifood-project");
+      const uploadPost = await axios
+        .post(
+          "https://api.cloudinary.com/v1_1/dhlgjnupw/image/upload",
+          formData
+        )
+        .then((res) => {
+          submitData = {
+            ...data,
+            profilePicture: res.data.secure_url,
+          };
+        })
+        .catch((error) => setError(`upload photo error: ${error.message}`));
+    }
+
     await axios
-      .post(`http://localhost:8080/profile`, data, {
+      .post(`http://localhost:8080/profile`, submitData, {
         headers: {
           Authorization: `Bearer ${cookies.login}`,
         },
       })
-      .then(() => window.location.reload())
-      .catch((error) => console.log(error));
+      .then(() => {
+        userDispatch(
+          SetUser({
+            ...user,
+            ProfilePicture: submitData.profilePicture,
+          })
+        );
+        window.location.reload();
+      })
+      .catch((error) => setError(error.message));
   };
 
   const handleClickUpdate = () => {
@@ -63,6 +101,28 @@ const UserProfile = ({ user }: UserProfileProp) => {
       setEnableInput(true);
     }
   };
+
+  const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      return;
+    }
+    const file = e.target.files[0];
+    setSelectedFile(file);
+  };
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreviewImage(user.ProfilePicture || undefined);
+
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreviewImage(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
 
   useEffect(() => {
     reset({
@@ -99,8 +159,7 @@ const UserProfile = ({ user }: UserProfileProp) => {
                 className="form-control px-4"
                 id="profilePictureInput"
                 placeholder="Full name"
-                {...register("profilePicture")}
-                onChange={handleChange}
+                onChange={handleChangeImage}
                 disabled={!enableInput}
               />
             </div>
@@ -233,8 +292,8 @@ const UserProfile = ({ user }: UserProfileProp) => {
         </UpdateProfileForm>
       </div>
       <div className="col-12 col-lg-6 d-flex justify-content-center">
-        {user.ProfilePicture ? (
-          <img src={user.ProfilePicture} alt="profile pict" />
+        {previewImage ? (
+          <img src={previewImage} alt="profile pict" />
         ) : (
           <UserIcon height="250" fill="#000000" />
         )}
