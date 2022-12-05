@@ -69,6 +69,8 @@ const AdminMenuInfo = ({ menu, type, categories }: AdminMenuInfoProp) => {
     type === MenuInfoComponentType.UPDATE ? false : true
   );
   const [error, setError] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File>();
+  const [previewImage, setPreviewImage] = useState<string | undefined>();
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
     setInput({
@@ -106,6 +108,28 @@ const AdminMenuInfo = ({ menu, type, categories }: AdminMenuInfoProp) => {
     }
   };
 
+  const handleChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      return;
+    }
+    const file = e.target.files[0];
+    setSelectedFile(file);
+  };
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreviewImage(menu.MenuPhoto || undefined);
+
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreviewImage(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+
   const handleClickDelete = () => {
     axios
       .delete(`http://localhost:8080/admin/menus/${menu.Id}`, {
@@ -117,13 +141,34 @@ const AdminMenuInfo = ({ menu, type, categories }: AdminMenuInfoProp) => {
       .catch((error) => setError(error.message));
   };
 
-  const onSubmit: SubmitHandler<MenuCreateUpdateInput> = (data) => {
+  const onSubmit: SubmitHandler<MenuCreateUpdateInput> = async (data) => {
     data.menu_options = menuOptionsArray;
+    let submitData: MenuCreateUpdateInput = {
+      ...data,
+    };
+
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+      formData.append("upload_preset", "digifood-project");
+      const uploadPost = await axios
+        .post(
+          "https://api.cloudinary.com/v1_1/dhlgjnupw/image/upload",
+          formData
+        )
+        .then((res) => {
+          submitData = {
+            ...data,
+            menu_photo: res.data.secure_url,
+          };
+        })
+        .catch((error) => setError(`upload photo error: ${error.message}`));
+    }
 
     switch (type) {
       case MenuInfoComponentType.UPDATE:
         axios
-          .put(`http://localhost:8080/admin/menus/:${data.id}`, data, {
+          .put(`http://localhost:8080/admin/menus/:${data.id}`, submitData, {
             headers: {
               Authorization: `Bearer ${cookies.login}`,
             },
@@ -195,8 +240,7 @@ const AdminMenuInfo = ({ menu, type, categories }: AdminMenuInfoProp) => {
               className="form-control px-4"
               id="menuPhotoInput"
               placeholder="Menu Photo"
-              {...register("menu_photo")}
-              onChange={handleChange}
+              onChange={handleChangeImage}
               disabled={!enableInput}
             />
           </div>

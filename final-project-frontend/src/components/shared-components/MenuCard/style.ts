@@ -13,10 +13,13 @@ const MenuCardWrapper = styled.div`
 
   .menu-image-wrapper {
     position: relative;
+    height: 200px;
   }
 
   img {
     border-radius: 20px 20px 0 0;
+    height: 100%;
+    object-fit: cover;
   }
 
   .card-title {
