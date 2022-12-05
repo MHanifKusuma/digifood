@@ -11,3 +11,10 @@ export interface IUserCoupons {
   Expired_at: Date;
   Amount: number;
 }
+
+export interface ICouponPagination {
+  data: ICoupon[];
+  current_page: number;
+  total: number;
+  total_page: number;
+}

@@ -29,6 +29,7 @@ import AdminOrderDetail from "pages/admin/OrderDetail";
 import AdminMenu from "pages/admin/Menu";
 import AdminMenuDetail from "pages/admin/MenuDetail";
 import AdminNewMenu from "pages/admin/NewMenu";
+import AdminCoupon from "pages/admin/Coupon";
 
 function App() {
   const userDispatch: UserDispatch = useDispatch();
@@ -79,6 +80,7 @@ function App() {
             <Route path="/menus" element={<AdminMenu />} />
             <Route path="/menus/:id/:name" element={<AdminMenuDetail />} />
             <Route path="/menus/new" element={<AdminNewMenu />} />
+            <Route path="/coupons" element={<AdminCoupon />} />
           </Route>
 
           <Route path="*" element={<Error404 />} />
