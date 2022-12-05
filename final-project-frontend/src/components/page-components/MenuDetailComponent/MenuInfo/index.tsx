@@ -56,6 +56,8 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
 
       if (selectionAddOn !== "" && optionalAddOn.length > 0) {
         mergedOption = selectionAddOn + ", " + optionalAddOn.join(", ");
+      } else if (selectionAddOn === "" && optionalAddOn.length > 0) {
+        mergedOption = optionalAddOn.join(", ");
       } else {
         mergedOption = selectionAddOn;
       }
@@ -67,6 +69,8 @@ const MenuInfo = ({ menu }: MenuInfoProps) => {
         Quantity: quantity,
         AddOns: mergedOption,
       };
+
+      console.log(newCartItem);
 
       cartDispatch(addCartsitem(newCartItem));
       cartDispatch(setCartsTotalPrice(totalPrice));

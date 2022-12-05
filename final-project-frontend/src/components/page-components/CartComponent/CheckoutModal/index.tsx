@@ -57,7 +57,7 @@ const CheckoutModal = ({
     const newOrder: INewOrder = {
       coupon_id: selectedCouponId,
       payment_option_id: selectedPaymentOptionId,
-      total_price: totalPrice - couponDiscount,
+      total_price: totalPrice,
       order_detail: items,
     };
 
@@ -138,16 +138,22 @@ const CheckoutModal = ({
                   onChange={handleCouponChange}
                 >
                   <option value="0">Not now</option>
-                  {user.UserCoupon.map((coupon, index) => (
-                    <option
-                      value={
-                        coupon.Coupon.DiscountAmount + "," + coupon.Coupon.Id
-                      }
-                      key={index}
-                    >
-                      {coupon.Coupon.Code}
-                    </option>
-                  ))}
+                  {user.UserCoupon.map((coupon, index) => {
+                    if (totalPrice - coupon.Coupon.DiscountAmount > 0) {
+                      return (
+                        <option
+                          value={
+                            coupon.Coupon.DiscountAmount +
+                            "," +
+                            coupon.Coupon.Id
+                          }
+                          key={index}
+                        >
+                          {coupon.Coupon.Code}
+                        </option>
+                      );
+                    }
+                  })}
                 </select>
               </div>
               <div className="d-flex mt-3">

@@ -1,7 +1,7 @@
 import Button from "components/shared-components/Button";
 import { format } from "path";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "redux/reducers";
 import { formatCurrency } from "utils/index";
@@ -13,6 +13,7 @@ interface CartSummaryProp {
 
 const CartSummary = ({ setShowCheckoutModal }: CartSummaryProp) => {
   const navigate = useNavigate();
+
   const { items, totalPrice } = useSelector(
     (state: RootState) => state.CartsReducer
   );
