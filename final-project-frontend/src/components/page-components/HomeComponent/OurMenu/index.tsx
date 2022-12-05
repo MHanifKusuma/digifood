@@ -47,7 +47,7 @@ const OurMenu = ({ categories }: OurMenuProps) => {
             <>
               {category.Id === activeCategory && (
                 <div className="d-flex flex-wrap">
-                  {category.Menu.map((menu) => (
+                  {category.Menu.slice(0, 4).map((menu) => (
                     <div className="col-12 col-lg-3" key={menu.Id}>
                       <MenuCard menu={menu} />
                     </div>
