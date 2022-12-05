@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatCurrency } from "utils/index";
 import MenuCardWrapper, { FavoriteIcon } from "./style";
+import defaultImage from "assets/default-image.png";
 
 interface MenuCardProps {
   menu: IMenu;
@@ -30,7 +31,11 @@ const MenuCard = ({ menu }: MenuCardProps) => {
         role="button"
       >
         <div className="menu-image-wrapper">
-          <img src={menu.MenuPhoto} className="card-img-top" alt="..." />
+          <img
+            src={menu.MenuPhoto || defaultImage}
+            className="card-img-top"
+            alt="..."
+          />
         </div>
         <div className="card-body">
           <h5 className="card-title">{menu.Name}</h5>
