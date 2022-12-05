@@ -15,6 +15,10 @@ type CouponService interface {
 	GetUserCoupon(userId int, pageable utils.Pageable) (*utils.Page, int, error)
 	GetUserCouponWithoutPagination(userId int) ([]*model.UserCoupon, int, error)
 	CheckUserCoupon(userId, couponId int) (int, error)
+	GetAllCoupon(pageable utils.Pageable, userRole int) (*utils.Page, int, error)
+	GetCouponById(id int) (*model.Coupon, int, error)
+	UpdateCoupon(coupon model.Coupon, userRole int) (*model.Coupon, int, error)
+	DeleteCoupon(id int, userRole int) (int, int, error)
 }
 
 func NewCouponService(repository repository.CouponRepository) CouponService {
@@ -59,4 +63,62 @@ func (cs *couponService) CheckUserCoupon(userId, couponId int) (int, error) {
 	}
 
 	return http.StatusOK, nil
+}
+
+func (cs *couponService) GetAllCoupon(pageable utils.Pageable, userRole int) (*utils.Page, int, error) {
+	if userRole != 0 {
+		return nil, http.StatusUnauthorized, utils.ErrPageRestricted
+	}
+
+	coupons, couponsError := cs.repository.GetAllCoupon(pageable)
+	if couponsError != nil {
+		return nil, http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return coupons, http.StatusOK, nil
+}
+
+func (cs *couponService) GetCouponById(couponId int) (*model.Coupon, int, error) {
+	coupon, couponError := cs.repository.GetCouponById(couponId)
+	if couponError != nil {
+		return nil, http.StatusNotFound, utils.ErrCouponNotFound
+	}
+
+	return coupon, http.StatusOK, nil
+}
+
+func (cs *couponService) UpdateCoupon(coupon model.Coupon, userRole int) (*model.Coupon, int, error) {
+	if userRole != 0 {
+		return nil, http.StatusUnauthorized, utils.ErrPageRestricted
+	}
+
+	_, status, getCouponError := cs.GetCouponById(coupon.Id)
+	if status != 200 {
+		return nil, status, getCouponError
+	}
+
+	updateCoupon, updateError := cs.repository.UpdateCoupon(coupon)
+	if updateError != nil {
+		return nil, http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return updateCoupon, http.StatusOK, nil
+}
+
+func (cs *couponService) DeleteCoupon(id int, userRole int) (int, int, error) {
+	if userRole != 0 {
+		return -1, http.StatusUnauthorized, utils.ErrPageRestricted
+	}
+	
+	_, status, getCouponError := cs.GetCouponById(id)
+	if status != 200 {
+		return -1, status, getCouponError
+	}
+
+	deletedCoupon, deleteError := cs.repository.DeleteCoupon(id)
+	if deleteError != nil {
+		return -1, http.StatusInternalServerError, utils.ErrNotExpected
+	}
+
+	return deletedCoupon, http.StatusOK, nil
 }
