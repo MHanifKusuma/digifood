@@ -1,5 +1,9 @@
+import Button from "components/shared-components/Button";
 import { ICategory } from "interfaces/Category";
 import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "redux/reducers";
 import MenuDisplayOptionWrapper from "./style";
 
 interface MenuDisplayOptionProps {
@@ -25,10 +29,13 @@ const MenuDisplayOption = ({
     { label: "Lowest to Highest", value: "asc" },
   ];
 
+  const { user } = useSelector((state: RootState) => state.UsersReducer);
+  const navigate = useNavigate();
+
   return (
     <MenuDisplayOptionWrapper className="py-3">
       <div className="container d-flex flex-wrap">
-        <div className="col d-flex flex-wrap gap-2">
+        <div className="col d-flex flex-wrap align-items-center gap-2">
           <div className="col-12 col-lg-3">
             <p className="mb-1">Sort By:</p>
             <select className="form-select" onChange={handleSortChange}>
@@ -50,7 +57,7 @@ const MenuDisplayOption = ({
             </select>
           </div>
         </div>
-        <div className="col-12 col-lg-4 mx-auto mt-2 mt-lg-0">
+        <div className="col-12 col-lg-3 mx-auto mt-2 mt-lg-0">
           <p className="mb-1">Filter by category:</p>
           <select className="form-select" onChange={handleFilterChange}>
             {categories.length > 0 ? (
@@ -67,6 +74,20 @@ const MenuDisplayOption = ({
             )}
           </select>
         </div>
+        {user.Role == 0 && (
+          <div className="col-12 col-lg-2 mx-auto mt-5 mt-lg-4 d-flex justify-content-center align-items-center">
+            <Button
+              btnStyle={{
+                backgroundColor: "#579EFF",
+                color: "#FFFFFF",
+                padding: "0.25rem 1rem",
+              }}
+              btnFunction={() => navigate("/admin/new-menu")}
+            >
+              Add Menu
+            </Button>
+          </div>
+        )}
       </div>
     </MenuDisplayOptionWrapper>
   );
