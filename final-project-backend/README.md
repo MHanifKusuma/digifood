@@ -1,6 +1,6 @@
 # ERD Design
 
-![image]("/assets/final-project-ERD.png")
+![image]("./assets/final-project-ERD.png")
 
 # Getting Started with Back End App
 
